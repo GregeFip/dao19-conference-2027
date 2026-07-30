@@ -11,7 +11,7 @@ test("conference page includes the persistent registration flow", async () => {
     read("../.openai/hosting.json"),
     read("../app/site-content.ts"),
   ]);
-  assert.match(layout, /NEXUS 2026/);
+  assert.match(layout, /DAO 19 · 2027/);
   assert.match(content, /道教的海外傳播/);
   assert.match(page, /SIX LINES OF INQUIRY/);
   assert.match(page, /fetch\("\/api\/registrations"/);
@@ -38,7 +38,7 @@ test("backend stores, protects, and exports registration records", async () => {
   assert.match(exportRoute, /\\uFEFF/);
   assert.match(adminPage, /requireChatGPTUser\("\/admin"\)/);
   assert.match(dashboard, /导出完整名单/);
-  assert.match(dashboard, /票种筛选/);
+  assert.match(dashboard, /参会身份/);
   assert.match(migration, /CREATE TABLE `registrations`/);
 });
 

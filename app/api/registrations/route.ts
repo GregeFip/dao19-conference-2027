@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "请输入有效的电子邮箱。" }, { status: 400 });
     }
 
-    const registrationCode = `NX26-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    const registrationCode = `DAO27-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
     const db = getDb();
     await db.insert(registrations).values({
       registrationCode,

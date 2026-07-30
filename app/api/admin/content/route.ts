@@ -10,7 +10,7 @@ export async function PUT(request: Request) {
 
   try {
     const payload = (await request.json()) as { content?: SiteContent };
-    if (!payload.content?.basics || !Array.isArray(payload.content.speakers) || !Array.isArray(payload.content.schedule)) {
+    if (payload.content?.version !== 2027 || !payload.content.basics || !Array.isArray(payload.content.topics) || !Array.isArray(payload.content.schedule)) {
       return Response.json({ error: "内容结构不完整，请刷新后重试。" }, { status: 400 });
     }
     const value = JSON.stringify(payload.content);
