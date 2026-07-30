@@ -127,7 +127,14 @@ export default function Home() {
       <section className="dao-hero" id="top">
         <div className="dao-hero-copy">
           <p className="dao-eyebrow"><span />{basics.eyebrow}</p>
-          <h1>{basics.themeLine1}<br /><em>{basics.themeLine2}</em></h1>
+          <div className="dao-conference-lockup">
+            <h1>{basics.chineseName}</h1>
+            <p className="dao-conference-en">{basics.conferenceName}</p>
+          </div>
+          <div className="dao-hero-theme" aria-label="2027年会议主题">
+            <span>2027 CONFERENCE THEME · 本屆主題</span>
+            <strong>{basics.themeLine1} <em>{basics.themeLine2}</em></strong>
+          </div>
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
           <div className="dao-actions">
