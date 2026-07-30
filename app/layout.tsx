@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./registration-overrides.css";
 
 export const metadata: Metadata = {
   title: "NEXUS 2026｜国际智能科学前沿大会",

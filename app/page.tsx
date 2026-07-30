@@ -43,11 +43,22 @@ const topics = [
 ];
 
 const faqs = [
-  ["测试版提交的报名信息会保存吗？", "不会。当前版本仅用于体验页面和报名流程，点击提交后不会将任何个人信息发送到服务器。正式版会在征得同意后安全存储。"],
+  ["测试版提交的报名信息会保存吗？", "会。为了完整体验后台，本版本提交的信息会保存到站点数据库，并仅在登录后的报名管理后台中显示。请勿填写身份证号等不必要的敏感信息。"],
   ["会议是否接受论文投稿？", "正式会议拟设置全文投稿与海报摘要两种通道。当前测试版暂未开放文件上传，后续可接入投稿编号、附件上传与审稿状态查询。"],
   ["注册费包含哪些内容？", "演示价格包含会议资料、会期午餐、茶歇及欢迎晚宴；交通与住宿需自行安排。实际收费标准以正式通知为准。"],
   ["可以为团队统一报名吗？", "正式版可以增加团体报名入口、批量导入名单和统一开票功能，测试版暂以个人报名体验为主。"],
 ];
+
+const emptyDraft = {
+  name: "",
+  title: "",
+  organization: "",
+  email: "",
+  phone: "",
+  ticketType: "early",
+  attendDinner: false,
+  needHotel: false,
+};
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -56,6 +67,10 @@ export default function Home() {
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
+  const [draft, setDraft] = useState(emptyDraft);
+  const [registrationCode, setRegistrationCode] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && setModalOpen(false);
@@ -71,13 +86,45 @@ export default function Home() {
   const openRegistration = () => {
     setStep(1);
     setSubmitted(false);
+    setDraft(emptyDraft);
+    setRegistrationCode("");
+    setSubmissionError("");
     setModalOpen(true);
   };
 
-  const submitDemo = (event: FormEvent<HTMLFormElement>) => {
+  const submitDemo = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSubmitted(true);
-    setStep(3);
+    setSubmitting(true);
+    setSubmissionError("");
+    try {
+      const response = await fetch("/api/registrations", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(draft),
+      });
+      const result = (await response.json()) as { registrationCode?: string; error?: string };
+      if (!response.ok || !result.registrationCode) throw new Error(result.error || "提交失败，请稍后重试。");
+      setRegistrationCode(result.registrationCode);
+      setSubmitted(true);
+      setStep(3);
+    } catch (error) {
+      setSubmissionError(error instanceof Error ? error.message : "提交失败，请稍后重试。");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const continueRegistration = () => {
+    if (!draft.name || !draft.title || !draft.organization || !draft.email) {
+      setSubmissionError("请完整填写姓名、称谓、所在单位和电子邮箱。");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email)) {
+      setSubmissionError("请输入有效的电子邮箱。");
+      return;
+    }
+    setSubmissionError("");
+    setStep(2);
   };
 
   const scrollTo = (id: string) => {
@@ -87,7 +134,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="demo-bar"><span>体验版</span> 本站使用虚构会议资料，报名数据不会保存</div>
+      <div className="demo-bar"><span>后台功能测试版</span> 报名信息将保存至站点数据库，请勿填写不必要的敏感信息</div>
 
       <header className="site-header">
         <button className="brand" onClick={() => scrollTo("top")} aria-label="返回首页">
@@ -244,7 +291,7 @@ export default function Home() {
         <p>NEXUS · HANGZHOU · 2026</p><h2>加入这场面向未来的<br /><em>学术对话</em></h2><button className="primary-button light-button" onClick={openRegistration}>立即注册参会 <span>→</span></button><small>早鸟注册截止：2026 年 9 月 20 日</small>
       </section>
 
-      <footer><div className="footer-brand"><span className="brand-mark">N</span><div><strong>NEXUS 2026</strong><small>国际智能科学前沿大会 · 测试版</small></div></div><div><span>主办</span><strong>未来科学协作网络</strong></div><div><span>会务咨询</span><strong>contact@nexus-demo.org</strong></div><p>© 2026 NEXUS Demo. 本站内容均为体验用途。</p></footer>
+      <footer><div className="footer-brand"><span className="brand-mark">N</span><div><strong>NEXUS 2026</strong><small>国际智能科学前沿大会 · 测试版</small></div></div><div><span>主办</span><strong>未来科学协作网络</strong></div><div><span>会务咨询</span><strong>contact@nexus-demo.org</strong><a className="footer-admin-link" href="/admin">进入报名管理后台 →</a></div><p>© 2026 NEXUS Demo. 本站内容均为体验用途。</p></footer>
 
       {modalOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setModalOpen(false)}>
@@ -252,11 +299,11 @@ export default function Home() {
             <button className="modal-close" onClick={() => setModalOpen(false)} aria-label="关闭报名窗口">×</button>
             <div className="modal-side"><span className="brand-mark inverse">N</span><div><p>REGISTRATION</p><h2>与新的想法<br />在杭州相遇</h2></div><small>2026.11.14—16<br />杭州国际会议中心</small></div>
             <div className="modal-main">
-              <div className="demo-notice"><strong>演示模式</strong> 你填写的信息不会保存或上传。</div>
+              <div className="demo-notice"><strong>后台测试模式</strong> 提交后信息会写入测试数据库，并可在管理后台导出。</div>
               <div className="stepper" aria-label="报名步骤"><span className={step >= 1 ? "active" : ""}><i>1</i>基本信息</span><b /><span className={step >= 2 ? "active" : ""}><i>2</i>参会选择</span><b /><span className={step >= 3 ? "active" : ""}><i>3</i>完成</span></div>
-              {step === 1 && <div className="form-step"><p className="form-overline">STEP 01</p><h2 id="registration-title">参会人基本信息</h2><p>请填写以下信息，带 * 为必填项。</p><div className="field-grid"><label>姓名 *<input id="demo-name" placeholder="请输入真实姓名" required /></label><label>称谓 *<select defaultValue=""><option value="" disabled>请选择</option><option>女士</option><option>先生</option><option>不便透露</option></select></label><label className="full">所在单位 *<input placeholder="高校、研究机构或企业名称" required /></label><label>电子邮箱 *<input type="email" placeholder="name@example.com" required /></label><label>手机号码<input type="tel" placeholder="用于会务联系" /></label></div><div className="form-actions"><span>预计用时 2 分钟</span><button onClick={() => { const name = (document.getElementById("demo-name") as HTMLInputElement)?.value; if (name) setStep(2); else (document.getElementById("demo-name") as HTMLInputElement)?.reportValidity(); }}>下一步 <b>→</b></button></div></div>}
-              {step === 2 && <form className="form-step" onSubmit={submitDemo}><p className="form-overline">STEP 02</p><h2>参会与票务选择</h2><p>选择最适合你的参会方式。</p><div className="ticket-options"><label><input type="radio" name="ticket" defaultChecked /><span><i>早鸟票</i><strong>¥ 1,680</strong><small>教师、科研人员及行业代表<br />含会议资料、午餐与欢迎晚宴</small></span></label><label><input type="radio" name="ticket" /><span><i>学生票</i><strong>¥ 880</strong><small>需在报到时出示有效学生证<br />名额有限</small></span></label></div><div className="check-row"><label><input type="checkbox" /> 我计划参加 11 月 14 日欢迎晚宴</label><label><input type="checkbox" /> 我需要会务组提供酒店协议价信息</label><label><input type="checkbox" required /> 我已阅读并同意演示版隐私说明 *</label></div><div className="form-actions"><button type="button" className="back-button" onClick={() => setStep(1)}>← 上一步</button><button type="submit">提交演示报名 <b>→</b></button></div></form>}
-              {step === 3 && submitted && <div className="success-step"><span className="success-mark">✓</span><p className="form-overline">DEMO COMPLETE</p><h2>报名流程体验完成</h2><p>正式版会在这里生成报名编号，并向参会人发送确认邮件。此次填写的信息已在浏览器中清除，不会保存。</p><div className="success-code"><span>演示报名编号</span><strong>NX26-DEMO</strong></div><button onClick={() => setModalOpen(false)}>返回会议首页</button></div>}
+              {step === 1 && <div className="form-step"><p className="form-overline">STEP 01</p><h2 id="registration-title">参会人基本信息</h2><p>请填写以下信息，带 * 为必填项。</p><div className="field-grid"><label>姓名 *<input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} placeholder="请输入真实姓名" required /></label><label>称谓 *<select value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} required><option value="" disabled>请选择</option><option>女士</option><option>先生</option><option>不便透露</option></select></label><label className="full">所在单位 *<input value={draft.organization} onChange={(event) => setDraft({ ...draft, organization: event.target.value })} placeholder="高校、研究机构或企业名称" required /></label><label>电子邮箱 *<input type="email" value={draft.email} onChange={(event) => setDraft({ ...draft, email: event.target.value })} placeholder="name@example.com" required /></label><label>手机号码<input type="tel" value={draft.phone} onChange={(event) => setDraft({ ...draft, phone: event.target.value })} placeholder="用于会务联系" /></label></div>{submissionError && <p className="form-error">{submissionError}</p>}<div className="form-actions"><span>预计用时 2 分钟</span><button type="button" onClick={continueRegistration}>下一步 <b>→</b></button></div></div>}
+              {step === 2 && <form className="form-step" onSubmit={submitDemo}><p className="form-overline">STEP 02</p><h2>参会与票务选择</h2><p>选择最适合你的参会方式。</p><div className="ticket-options"><label><input type="radio" name="ticket" value="early" checked={draft.ticketType === "early"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>早鸟票</i><strong>¥ 1,680</strong><small>教师、科研人员及行业代表<br />含会议资料、午餐与欢迎晚宴</small></span></label><label><input type="radio" name="ticket" value="student" checked={draft.ticketType === "student"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>学生票</i><strong>¥ 880</strong><small>需在报到时出示有效学生证<br />名额有限</small></span></label></div><div className="check-row"><label><input type="checkbox" checked={draft.attendDinner} onChange={(event) => setDraft({ ...draft, attendDinner: event.target.checked })} /> 我计划参加 11 月 14 日欢迎晚宴</label><label><input type="checkbox" checked={draft.needHotel} onChange={(event) => setDraft({ ...draft, needHotel: event.target.checked })} /> 我需要会务组提供酒店协议价信息</label><label><input type="checkbox" required /> 我同意将报名信息用于本次后台测试 *</label></div>{submissionError && <p className="form-error">{submissionError}</p>}<div className="form-actions"><button type="button" className="back-button" onClick={() => setStep(1)}>← 上一步</button><button type="submit" disabled={submitting}>{submitting ? "正在保存…" : "提交测试报名"} <b>→</b></button></div></form>}
+              {step === 3 && submitted && <div className="success-step"><span className="success-mark">✓</span><p className="form-overline">REGISTRATION SAVED</p><h2>报名已写入后台</h2><p>这条记录现在可以在报名管理后台中查看、筛选并导出。正式版还可继续增加确认邮件与支付状态。</p><div className="success-code"><span>报名编号</span><strong>{registrationCode}</strong></div><button onClick={() => setModalOpen(false)}>返回会议首页</button></div>}
             </div>
           </section>
         </div>

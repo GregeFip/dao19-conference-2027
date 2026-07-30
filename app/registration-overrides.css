@@ -1,0 +1,20 @@
+.footer-admin-link {
+  display: block;
+  color: #e8b84a;
+  font-size: 10px;
+  margin-top: 12px;
+  text-decoration: none;
+}
+
+.form-error {
+  color: #b74335 !important;
+  background: #fff1ed;
+  padding: 9px 11px;
+  margin: 15px 0 0 !important;
+  font-size: 11px !important;
+}
+
+.form-actions button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
