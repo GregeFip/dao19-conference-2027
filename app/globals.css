@@ -131,6 +131,118 @@ a { color: inherit; }
 .dao-register-nav span { margin-left: 13px; color: var(--cinnabar); font-size: 18px; }
 .dao-menu { display: none; }
 
+.dao-page-rail {
+  width: 50px;
+  padding: 14px 9px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(21, 35, 29, .2);
+  background: rgba(241, 237, 226, .88);
+  box-shadow: 0 18px 48px rgba(21, 35, 29, .15);
+  position: fixed;
+  top: 50%;
+  right: 22px;
+  z-index: 35;
+  transform: translateY(-50%);
+  backdrop-filter: blur(18px);
+}
+.dao-rail-progress {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  color: #607067;
+  font: 600 8px/1 "DM Mono", monospace;
+}
+.dao-rail-progress > i {
+  width: 1px;
+  height: 45px;
+  display: block;
+  overflow: hidden;
+  background: rgba(21, 35, 29, .18);
+  position: relative;
+}
+.dao-rail-progress > i b {
+  width: 100%;
+  min-height: 2px;
+  display: block;
+  background: var(--cinnabar);
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: height .16s ease-out;
+}
+.dao-rail-nav { display: grid; gap: 2px; }
+.dao-rail-nav button {
+  width: 30px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+.dao-rail-nav button > i {
+  width: 5px;
+  height: 5px;
+  display: block;
+  border: 1px solid #6c7a72;
+  border-radius: 50%;
+  background: transparent;
+  transition: width .22s ease, height .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+.dao-rail-nav button:hover > i,
+.dao-rail-nav button.active > i {
+  width: 10px;
+  height: 10px;
+  border-color: var(--cinnabar);
+  background: var(--cinnabar);
+  box-shadow: 0 0 0 5px rgba(164, 71, 50, .12);
+}
+.dao-rail-nav button > span {
+  min-width: 76px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(21, 35, 29, .96);
+  color: #f2eee3;
+  box-shadow: 0 8px 24px rgba(21, 35, 29, .2);
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 37px;
+  transform: translate(7px, -50%);
+  white-space: nowrap;
+  font: 600 11px/1 var(--font-reading);
+  letter-spacing: .06em;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.dao-rail-nav button > span::after {
+  content: "";
+  border: 5px solid transparent;
+  border-left-color: rgba(21, 35, 29, .96);
+  position: absolute;
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+}
+.dao-rail-nav button > span b { color: #d8bd7c; font: 500 9px "DM Mono", monospace; }
+.dao-rail-nav button:hover > span,
+.dao-rail-nav button.active > span { opacity: 1; transform: translate(0, -50%); }
+.dao-rail-top {
+  width: 32px;
+  min-height: 38px;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+  border-top: 1px solid rgba(21, 35, 29, .16);
+  color: #26372e;
+}
+.dao-rail-top span { color: var(--cinnabar); font: 500 16px/1 "DM Mono", monospace; }
+.dao-rail-top small { font: 600 8px/1 "DM Mono", monospace; }
+.dao-rail-mobile-status { display: none; }
+
 .dao-hero {
   min-height: calc(100vh - 127px);
   display: grid;
@@ -297,7 +409,10 @@ a { color: inherit; }
 .dao-stats sup { margin-left: 4px; color: #d0ae70; font: 500 10px "DM Mono", monospace; }
 .dao-stats span { display: block; margin-top: 9px; color: #c8d2cb; font: 500 13px "DM Mono", monospace; letter-spacing: .04em; }
 
-.dao-section { padding: 116px clamp(32px, 7vw, 112px); }
+.dao-section {
+  min-height: max(720px, calc(100svh - 96px));
+  padding: clamp(92px, 8vw, 124px) clamp(32px, 7vw, 112px);
+}
 .dao-section-index {
   display: flex;
   align-items: center;
@@ -378,7 +493,7 @@ a { color: inherit; }
 }
 
 .dao-theme {
-  min-height: 580px;
+  min-height: max(720px, calc(100svh - 96px));
   padding: 94px clamp(32px, 10vw, 160px);
   display: flex;
   flex-direction: column;
@@ -524,13 +639,13 @@ a { color: inherit; }
 .dao-organizer-list p { color: #4d5c53; text-align: right; font: 500 13px "DM Mono", monospace; }
 
 .dao-field-study {
-  min-height: 690px;
+  min-height: max(720px, calc(100svh - 96px));
   display: grid;
   grid-template-columns: 42% 58%;
   background: var(--ink);
   color: #f2eee3;
 }
-.dao-canon-image { min-height: 690px; overflow: hidden; position: relative; background: #291e29; }
+.dao-canon-image { min-height: 720px; overflow: hidden; position: relative; background: #291e29; }
 .dao-canon-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20, 25, 22, .62), transparent 50%); }
 .dao-canon-image img { object-fit: cover; object-position: 52% 50%; filter: saturate(.7) contrast(1.04); }
 .dao-canon-image figcaption {
@@ -658,7 +773,7 @@ a { color: inherit; }
 .dao-faq-list article.open > div p { padding-bottom: 22px; }
 
 .dao-final {
-  min-height: 650px;
+  min-height: max(720px, calc(100svh - 96px));
   padding: 110px 30px;
   display: flex;
   flex-direction: column;
@@ -782,7 +897,16 @@ a { color: inherit; }
 .dao-success > div small { display: block; margin-bottom: 7px; color: #6e7a73; font: 500 10px "DM Mono", monospace; letter-spacing: .09em; }
 .dao-success > div strong { font: 500 17px "DM Mono", monospace; letter-spacing: .1em; }
 
+@media (max-height: 700px) and (min-width: 761px) {
+  .dao-page-rail { padding-top: 10px; padding-bottom: 8px; gap: 6px; }
+  .dao-rail-progress { gap: 4px; }
+  .dao-rail-progress > i { height: 32px; }
+  .dao-rail-nav button { height: 18px; }
+  .dao-rail-top { min-height: 31px; }
+}
+
 @media (max-width: 1100px) {
+  .dao-page-rail { right: 12px; }
   .dao-header { padding: 0 30px; }
   .dao-brand { min-width: 245px; }
   .dao-header nav { gap: 18px; }
@@ -824,6 +948,40 @@ a { color: inherit; }
 
 @media (max-width: 760px) {
   body { overflow-x: hidden; }
+  .dao-page-rail {
+    width: auto;
+    min-width: 174px;
+    height: 50px;
+    padding: 6px 6px 6px 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    border-color: rgba(255, 255, 255, .13);
+    border-radius: 28px;
+    background: rgba(21, 35, 29, .93);
+    color: #f2eee3;
+    box-shadow: 0 14px 38px rgba(21, 35, 29, .28);
+    top: auto;
+    right: 16px;
+    bottom: 18px;
+    transform: none;
+  }
+  .dao-rail-progress, .dao-rail-nav { display: none; }
+  .dao-rail-mobile-status { display: flex; align-items: center; gap: 8px; }
+  .dao-rail-mobile-status span { color: #d8bd7c; font: 500 10px "DM Mono", monospace; }
+  .dao-rail-mobile-status strong { font-size: 13px; letter-spacing: .06em; }
+  .dao-rail-mobile-status small { color: #aebcb3; font: 500 9px "DM Mono", monospace; }
+  .dao-rail-top {
+    width: 38px;
+    min-height: 38px;
+    flex: none;
+    border: 0;
+    border-radius: 50%;
+    background: var(--cinnabar);
+    color: #fff7ec;
+  }
+  .dao-rail-top span { color: #fff7ec; font-size: 17px; }
+  .dao-rail-top small { display: none; }
   .dao-demo-bar { padding: 8px 14px; font-size: 12px; letter-spacing: .02em; }
   .dao-demo-bar span { margin-right: 7px; }
   .dao-header { height: 78px; padding: 0 20px; }
@@ -877,7 +1035,7 @@ a { color: inherit; }
   .dao-stats article:nth-child(4) { border-bottom: 0; }
   .dao-stats strong { font-size: 31px; }
 
-  .dao-section { padding: 76px 24px; }
+  .dao-section { min-height: 0; padding: 76px 24px; }
   .dao-section-index { margin-bottom: 37px; }
   .dao-section-heading { display: block; margin-bottom: 36px; }
   .dao-section-heading h2 { font-size: 48px; }
@@ -907,7 +1065,7 @@ a { color: inherit; }
   .dao-organizer-list { margin-top: 45px; }
   .dao-organizer-list article { grid-template-columns: 30px 1fr; padding: 18px 0; }
   .dao-organizer-list p { grid-column: 2; text-align: left; }
-  .dao-field-study { display: block; }
+  .dao-field-study { min-height: 0; display: block; }
   .dao-canon-image { min-height: 520px; }
   .dao-field-copy { min-height: 630px; padding: 70px 24px; }
   .dao-field-copy h2 { font-size: 50px; }
@@ -952,6 +1110,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 520px) {
+  .dao-page-rail { right: 10px; bottom: 12px; }
   .dao-brand small { max-width: 155px; }
   .dao-hero-copy { padding-top: 47px; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }

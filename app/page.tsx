@@ -15,6 +15,20 @@ const emptyDraft = {
   needHotel: false,
 };
 
+const pageSections = [
+  { id: "top", number: "00", label: "首页" },
+  { id: "about", number: "01", label: "缘起" },
+  { id: "theme", number: "02", label: "主题" },
+  { id: "questions", number: "03", label: "议题" },
+  { id: "journey", number: "04", label: "日程" },
+  { id: "organizers", number: "05", label: "主办" },
+  { id: "field-study", number: "06", label: "泰山" },
+  { id: "venue", number: "07", label: "会场" },
+  { id: "practical", number: "08", label: "行前" },
+  { id: "faq", number: "09", label: "答疑" },
+  { id: "final", number: "10", label: "报名" },
+];
+
 export default function Home() {
   const [siteContent, setSiteContent] = useState<SiteContent>(DEFAULT_SITE_CONTENT);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +41,8 @@ export default function Home() {
   const [registrationCode, setRegistrationCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
+  const [activeSection, setActiveSection] = useState("top");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,8 +69,38 @@ export default function Home() {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
+  useEffect(() => {
+    let frame = 0;
+    const updateScrollState = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0);
+
+      const readingLine = window.innerHeight * 0.42;
+      let current = pageSections[0].id;
+      pageSections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element && element.getBoundingClientRect().top <= readingLine) current = section.id;
+      });
+      setActiveSection(current);
+    };
+    const requestUpdate = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(updateScrollState);
+    };
+    updateScrollState();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+    };
+  }, []);
+
   const { basics, stats, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
   const selectedDay = schedule[activeDay] ?? schedule[0];
+  const activeSectionIndex = Math.max(0, pageSections.findIndex((section) => section.id === activeSection));
+  const activeSectionMeta = pageSections[activeSectionIndex];
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -124,6 +170,32 @@ export default function Home() {
         </nav>
       </header>
 
+      <aside className="dao-page-rail" aria-label="页面章节导航">
+        <div className="dao-rail-progress" aria-hidden="true">
+          <span>00</span>
+          <i><b style={{ height: `${scrollProgress}%` }} /></i>
+          <small>10</small>
+        </div>
+        <nav className="dao-rail-nav" aria-label="快速跳转到页面章节">
+          {pageSections.map((section) => (
+            <button
+              className={activeSection === section.id ? "active" : ""}
+              key={section.id}
+              onClick={() => scrollTo(section.id)}
+              aria-label={`前往${section.label}`}
+              aria-current={activeSection === section.id ? "location" : undefined}
+            >
+              <i aria-hidden="true" />
+              <span><b>{section.number}</b>{section.label}</span>
+            </button>
+          ))}
+        </nav>
+        <div className="dao-rail-mobile-status" aria-hidden="true">
+          <span>{activeSectionMeta.number}</span><strong>{activeSectionMeta.label}</strong><small>{Math.round(scrollProgress)}%</small>
+        </div>
+        <button className="dao-rail-top" onClick={() => scrollTo("top")} aria-label="返回页面顶部"><span>↑</span><small>{Math.round(scrollProgress)}%</small></button>
+      </aside>
+
       <section className="dao-hero" id="top">
         <div className="dao-hero-copy">
           <p className="dao-eyebrow"><span />{basics.eyebrow}</p>
@@ -171,7 +243,7 @@ export default function Home() {
         <div className="dao-vertical-script" aria-hidden="true">道行天下<br />和而不同</div>
       </section>
 
-      <section className="dao-theme">
+      <section className="dao-theme" id="theme">
         <div className="dao-theme-orbit" aria-hidden="true"><i /><i /></div>
         <div className="dao-section-index light"><span>贰</span><small>02 · THEME</small></div>
         <p>CONFERENCE THEME · 會議主題</p>
@@ -204,13 +276,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="dao-organizers dao-section">
+      <section className="dao-organizers dao-section" id="organizers">
         <div className="dao-section-index"><span>伍</span><small>05 · ORGANIZERS</small></div>
         <div className="dao-organizer-intro"><p className="dao-kicker">A GLOBAL SCHOLARLY NETWORK</p><h2>Six institutions,<br />one conversation</h2><p>本次會議由亞洲、北美多家大學與學術機構共同主辦。</p></div>
         <div className="dao-organizer-list">{organizers.map((item, index) => <article key={`${item.name}-${index}`}><span>0{index + 1}</span><h3>{item.name}</h3><p>{item.country}</p></article>)}</div>
       </section>
 
-      <section className="dao-field-study" aria-label="泰山学术考察">
+      <section className="dao-field-study" id="field-study" aria-label="泰山学术考察">
         <figure className="dao-canon-image"><Image src={media.canonImageUrl} alt="The Daoist Canon collected in Tai'an Museum / 泰安市博物馆藏明代道藏" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>The Daoist Canon<br /><span>泰安市博物館藏明代《道藏》</span></figcaption></figure>
         <div className="dao-field-copy"><div className="dao-section-index light"><span>陆</span><small>06 · FIELD STUDY</small></div><p className="dao-kicker">MOUNT TAI · 泰山</p><h2>Reading tradition<br />in the landscape</h2><p>The conference extends from the seminar room into the sacred landscape of Mount Tai—visiting temples, collections, and places where Daoist history remains tangible.</p><p className="zh">會後考察將學術討論延伸至泰山的宮觀、文物與宗教景觀，在行走與觀看之間理解傳統。</p><div className="dao-distance"><strong>75</strong><span>KM<br />JINAN → TAI&apos;AN</span></div></div>
       </section>
@@ -223,18 +295,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="dao-practical dao-section">
+      <section className="dao-practical dao-section" id="practical">
         <div className="dao-section-index"><span>捌</span><small>08 · PRACTICAL</small></div>
         <div className="dao-section-heading"><div><p className="dao-kicker">BEFORE YOU ARRIVE · 行前資訊</p><h2>Practical notes</h2></div><p>Details are drawn from Announcement No. 1 and may be refined by the organizing committee.</p></div>
         <div className="dao-remark-grid">{remarks.map((item, index) => <article key={`${item.title}-${index}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
       </section>
 
-      <section className="dao-faq dao-section">
+      <section className="dao-faq dao-section" id="faq">
         <div><p className="dao-kicker">QUESTIONS · 常見問題</p><h2>Before the journey</h2><p>Useful answers for participants preparing to come to Jinan.</p></div>
         <div className="dao-faq-list">{faqs.map((item, index) => <article className={openFaq === index ? "open" : ""} key={`${item.question}-${index}`}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{item.question}</span><i>{openFaq === index ? "−" : "+"}</i></button><div><p>{item.answer}</p></div></article>)}</div>
       </section>
 
-      <section className="dao-final">
+      <section className="dao-final" id="final">
         <span className="dao-final-seal">道</span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><button className="dao-primary inverse" onClick={openRegistration}>Register interest <span>表达参会意向</span></button><small>Announcement issued {basics.announcementDate}</small>
       </section>
 
