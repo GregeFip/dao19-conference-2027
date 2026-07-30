@@ -38,7 +38,7 @@ export default function AdminDashboard({ registrations, userName, signOutHref }:
     <main className="admin-shell">
       <aside className="admin-sidebar">
         <Link className="admin-brand" href="/"><span>N</span><div><strong>NEXUS 2026</strong><small>REGISTRATION ADMIN</small></div></Link>
-        <nav><Link className="active" href="/admin"><i>01</i>报名管理</Link><Link href="/"><i>02</i>查看会议网站</Link></nav>
+        <nav><Link className="active" href="/admin"><i>01</i>报名管理</Link><Link href="/admin/content"><i>02</i>网站内容</Link><Link href="/"><i>03</i>查看会议网站</Link></nav>
         <div className="admin-account"><small>当前管理员</small><strong>{userName}</strong><a href={signOutHref}>退出登录</a></div>
       </aside>
 

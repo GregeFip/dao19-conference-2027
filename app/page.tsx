@@ -1,53 +1,8 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-
-const schedule = {
-  "11月14日": [
-    ["08:30", "签到与欢迎咖啡", "星河厅前厅", "开放交流"],
-    ["09:30", "开幕式：从工具智能到科学伙伴", "星河主会场", "大会主席团"],
-    ["10:10", "主旨报告：可信机器学习的下一程", "星河主会场", "林若岚 教授"],
-    ["11:20", "主旨报告：具身智能与真实世界", "星河主会场", "David Chen 教授"],
-    ["14:00", "专题论坛 A：AI for Science", "曙光厅", "六场邀请报告"],
-    ["14:00", "专题论坛 B：大模型与社会", "远见厅", "圆桌讨论"],
-    ["18:30", "欢迎晚宴与青年学者海报交流", "云庭", "全体参会者"],
-  ],
-  "11月15日": [
-    ["09:00", "主旨报告：计算如何重塑生命科学", "星河主会场", "周砚青 教授"],
-    ["10:20", "交叉前沿快闪报告", "星河主会场", "8 位青年学者"],
-    ["13:30", "专题论坛 C：智能医学与健康", "曙光厅", "五场邀请报告"],
-    ["13:30", "专题论坛 D：科学计算新范式", "远见厅", "五场邀请报告"],
-    ["16:30", "产学对话：从实验室到真实影响", "星河主会场", "学界 × 产业界"],
-    ["19:00", "城市学术漫步", "滨江步道", "自由参加"],
-  ],
-  "11月16日": [
-    ["09:00", "青年科学家论坛", "曙光厅", "入选论文作者"],
-    ["10:40", "开放科学与科研基础设施", "星河主会场", "Maria Rossi 教授"],
-    ["13:30", "闭幕圆桌：面向 2030 的共同议程", "星河主会场", "全体主旨嘉宾"],
-    ["15:00", "最佳论文与海报颁奖", "星河主会场", "学术委员会"],
-    ["15:40", "闭幕致辞", "星河主会场", "大会主席"],
-  ],
-};
-
-const speakers = [
-  { initials: "RL", name: "林若岚", role: "中国科学院院士", org: "清华大学 · 人工智能研究院", topic: "可信机器学习的下一程", tone: "blue" },
-  { initials: "DC", name: "David Chen", role: "IEEE Fellow", org: "新加坡国立大学 · 计算机学院", topic: "具身智能与真实世界", tone: "red" },
-  { initials: "YZ", name: "周砚青", role: "国家杰出青年基金获得者", org: "浙江大学 · 生命科学研究院", topic: "计算如何重塑生命科学", tone: "gold" },
-  { initials: "MR", name: "Maria Rossi", role: "欧洲科学院院士", org: "苏黎世联邦理工学院", topic: "开放科学与科研基础设施", tone: "green" },
-];
-
-const topics = [
-  ["01", "智能科学基础", "大模型、多模态学习、可信 AI、强化学习与智能体"],
-  ["02", "AI for Science", "生命科学、材料发现、气候建模与科学计算新范式"],
-  ["03", "技术与社会", "人工智能治理、开放科学、教育创新与普惠技术"],
-];
-
-const faqs = [
-  ["测试版提交的报名信息会保存吗？", "会。为了完整体验后台，本版本提交的信息会保存到站点数据库，并仅在登录后的报名管理后台中显示。请勿填写身份证号等不必要的敏感信息。"],
-  ["会议是否接受论文投稿？", "正式会议拟设置全文投稿与海报摘要两种通道。当前测试版暂未开放文件上传，后续可接入投稿编号、附件上传与审稿状态查询。"],
-  ["注册费包含哪些内容？", "演示价格包含会议资料、会期午餐、茶歇及欢迎晚宴；交通与住宿需自行安排。实际收费标准以正式通知为准。"],
-  ["可以为团队统一报名吗？", "正式版可以增加团体报名入口、批量导入名单和统一开票功能，测试版暂以个人报名体验为主。"],
-];
+import Image from "next/image";
+import { DEFAULT_SITE_CONTENT, type SiteContent } from "./site-content";
 
 const emptyDraft = {
   name: "",
@@ -62,7 +17,8 @@ const emptyDraft = {
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeDay, setActiveDay] = useState<keyof typeof schedule>("11月14日");
+  const [siteContent, setSiteContent] = useState<SiteContent>(DEFAULT_SITE_CONTENT);
+  const [activeDay, setActiveDay] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
@@ -71,6 +27,20 @@ export default function Home() {
   const [registrationCode, setRegistrationCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/content", { cache: "no-store" })
+      .then((response) => response.json())
+      .then((result: { content?: SiteContent }) => {
+        if (!cancelled && result.content) {
+          setSiteContent(result.content);
+          setActiveDay(0);
+        }
+      })
+      .catch(() => undefined);
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && setModalOpen(false);
@@ -132,6 +102,9 @@ export default function Home() {
     setMenuOpen(false);
   };
 
+  const { basics, stats, about, topics, speakers, schedule, importantDates, venue, faqs } = siteContent;
+  const selectedDay = schedule[activeDay] ?? schedule[0];
+
   return (
     <main>
       <div className="demo-bar"><span>后台功能测试版</span> 报名信息将保存至站点数据库，请勿填写不必要的敏感信息</div>
@@ -139,7 +112,7 @@ export default function Home() {
       <header className="site-header">
         <button className="brand" onClick={() => scrollTo("top")} aria-label="返回首页">
           <span className="brand-mark">N</span>
-          <span><strong>NEXUS 2026</strong><small>国际智能科学前沿大会</small></span>
+          <span><strong>{basics.shortName}</strong><small>{basics.conferenceName}</small></span>
         </button>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="打开导航" aria-expanded={menuOpen}>
           <span /><span />
@@ -156,9 +129,9 @@ export default function Home() {
       <section className="hero" id="top">
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-copy">
-          <div className="eyebrow"><span /> NEXUS · 第八届国际智能科学前沿大会</div>
-          <h1>智能涌现<br /><em>科学共生</em></h1>
-          <p className="hero-intro">当人工智能成为科学发现的新伙伴，我们如何共同定义下一种研究范式？与全球学者一起，在学科边界处寻找答案。</p>
+          <div className="eyebrow"><span /> {basics.eyebrow}</div>
+          <h1>{basics.themeLine1}<br /><em>{basics.themeLine2}</em></h1>
+          <p className="hero-intro">{basics.introduction}</p>
           <div className="hero-actions">
             <button className="primary-button" onClick={openRegistration}>立即注册参会 <span>→</span></button>
             <button className="text-button" onClick={() => scrollTo("schedule")}>浏览完整日程 <span>↓</span></button>
@@ -167,33 +140,29 @@ export default function Home() {
         <div className="hero-visual" aria-label="会议日期及地点">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
           <div className="orbital-dot dot-one" /><div className="orbital-dot dot-two" /><div className="orbital-dot dot-three" />
-          <div className="hero-date"><strong>14—16</strong><span>NOV · 2026</span></div>
-          <div className="hero-place"><span>CHINA</span><strong>杭州 · 国际会议中心</strong></div>
+          <div className="hero-date"><strong>{basics.dateRange}</strong><span>{basics.monthYear}</span></div>
+          <div className="hero-place"><span>CHINA</span><strong>{basics.city} · {basics.venueName}</strong></div>
         </div>
         <div className="hero-meta">
-          <div><span>大会语言</span><strong>中文 / English</strong></div>
-          <div><span>早鸟注册截止</span><strong>2026.09.20</strong></div>
-          <div><span>主办单位</span><strong>未来科学协作网络</strong></div>
+          <div><span>大会语言</span><strong>{basics.language}</strong></div>
+          <div><span>早鸟注册截止</span><strong>{basics.earlyBirdDeadline}</strong></div>
+          <div><span>主办单位</span><strong>{basics.organizer}</strong></div>
         </div>
       </section>
 
       <section className="stats" aria-label="大会规模">
-        <div><strong>36<sup>+</sup></strong><span>合作高校与机构</span></div>
-        <div><strong>48</strong><span>场前沿报告</span></div>
-        <div><strong>600<sup>+</sup></strong><span>预计参会代表</span></div>
-        <div><strong>12</strong><span>国家与地区</span></div>
+        {stats.map((item, index) => <div key={`${item.label}-${index}`}><strong>{item.value}{item.suffix && <sup>{item.suffix}</sup>}</strong><span>{item.label}</span></div>)}
       </section>
 
       <section className="about section" id="about">
         <div className="section-label"><span>01</span> ABOUT NEXUS</div>
         <div className="about-layout">
           <div>
-            <p className="kicker">在边界处，发生新的可能</p>
-            <h2>一场面向未来的<br />跨学科学术对话</h2>
+            <p className="kicker">{about.kicker}</p>
+            <h2>{about.titleLine1}<br />{about.titleLine2}</h2>
           </div>
           <div className="about-body">
-            <p>NEXUS 2026 聚焦“智能科学与科学智能”的双向融合，邀请计算机科学、生命科学、材料、医学与社会科学领域的研究者，共同讨论人工智能驱动科学发现的关键路径。</p>
-            <p>三天时间里，我们将通过主旨报告、专题论坛、青年学者交流与开放圆桌，让好问题遇见新方法，让不同学科真正开始协作。</p>
+            {about.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
             <button className="inline-link" onClick={() => scrollTo("topics")}>探索大会主题 <span>↘</span></button>
           </div>
         </div>
@@ -206,10 +175,10 @@ export default function Home() {
           <p>从底层理论到真实世界影响，建立跨越学科边界的共同语言。</p>
         </div>
         <div className="topic-list">
-          {topics.map(([number, title, desc]) => (
+          {topics.map(({ number, title, description }) => (
             <article className="topic-card" key={number}>
               <span className="topic-number">{number}</span>
-              <div><h3>{title}</h3><p>{desc}</p></div>
+              <div><h3>{title}</h3><p>{description}</p></div>
               <span className="topic-arrow">↗</span>
             </article>
           ))}
@@ -225,8 +194,8 @@ export default function Home() {
         <div className="speaker-grid">
           {speakers.map((speaker) => (
             <article className="speaker-card" key={speaker.name}>
-              <div className={`speaker-portrait ${speaker.tone}`}><span>{speaker.initials}</span><i /></div>
-              <div className="speaker-info"><span>{speaker.role}</span><h3>{speaker.name}</h3><p>{speaker.org}</p><strong>“{speaker.topic}”</strong></div>
+              <div className={`speaker-portrait ${speaker.tone} ${speaker.imageUrl ? "has-photo" : ""}`}>{speaker.imageUrl ? <Image className="speaker-photo" src={speaker.imageUrl} alt={`${speaker.name} 嘉宾照片`} fill sizes="(max-width: 680px) 50vw, 25vw" unoptimized /> : <><span>{speaker.initials}</span><i /></>}</div>
+              <div className="speaker-info"><span>{speaker.role}</span><h3>{speaker.name}</h3><p>{speaker.organization}</p><strong>“{speaker.topic}”</strong></div>
             </article>
           ))}
         </div>
@@ -237,15 +206,15 @@ export default function Home() {
         <div className="section-label light"><span>04</span> PROGRAM AT A GLANCE</div>
         <div className="schedule-head"><div><p className="kicker">三天，建立新的连接</p><h2>大会日程</h2></div><p>以下为体验版日程，正式安排可能根据嘉宾行程微调。</p></div>
         <div className="day-tabs" role="tablist" aria-label="选择会议日期">
-          {(Object.keys(schedule) as Array<keyof typeof schedule>).map((day, index) => (
-            <button key={day} className={activeDay === day ? "active" : ""} onClick={() => setActiveDay(day)} role="tab" aria-selected={activeDay === day}>
-              <span>DAY {index + 1}</span><strong>{day}</strong><small>{["星期六", "星期日", "星期一"][index]}</small>
+          {schedule.map((day, index) => (
+            <button key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}>
+              <span>DAY {index + 1}</span><strong>{day.date}</strong><small>{day.weekday}</small>
             </button>
           ))}
         </div>
         <div className="schedule-table" role="tabpanel">
-          {schedule[activeDay].map(([time, title, place, host]) => (
-            <div className="schedule-row" key={`${time}-${title}`}><time>{time}</time><h3>{title}</h3><span>{place}</span><small>{host}</small></div>
+          {selectedDay?.items.map(({ time, title, place, host }, index) => (
+            <div className="schedule-row" key={`${time}-${title}-${index}`}><time>{time}</time><h3>{title}</h3><span>{place}</span><small>{host}</small></div>
           ))}
         </div>
       </section>
@@ -255,19 +224,15 @@ export default function Home() {
         <div className="dates-layout">
           <div><p className="kicker">把重要节点加入日历</p><h2>重要日期</h2><p className="dates-intro">现在报名可享早鸟价格。论文投稿与青年学者论坛申请将于 8 月同步开放。</p></div>
           <div className="date-list">
-            <div className="date-item passed"><time>07.15</time><span><strong>大会网站开放</strong><small>已开放</small></span></div>
-            <div className="date-item current"><time>08.10</time><span><strong>论文投稿开放</strong><small>即将开始</small></span></div>
-            <div className="date-item"><time>09.20</time><span><strong>早鸟注册截止</strong><small>EARLY BIRD</small></span></div>
-            <div className="date-item"><time>10.08</time><span><strong>论文投稿截止</strong><small>23:59 CST</small></span></div>
-            <div className="date-item"><time>11.14</time><span><strong>大会正式开幕</strong><small>杭州</small></span></div>
+            {importantDates.map((item, index) => <div className={`date-item ${item.state === "future" ? "" : item.state}`} key={`${item.date}-${item.title}-${index}`}><time>{item.date}</time><span><strong>{item.title}</strong><small>{item.note}</small></span></div>)}
           </div>
         </div>
       </section>
 
       <section className="venue section">
         <div className="venue-card">
-          <div className="venue-map" aria-hidden="true"><span className="river river-one" /><span className="river river-two" /><i className="map-pin">N</i><small>杭州</small></div>
-          <div className="venue-copy"><div className="section-label light"><span>06</span> VENUE</div><p className="kicker">相聚杭州</p><h2>杭州国际会议中心</h2><p>浙江省杭州市萧山区奔竞大道 353 号<br />距杭州东站约 25 分钟车程</p><div className="venue-tags"><span>地铁 6 号线</span><span>会场酒店协议价</span><span>无障碍通行</span></div></div>
+          <div className="venue-map" aria-hidden="true"><span className="river river-one" /><span className="river river-two" /><i className="map-pin">N</i><small>{basics.city}</small></div>
+          <div className="venue-copy"><div className="section-label light"><span>06</span> VENUE</div><p className="kicker">{venue.kicker}</p><h2>{venue.name}</h2><p>{venue.address}<br />{venue.transport}</p><div className="venue-tags">{venue.tags.map((tag, index) => <span key={`${tag}-${index}`}>{tag}</span>)}</div></div>
         </div>
       </section>
 
@@ -276,7 +241,7 @@ export default function Home() {
         <div className="faq-layout">
           <div><p className="kicker">参会之前</p><h2>常见问题</h2><p>如果没有找到答案，正式版可增加会务组联系方式与在线咨询。</p></div>
           <div className="faq-list">
-            {faqs.map(([question, answer], index) => (
+            {faqs.map(({ question, answer }, index) => (
               <article className={openFaq === index ? "faq-item open" : "faq-item"} key={question}>
                 <button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span><i>{openFaq === index ? "−" : "+"}</i></button>
                 <div><p>{answer}</p></div>
@@ -288,16 +253,16 @@ export default function Home() {
 
       <section className="final-cta">
         <div className="final-orbit" aria-hidden="true" />
-        <p>NEXUS · HANGZHOU · 2026</p><h2>加入这场面向未来的<br /><em>学术对话</em></h2><button className="primary-button light-button" onClick={openRegistration}>立即注册参会 <span>→</span></button><small>早鸟注册截止：2026 年 9 月 20 日</small>
+        <p>{basics.shortName} · {basics.city}</p><h2>加入这场面向未来的<br /><em>学术对话</em></h2><button className="primary-button light-button" onClick={openRegistration}>立即注册参会 <span>→</span></button><small>早鸟注册截止：{basics.earlyBirdDeadline}</small>
       </section>
 
-      <footer><div className="footer-brand"><span className="brand-mark">N</span><div><strong>NEXUS 2026</strong><small>国际智能科学前沿大会 · 测试版</small></div></div><div><span>主办</span><strong>未来科学协作网络</strong></div><div><span>会务咨询</span><strong>contact@nexus-demo.org</strong><a className="footer-admin-link" href="/admin">进入报名管理后台 →</a></div><p>© 2026 NEXUS Demo. 本站内容均为体验用途。</p></footer>
+      <footer><div className="footer-brand"><span className="brand-mark">N</span><div><strong>{basics.shortName}</strong><small>{basics.conferenceName} · 测试版</small></div></div><div><span>主办</span><strong>{basics.organizer}</strong></div><div><span>会务咨询</span><strong>{basics.contactEmail}</strong><a className="footer-admin-link" href="/admin">报名管理 →</a><a className="footer-admin-link" href="/admin/content">内容管理 →</a></div><p>© 2026 {basics.shortName} Demo. 本站内容均为体验用途。</p></footer>
 
       {modalOpen && (
         <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setModalOpen(false)}>
           <section className="registration-modal" role="dialog" aria-modal="true" aria-labelledby="registration-title">
             <button className="modal-close" onClick={() => setModalOpen(false)} aria-label="关闭报名窗口">×</button>
-            <div className="modal-side"><span className="brand-mark inverse">N</span><div><p>REGISTRATION</p><h2>与新的想法<br />在杭州相遇</h2></div><small>2026.11.14—16<br />杭州国际会议中心</small></div>
+            <div className="modal-side"><span className="brand-mark inverse">N</span><div><p>REGISTRATION</p><h2>与新的想法<br />在{basics.city}相遇</h2></div><small>{basics.monthYear} · {basics.dateRange}<br />{basics.venueName}</small></div>
             <div className="modal-main">
               <div className="demo-notice"><strong>后台测试模式</strong> 提交后信息会写入测试数据库，并可在管理后台导出。</div>
               <div className="stepper" aria-label="报名步骤"><span className={step >= 1 ? "active" : ""}><i>1</i>基本信息</span><b /><span className={step >= 2 ? "active" : ""}><i>2</i>参会选择</span><b /><span className={step >= 3 ? "active" : ""}><i>3</i>完成</span></div>

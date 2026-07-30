@@ -23,3 +23,10 @@ export const registrations = sqliteTable(
     index("registrations_email_idx").on(table.email),
   ],
 );
+
+export const siteContent = sqliteTable("site_content", {
+  key: text("key").primaryKey(),
+  value: text("value").notNull(),
+  updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedBy: text("updated_by").notNull().default(""),
+});
