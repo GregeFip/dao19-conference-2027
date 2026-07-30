@@ -963,6 +963,23 @@ a { color: inherit; }
 /* Desktop chapters share one exact visual canvas. Dense chapters are reflowed
    inside that canvas instead of increasing the page height. */
 @media (min-width: 1101px) {
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+
+  .dao-hero,
+  .dao-section,
+  .dao-theme,
+  .dao-field-study,
+  .dao-final {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .dao-hero { scroll-margin-top: 127px; }
+  .dao-footer { scroll-snap-align: end; scroll-snap-stop: always; }
+
   .dao-section,
   .dao-theme,
   .dao-field-study,
@@ -1083,6 +1100,60 @@ a { color: inherit; }
   }
   .dao-remark-grid { min-height: 0; }
   .dao-remark-grid article { min-height: 0; }
+}
+
+@media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+  .dao-hero > *,
+  .dao-section > *,
+  .dao-theme > *,
+  .dao-field-study > *,
+  .dao-final > * {
+    opacity: .76;
+    transform: translateY(16px);
+    transition:
+      opacity .48s ease,
+      transform .72s cubic-bezier(.22, .75, .18, 1);
+  }
+
+  .dao-chapter-active > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .dao-chapter-active > :nth-child(2) { transition-delay: .045s; }
+  .dao-chapter-active > :nth-child(3) { transition-delay: .09s; }
+  .dao-chapter-active > :nth-child(4) { transition-delay: .135s; }
+  .dao-chapter-active > :nth-child(n + 5) { transition-delay: .18s; }
+
+  .dao-page-rail {
+    transition:
+      transform .36s cubic-bezier(.22, .75, .18, 1),
+      box-shadow .36s ease,
+      background .36s ease;
+  }
+
+  html.dao-page-turning .dao-page-rail {
+    background: rgba(246, 241, 229, .96);
+    box-shadow: 0 24px 58px rgba(21, 35, 29, .22);
+    transform: translateY(-50%) scale(.965);
+  }
+
+  .dao-rail-nav button.active > i { animation: dao-page-beat .7s cubic-bezier(.22, .75, .18, 1); }
+}
+
+@keyframes dao-page-beat {
+  0% { box-shadow: 0 0 0 0 rgba(164, 71, 50, .32); }
+  55% { box-shadow: 0 0 0 9px rgba(164, 71, 50, .08); }
+  100% { box-shadow: 0 0 0 5px rgba(164, 71, 50, .12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .dao-hero > *,
+  .dao-section > *,
+  .dao-theme > *,
+  .dao-field-study > *,
+  .dao-final > * { transition: none !important; }
 }
 
 @media (max-height: 700px) and (min-width: 821px) {

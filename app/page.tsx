@@ -81,6 +81,9 @@ export default function Home() {
         const element = document.getElementById(section.id);
         if (element && element.getBoundingClientRect().top <= readingLine) current = section.id;
       });
+      pageSections.forEach((section) => {
+        document.getElementById(section.id)?.classList.toggle("dao-chapter-active", section.id === current);
+      });
       setActiveSection(current);
     };
     const requestUpdate = () => {
@@ -97,13 +100,72 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    const pageTurnMode = window.matchMedia("(min-width: 1101px) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+    let gestureActive = false;
+    let animationLocked = false;
+    let gestureTimer = 0;
+    let animationTimer = 0;
+
+    const finishGestureSoon = () => {
+      window.clearTimeout(gestureTimer);
+      gestureTimer = window.setTimeout(() => { gestureActive = false; }, 220);
+    };
+
+    const handleChapterWheel = (event: WheelEvent) => {
+      if (!pageTurnMode.matches || modalOpen || event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest(".dao-modal, input, textarea, select, [contenteditable='true']")) return;
+      if (Math.abs(event.deltaY) < 16) return;
+
+      if (gestureActive || animationLocked) {
+        event.preventDefault();
+        finishGestureSoon();
+        return;
+      }
+
+      const anchor = window.scrollY + window.innerHeight * .18;
+      const currentIndex = pageSections.reduce((closestIndex, section, index) => {
+        const element = document.getElementById(section.id);
+        const closest = document.getElementById(pageSections[closestIndex].id);
+        if (!element || !closest) return closestIndex;
+        const elementTop = element.getBoundingClientRect().top + window.scrollY;
+        const closestTop = closest.getBoundingClientRect().top + window.scrollY;
+        return Math.abs(elementTop - anchor) < Math.abs(closestTop - anchor) ? index : closestIndex;
+      }, 0);
+      const nextIndex = Math.min(pageSections.length - 1, Math.max(0, currentIndex + (event.deltaY > 0 ? 1 : -1)));
+      const nextSection = document.getElementById(pageSections[nextIndex].id);
+      if (!nextSection || nextIndex === currentIndex) return;
+
+      event.preventDefault();
+      gestureActive = true;
+      animationLocked = true;
+      document.documentElement.classList.add("dao-page-turning");
+      nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      finishGestureSoon();
+      window.clearTimeout(animationTimer);
+      animationTimer = window.setTimeout(() => {
+        animationLocked = false;
+        document.documentElement.classList.remove("dao-page-turning");
+      }, 780);
+    };
+
+    window.addEventListener("wheel", handleChapterWheel, { passive: false });
+    return () => {
+      window.clearTimeout(gestureTimer);
+      window.clearTimeout(animationTimer);
+      document.documentElement.classList.remove("dao-page-turning");
+      window.removeEventListener("wheel", handleChapterWheel);
+    };
+  }, [modalOpen]);
+
   const { basics, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
   const selectedDay = schedule[activeDay] ?? schedule[0];
   const activeSectionIndex = Math.max(0, pageSections.findIndex((section) => section.id === activeSection));
   const activeSectionMeta = pageSections[activeSectionIndex];
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
     setMenuOpen(false);
   };
 
