@@ -1,11 +1,11 @@
 import { sql } from "drizzle-orm";
 import { getDb } from "../../../../db";
 import { siteContent } from "../../../../db/schema";
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAdminUser } from "../../../admin-auth";
 import type { SiteContent } from "../../../site-content";
 
 export async function PUT(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAdminUser();
   if (!user) return Response.json({ error: "请先登录管理后台。" }, { status: 401 });
 
   try {

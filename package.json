@@ -1,5 +1,5 @@
 {
-  "name": "nexus-conference-demo",
+  "name": "dao-conference-2027",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -11,7 +11,10 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "deploy:cloudflare": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

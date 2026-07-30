@@ -24,25 +24,34 @@ test("conference page includes the persistent registration flow", async () => {
   assert.doesNotMatch(page, /SkeletonPreview|react-loading-skeleton|codex-preview/);
 });
 
-test("backend stores, protects, and exports registration records", async () => {
-  const [schema, submitRoute, exportRoute, adminPage, dashboard, migration] = await Promise.all([
+test("backend stores, protects, rate-limits, and exports registration records", async () => {
+  const [schema, submitRoute, exportRoute, adminPage, dashboard, migration, auth, loginRoute, workerConfig] = await Promise.all([
     read("../db/schema.ts"),
     read("../app/api/registrations/route.ts"),
     read("../app/api/admin/registrations/export/route.ts"),
     read("../app/admin/page.tsx"),
     read("../app/admin/AdminDashboard.tsx"),
     read("../drizzle/0000_sparkling_starjammers.sql"),
+    read("../app/admin-auth.ts"),
+    read("../app/api/admin/session/route.ts"),
+    read("../wrangler.jsonc"),
   ]);
   assert.match(schema, /registrations/);
   assert.match(schema, /registrationCode/);
   assert.match(submitRoute, /db\.insert\(registrations\)/);
-  assert.match(exportRoute, /getChatGPTUser/);
+  assert.match(submitRoute, /REGISTRATION_RATE_LIMITER/);
+  assert.match(exportRoute, /getAdminUser/);
   assert.match(exportRoute, /text\/csv/);
   assert.match(exportRoute, /\\uFEFF/);
-  assert.match(adminPage, /requireChatGPTUser\("\/admin"\)/);
+  assert.match(adminPage, /requireAdminUser\("\/admin"\)/);
   assert.match(dashboard, /导出完整名单/);
   assert.match(dashboard, /参会身份/);
   assert.match(migration, /CREATE TABLE `registrations`/);
+  assert.match(auth, /PBKDF2/);
+  assert.match(auth, /HMAC/);
+  assert.match(auth, /HttpOnly; Secure; SameSite=Strict/);
+  assert.match(loginRoute, /LOGIN_RATE_LIMITER/);
+  assert.match(workerConfig, /REGISTRATION_RATE_LIMITER/);
 });
 
 test("content manager persists conference content and manages image assets", async () => {
@@ -61,14 +70,26 @@ test("content manager persists conference content and manages image assets", asy
   assert.match(page, /fetch\("\/api\/content"/);
   assert.match(schema, /siteContent/);
   assert.match(migration, /CREATE TABLE `site_content`/);
-  assert.match(contentPage, /requireChatGPTUser\("\/admin\/content"\)/);
+  assert.match(contentPage, /requireAdminUser\("\/admin\/content"\)/);
   assert.match(manager, /保存全部更改/);
   assert.match(manager, /素材库/);
   assert.match(publicContent, /parseSiteContent/);
-  assert.match(adminContent, /getChatGPTUser/);
+  assert.match(adminContent, /getAdminUser/);
   assert.match(adminContent, /onConflictDoUpdate/);
   assert.match(adminMedia, /env\.MEDIA\.put/);
-  assert.match(adminMedia, /getChatGPTUser/);
-  assert.match(publicMedia, /env\.MEDIA\.get/);
+  assert.match(adminMedia, /getAdminUser/);
+  assert.match(publicMedia, /env\.MEDIA\.getWithMetadata/);
   assert.match(hosting, /"r2": "MEDIA"/);
+});
+
+test("GitHub workflow validates, migrates, and deploys the public Worker", async () => {
+  const [workflow, readme] = await Promise.all([
+    read("../.github/workflows/deploy-cloudflare.yml"),
+    read("../README.md"),
+  ]);
+  assert.match(workflow, /npm test/);
+  assert.match(workflow, /d1 migrations apply DB --remote/);
+  assert.match(workflow, /cloudflare\/wrangler-action@v3/);
+  assert.match(workflow, /command: deploy/);
+  assert.match(readme, /普通访客无需 ChatGPT/);
 });

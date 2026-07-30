@@ -1,12 +1,12 @@
 import { desc } from "drizzle-orm";
 import { getDb } from "../../../../../db";
 import { registrations } from "../../../../../db/schema";
-import { getChatGPTUser } from "../../../../chatgpt-auth";
+import { getAdminUser } from "../../../../admin-auth";
 
 const csvCell = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 
 export async function GET() {
-  const user = await getChatGPTUser();
+  const user = await getAdminUser();
   if (!user) return Response.json({ error: "请先登录管理后台。" }, { status: 401 });
 
   const rows = await getDb().select().from(registrations).orderBy(desc(registrations.createdAt));

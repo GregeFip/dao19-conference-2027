@@ -1,25 +1,33 @@
 import { env } from "cloudflare:workers";
-import { getChatGPTUser } from "../../../chatgpt-auth";
+import { getAdminUser } from "../../../admin-auth";
 
 const allowedTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 
+type MediaMetadata = {
+  contentType: string;
+  originalName: string;
+  size: number;
+  uploaded: string;
+  uploadedBy: string;
+};
+
 export async function GET() {
-  const user = await getChatGPTUser();
+  const user = await getAdminUser();
   if (!user) return Response.json({ error: "请先登录管理后台。" }, { status: 401 });
-  const result = await env.MEDIA.list({ limit: 100, include: ["customMetadata", "httpMetadata"] });
+  const result = await env.MEDIA.list<MediaMetadata>({ limit: 100, prefix: "uploads/" });
   return Response.json({
-    files: result.objects.map((object) => ({
-      key: object.key,
-      name: object.customMetadata?.originalName || object.key,
-      size: object.size,
-      uploaded: object.uploaded,
-      url: `/api/media?key=${encodeURIComponent(object.key)}`,
+    files: result.keys.map((object) => ({
+      key: object.name,
+      name: object.metadata?.originalName || object.name,
+      size: object.metadata?.size || 0,
+      uploaded: object.metadata?.uploaded || "",
+      url: `/api/media?key=${encodeURIComponent(object.name)}`,
     })),
   });
 }
 
 export async function POST(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAdminUser();
   if (!user) return Response.json({ error: "请先登录管理后台。" }, { status: 401 });
   const formData = await request.formData();
   const file = formData.get("file");
@@ -29,15 +37,20 @@ export async function POST(request: Request) {
 
   const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-").slice(-100) || "image";
   const key = `uploads/${Date.now()}-${crypto.randomUUID().slice(0, 8)}-${safeName}`;
-  await env.MEDIA.put(key, file.stream(), {
-    httpMetadata: { contentType: file.type },
-    customMetadata: { originalName: file.name.slice(0, 120), uploadedBy: user.email },
+  await env.MEDIA.put(key, await file.arrayBuffer(), {
+    metadata: {
+      contentType: file.type,
+      originalName: file.name.slice(0, 120),
+      size: file.size,
+      uploaded: new Date().toISOString(),
+      uploadedBy: user.email,
+    } satisfies MediaMetadata,
   });
   return Response.json({ file: { key, name: file.name, size: file.size, url: `/api/media?key=${encodeURIComponent(key)}` } }, { status: 201 });
 }
 
 export async function DELETE(request: Request) {
-  const user = await getChatGPTUser();
+  const user = await getAdminUser();
   if (!user) return Response.json({ error: "请先登录管理后台。" }, { status: 401 });
   const payload = (await request.json()) as { key?: string };
   if (!payload.key?.startsWith("uploads/")) return Response.json({ error: "无效的素材。" }, { status: 400 });

@@ -1,3 +1,4 @@
+import { env } from "cloudflare:workers";
 import { getDb } from "../../../db";
 import { registrations } from "../../../db/schema";
 
@@ -15,6 +16,12 @@ type RegistrationPayload = {
 const clean = (value: unknown, max = 160) =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
 
+type RegistrationRuntimeEnv = {
+  REGISTRATION_RATE_LIMITER?: {
+    limit(options: { key: string }): Promise<{ success: boolean }>;
+  };
+};
+
 export async function POST(request: Request) {
   try {
     const payload = (await request.json()) as RegistrationPayload;
@@ -30,6 +37,14 @@ export async function POST(request: Request) {
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return Response.json({ error: "请输入有效的电子邮箱。" }, { status: 400 });
+    }
+
+    const runtime = env as unknown as RegistrationRuntimeEnv;
+    if (runtime.REGISTRATION_RATE_LIMITER) {
+      const rateLimit = await runtime.REGISTRATION_RATE_LIMITER.limit({ key: `registration:${email}` });
+      if (!rateLimit.success) {
+        return Response.json({ error: "该邮箱提交过于频繁，请稍后再试。" }, { status: 429 });
+      }
     }
 
     const registrationCode = `DAO27-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;

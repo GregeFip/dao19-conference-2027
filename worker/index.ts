@@ -5,6 +5,14 @@ import handler from "vinext/server/app-router-entry";
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  MEDIA: KVNamespace;
+  ADMIN_EMAIL: string;
+  ADMIN_NAME: string;
+  ADMIN_PASSWORD_HASH: string;
+  ADMIN_PASSWORD_SALT: string;
+  ADMIN_SESSION_SECRET: string;
+  LOGIN_RATE_LIMITER: RateLimit;
+  REGISTRATION_RATE_LIMITER: RateLimit;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -12,6 +20,10 @@ interface Env {
       };
     };
   };
+}
+
+interface RateLimit {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
 }
 
 interface ExecutionContext {
