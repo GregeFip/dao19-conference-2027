@@ -12,6 +12,7 @@
   --sand: #bd9a5a;
   --mist: #d6ddd5;
   --line: rgba(21, 35, 29, .18);
+  --dao-page-height: max(760px, calc(100svh - 96px));
   --font-reading: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
 }
 
@@ -896,6 +897,84 @@ a { color: inherit; }
 .dao-success > div { margin: 24px 0; padding: 15px; background: #e8e5dc; }
 .dao-success > div small { display: block; margin-bottom: 7px; color: #6e7a73; font: 500 10px "DM Mono", monospace; letter-spacing: .09em; }
 .dao-success > div strong { font: 500 17px "DM Mono", monospace; letter-spacing: .1em; }
+
+/* Desktop chapters share one exact visual canvas. Dense chapters are reflowed
+   inside that canvas instead of increasing the page height. */
+@media (min-width: 1101px) {
+  .dao-section,
+  .dao-theme,
+  .dao-field-study,
+  .dao-final {
+    height: var(--dao-page-height);
+    min-height: var(--dao-page-height);
+    max-height: var(--dao-page-height);
+    overflow: clip;
+  }
+
+  .dao-section {
+    padding-top: clamp(54px, 6.4vh, 64px);
+    padding-bottom: clamp(54px, 6.4vh, 64px);
+  }
+
+  .dao-section-index { margin-bottom: 32px; }
+  .dao-section-heading { margin-bottom: 30px; }
+
+  .dao-questions {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .dao-questions > .dao-section-index { margin-bottom: 26px; }
+  .dao-questions .dao-section-heading { margin-bottom: 24px; }
+  .dao-questions .dao-section-heading h2 { font-size: clamp(44px, 4vw, 58px); }
+  .dao-question-grid {
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+  }
+  .dao-question-grid article,
+  .dao-question-grid article:nth-child(even) {
+    min-height: 0;
+    padding: 24px 20px;
+    grid-template-columns: 36px minmax(0, 1fr) 18px;
+    gap: 14px;
+    border-right: 0;
+  }
+  .dao-question-grid article:not(:nth-child(3n)) { border-right: 1px solid var(--line); }
+  .dao-question-grid article:hover { padding-right: 26px; }
+  .dao-question-grid h3 { font-size: 22px; }
+  .dao-question-grid p { line-height: 1.65; }
+
+  .dao-journey {
+    display: flex;
+    flex-direction: column;
+  }
+  .dao-journey .dao-schedule { min-height: 0; }
+
+  .dao-organizer-list article { padding-top: 16px; padding-bottom: 16px; }
+
+  .dao-canon-image {
+    height: 100%;
+    min-height: 0;
+  }
+
+  .dao-venue {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  .dao-venue-card {
+    height: 100%;
+    min-height: 0;
+  }
+  .dao-venue-card figure { min-height: 0; }
+  .dao-venue-copy { padding: clamp(40px, 4vw, 64px); }
+
+  .dao-practical {
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  .dao-remark-grid { min-height: 0; }
+  .dao-remark-grid article { min-height: 0; }
+}
 
 @media (max-height: 700px) and (min-width: 761px) {
   .dao-page-rail { padding-top: 10px; padding-bottom: 8px; gap: 6px; }
