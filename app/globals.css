@@ -12,7 +12,7 @@
   --sand: #bd9a5a;
   --mist: #d6ddd5;
   --line: rgba(21, 35, 29, .18);
-  --dao-page-height: max(760px, calc(100svh - 96px));
+  --dao-page-height: max(800px, calc(100svh - 96px));
   --font-reading: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
 }
 
@@ -231,6 +231,10 @@ a { color: inherit; }
 .dao-rail-nav button > span b { color: #d8bd7c; font: 500 9px "DM Mono", monospace; }
 .dao-rail-nav button:hover > span,
 .dao-rail-nav button.active > span { opacity: 1; transform: translate(0, -50%); }
+.dao-page-rail:hover .dao-rail-nav button.active:not(:hover):not(:focus-visible) > span {
+  opacity: 0;
+  transform: translate(7px, -50%);
+}
 .dao-rail-top {
   width: 32px;
   min-height: 38px;
@@ -913,6 +917,7 @@ a { color: inherit; }
 
   .dao-section {
     padding-top: clamp(54px, 6.4vh, 64px);
+    padding-right: clamp(150px, 11vw, 180px);
     padding-bottom: clamp(54px, 6.4vh, 64px);
   }
 
@@ -956,6 +961,7 @@ a { color: inherit; }
     height: 100%;
     min-height: 0;
   }
+  .dao-field-copy { padding-right: clamp(150px, 11vw, 180px); }
 
   .dao-venue {
     display: grid;
@@ -976,12 +982,18 @@ a { color: inherit; }
   .dao-remark-grid article { min-height: 0; }
 }
 
-@media (max-height: 700px) and (min-width: 761px) {
+@media (max-height: 700px) and (min-width: 821px) {
   .dao-page-rail { padding-top: 10px; padding-bottom: 8px; gap: 6px; }
   .dao-rail-progress { gap: 4px; }
   .dao-rail-progress > i { height: 32px; }
   .dao-rail-nav button { height: 18px; }
   .dao-rail-top { min-height: 31px; }
+}
+
+@media (min-width: 821px) and (max-width: 1200px) {
+  .dao-rail-nav button.active > span { opacity: 0; transform: translateY(-50%) translateX(5px); }
+  .dao-page-rail:hover .dao-rail-nav button.active > span,
+  .dao-rail-nav button:focus-visible > span { opacity: 1; transform: translateY(-50%) translateX(0); }
 }
 
 @media (max-width: 1100px) {
@@ -1025,7 +1037,7 @@ a { color: inherit; }
   .dao-form-main { padding: 38px 35px; }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 820px) {
   body { overflow-x: hidden; }
   .dao-page-rail {
     width: auto;
