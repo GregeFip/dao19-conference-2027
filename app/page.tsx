@@ -274,6 +274,11 @@ export default function Home() {
         <div className="dao-schedule" role="tabpanel">
           {selectedDay?.items.map((item, index) => <article key={`${item.time}-${item.title}-${index}`}><time>{item.time}</time><h3>{item.title}</h3><span>{item.place}</span><p>{item.host}</p></article>)}
         </div>
+        <div className="dao-journey-route" aria-label="济南至泰安会议行程概览">
+          <div><small>BASE CITY · 會議城市</small><strong>JINAN</strong><span>濟南</span></div>
+          <p><i /><em>75 KM · CONFERENCE ROUTE</em><i /></p>
+          <div><small>FIELD DESTINATION · 考察地</small><strong>TAI&apos;AN</strong><span>MOUNT TAI · 泰山</span></div>
+        </div>
       </section>
 
       <section className="dao-organizers dao-section" id="organizers">

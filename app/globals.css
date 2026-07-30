@@ -617,6 +617,31 @@ a { color: inherit; }
 .dao-schedule time { color: #dec383; font: 500 13px "DM Mono", monospace; }
 .dao-schedule h3 { font: 500 18px "Playfair Display", serif; }
 .dao-schedule span, .dao-schedule p { color: #cad4cd; font-size: 15px; line-height: 1.65; }
+.dao-journey-route {
+  min-height: 124px;
+  display: grid;
+  grid-template-columns: auto minmax(180px, 1fr) auto;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  padding: 24px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+  color: #f2eee3;
+}
+.dao-journey-route > div { min-width: 150px; }
+.dao-journey-route > div:last-child { text-align: right; }
+.dao-journey-route small,
+.dao-journey-route strong,
+.dao-journey-route span { display: block; }
+.dao-journey-route small { color: #9fb1a6; font: 500 10px/1.4 "DM Mono", monospace; letter-spacing: .08em; }
+.dao-journey-route strong { margin: 9px 0 5px; color: #f2eee3; font: 500 28px/1 "Playfair Display", serif; letter-spacing: -.02em; }
+.dao-journey-route span { color: #dec383; font: 500 12px/1.4 var(--font-reading); letter-spacing: .08em; }
+.dao-journey-route > p { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; color: #aebdb4; text-align: center; }
+.dao-journey-route > p i { height: 1px; display: block; background: rgba(222, 195, 131, .45); position: relative; }
+.dao-journey-route > p i:first-child::before,
+.dao-journey-route > p i:last-child::after { content: ""; width: 7px; height: 7px; border: 1px solid #dec383; border-radius: 50%; background: var(--pine); position: absolute; top: 50%; transform: translateY(-50%); }
+.dao-journey-route > p i:first-child::before { left: 0; }
+.dao-journey-route > p i:last-child::after { right: 0; background: var(--cinnabar); border-color: var(--cinnabar); }
+.dao-journey-route > p em { color: #b9c7be; font: 500 10px/1.4 "DM Mono", monospace; font-style: normal; letter-spacing: .08em; white-space: nowrap; }
 
 .dao-organizers {
   display: grid;
@@ -985,6 +1010,7 @@ a { color: inherit; }
     flex-direction: column;
   }
   .dao-journey .dao-schedule { min-height: 0; }
+  .dao-journey .dao-journey-route { min-height: 118px; flex: 1; }
 
   .dao-organizers {
     grid-template-rows: 1fr;
@@ -1220,6 +1246,10 @@ a { color: inherit; }
   .dao-schedule article { grid-template-columns: 74px 1fr; gap: 7px 14px; padding: 20px 0; }
   .dao-schedule article h3 { font-size: 16px; }
   .dao-schedule article span, .dao-schedule article p { grid-column: 2; }
+  .dao-journey-route { min-height: 170px; grid-template-columns: 1fr 1fr; gap: 22px 28px; padding: 30px 0; }
+  .dao-journey-route > div { min-width: 0; }
+  .dao-journey-route > p { grid-column: 1 / -1; grid-row: 2; }
+  .dao-journey-route strong { font-size: 25px; }
   .dao-organizers { display: block; }
   .dao-organizer-intro h2 { font-size: 47px; }
   .dao-organizer-list { margin-top: 45px; }
