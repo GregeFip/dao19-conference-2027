@@ -12,11 +12,11 @@ test("conference page includes the persistent registration flow", async () => {
     read("../app/site-content.ts"),
   ]);
   assert.match(layout, /NEXUS 2026/);
-  assert.match(content, /智能涌现/);
-  assert.match(page, /特邀主旨嘉宾/);
+  assert.match(content, /道教的海外傳播/);
+  assert.match(page, /SIX LINES OF INQUIRY/);
   assert.match(page, /fetch\("\/api\/registrations"/);
-  assert.match(page, /报名已写入后台/);
-  assert.match(page, /报名管理/);
+  assert.match(page, /INTEREST RECORDED/);
+  assert.match(page, /Registration records/);
   assert.match(hosting, /"d1": "DB"/);
   assert.doesNotMatch(page, /SkeletonPreview|react-loading-skeleton|codex-preview/);
 });
