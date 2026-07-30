@@ -761,21 +761,52 @@ a { color: inherit; }
 
 .dao-faq {
   display: grid;
-  grid-template-columns: minmax(290px, .8fr) minmax(500px, 1.2fr);
-  gap: clamp(65px, 10vw, 160px);
+  grid-template-columns: minmax(290px, .72fr) minmax(540px, 1.28fr);
+  gap: clamp(72px, 9vw, 145px);
+  align-items: center;
   background: #ece7da;
   border-top: 1px solid var(--line);
+  position: relative;
 }
+.dao-faq > div:first-child { align-self: center; position: relative; z-index: 1; }
 .dao-faq > div:first-child h2 { font: 500 clamp(42px, 5vw, 68px)/1.03 "Playfair Display", serif; letter-spacing: -.045em; }
-.dao-faq > div:first-child > p:last-child { max-width: 410px; margin-top: 24px; color: #35443b; font-size: 17px; line-height: 1.8; }
-.dao-faq-list { border-top: 1px solid var(--line); }
-.dao-faq-list article { border-bottom: 1px solid var(--line); }
-.dao-faq-list article > button { width: 100%; padding: 23px 0; display: flex; justify-content: space-between; gap: 25px; color: var(--ink); text-align: left; font: 600 17px/1.6 var(--font-reading); }
-.dao-faq-list article > button i { color: var(--cinnabar); font: 400 22px/1 "DM Mono", monospace; font-style: normal; }
+.dao-faq > div:first-child > p:last-child { max-width: 360px; margin-top: 27px; color: #35443b; font-size: 17px; line-height: 1.8; }
+.dao-faq-list {
+  align-self: center;
+  padding: 12px 30px;
+  border: 1px solid rgba(21, 35, 29, .16);
+  border-top: 3px solid var(--ink);
+  background: rgba(248, 244, 234, .58);
+  box-shadow: 14px 14px 0 rgba(21, 35, 29, .055);
+  counter-reset: dao-faq;
+}
+.dao-faq-list article { border-bottom: 1px solid var(--line); counter-increment: dao-faq; transition: background .22s ease; }
+.dao-faq-list article:last-child { border-bottom: 0; }
+.dao-faq-list article:hover,
+.dao-faq-list article.open { background: rgba(255, 252, 244, .62); }
+.dao-faq-list article > button {
+  width: 100%;
+  min-height: 78px;
+  padding: 19px 4px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 22px;
+  gap: 18px;
+  align-items: center;
+  color: var(--ink);
+  text-align: left;
+  font: 600 17px/1.55 var(--font-reading);
+}
+.dao-faq-list article > button::before {
+  content: "0" counter(dao-faq);
+  color: var(--cinnabar);
+  font: 500 11px/1 "DM Mono", monospace;
+  letter-spacing: .05em;
+}
+.dao-faq-list article > button i { color: var(--cinnabar); text-align: right; font: 400 22px/1 "DM Mono", monospace; font-style: normal; }
 .dao-faq-list article > div { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
-.dao-faq-list article > div p { overflow: hidden; padding-right: 40px; color: #39483f; font-size: 17px; line-height: 1.8; }
+.dao-faq-list article > div p { overflow: hidden; padding: 0 40px 0 56px; color: #39483f; font-size: 17px; line-height: 1.8; }
 .dao-faq-list article.open > div { grid-template-rows: 1fr; }
-.dao-faq-list article.open > div p { padding-bottom: 22px; }
+.dao-faq-list article.open > div p { padding-bottom: 24px; }
 
 .dao-final {
   min-height: max(720px, calc(100svh - 96px));
@@ -1173,7 +1204,7 @@ a { color: inherit; }
   .dao-remark-grid h3 { margin: 27px 0 14px; }
   .dao-faq { display: block; }
   .dao-faq > div:first-child h2 { font-size: 47px; }
-  .dao-faq-list { margin-top: 42px; }
+  .dao-faq-list { margin-top: 42px; padding: 8px 18px; box-shadow: 8px 8px 0 rgba(21,35,29,.05); }
   .dao-faq-list article > button { min-height: 58px; padding: 18px 0; }
   .dao-final { min-height: 570px; padding: 86px 24px; }
   .dao-final h2 { font-size: clamp(49px, 13vw, 72px); }
@@ -1227,7 +1258,8 @@ a { color: inherit; }
   .dao-venue-copy { padding: 40px 20px; }
   .dao-venue-copy h2 { overflow-wrap: anywhere; font-size: 37px; }
   .dao-venue-card figure { min-height: 300px; }
-  .dao-faq-list article > button { font-size: 17px; }
+  .dao-faq-list article > button { grid-template-columns: 30px minmax(0, 1fr) 18px; gap: 12px; font-size: 17px; }
+  .dao-faq-list article > div p { padding-right: 18px; padding-left: 42px; }
   .dao-final { min-height: 535px; padding: 76px 20px; }
   .dao-final h2 { font-size: 46px; }
   .dao-final .dao-primary { max-width: 270px; }
