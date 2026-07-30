@@ -13,8 +13,6 @@ export type SiteContent = {
     conferenceName: string;
     chineseName: string;
     eyebrow: string;
-    themeLine1: string;
-    themeLine2: string;
     introduction: string;
     chineseIntroduction: string;
     dateRange: string;
@@ -46,8 +44,6 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     conferenceName: "The 19th International Conference on Daoist Studies",
     chineseName: "第十九屆國際道學研討會",
     eyebrow: "ANNOUNCEMENT NO. 1 · 會議公告（第一號）",
-    themeLine1: "DAOISM",
-    themeLine2: "ACROSS WORLDS",
     introduction: "A global gathering for the study of Daoism beyond borders—its ideas, living practices, communities, and scriptures.",
     chineseIntroduction: "聚焦道教在海外的傳播與影響，連結思想、實踐、信仰群體與典籍流傳的跨文化學術對話。",
     dateRange: "14—18",

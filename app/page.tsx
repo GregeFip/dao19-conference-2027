@@ -266,8 +266,9 @@ export default function Home() {
             <p className="dao-conference-en">{basics.conferenceName}</p>
           </div>
           <div className="dao-hero-theme" aria-label="2027年会议主题">
-            <span>2027 CONFERENCE THEME · 本屆主題</span>
-            <strong>{basics.themeLine1} <em>{basics.themeLine2}</em></strong>
+            <span>OFFICIAL CONFERENCE THEME · 正式會議主題</span>
+            <strong>{theme.english}</strong>
+            <em>{theme.chinese}</em>
           </div>
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>

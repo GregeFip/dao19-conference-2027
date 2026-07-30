@@ -12,7 +12,10 @@ test("conference page includes the persistent registration flow", async () => {
     read("../app/site-content.ts"),
   ]);
   assert.match(layout, /DAO 19 · 2027/);
-  assert.match(content, /道教的海外傳播/);
+  assert.match(content, /The Overseas Dissemination of Daoism: Ideas, Practices, and Scriptures/);
+  assert.match(content, /道教的海外傳播：觀念、行為與典籍/);
+  assert.match(page, /OFFICIAL CONFERENCE THEME · 正式會議主題/);
+  assert.doesNotMatch(page + content, /DAOISM|ACROSS WORLDS/);
   assert.match(page, /SIX LINES OF INQUIRY/);
   assert.match(page, /fetch\("\/api\/registrations"/);
   assert.match(page, /INTEREST RECORDED/);

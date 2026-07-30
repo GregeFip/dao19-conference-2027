@@ -100,8 +100,6 @@ export default function ContentManager({ initialContent, userName, signOutHref }
           {field("英文全称", content.basics.conferenceName, (value) => mutate((d) => { d.basics.conferenceName = value; }))}
           {field("中文全称", content.basics.chineseName, (value) => mutate((d) => { d.basics.chineseName = value; }))}
           {field("公告眉题", content.basics.eyebrow, (value) => mutate((d) => { d.basics.eyebrow = value; }))}
-          {field("主标题第一行", content.basics.themeLine1, (value) => mutate((d) => { d.basics.themeLine1 = value; }))}
-          {field("主标题第二行", content.basics.themeLine2, (value) => mutate((d) => { d.basics.themeLine2 = value; }))}
           {field("英文简介", content.basics.introduction, (value) => mutate((d) => { d.basics.introduction = value; }), { multiline: true })}
           {field("中文简介", content.basics.chineseIntroduction, (value) => mutate((d) => { d.basics.chineseIntroduction = value; }), { multiline: true })}
           {field("日期范围", content.basics.dateRange, (value) => mutate((d) => { d.basics.dateRange = value; }))}

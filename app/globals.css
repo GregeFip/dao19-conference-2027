@@ -315,10 +315,20 @@ a { color: inherit; }
   display: block;
   margin-top: 9px;
   color: #17251f;
-  font: 600 clamp(27px, 2.45vw, 40px)/1.08 "Playfair Display", "Times New Roman", serif;
-  letter-spacing: -.025em;
+  font: 600 clamp(22px, 1.85vw, 29px)/1.2 "Playfair Display", "Times New Roman", serif;
+  letter-spacing: -.018em;
+  text-wrap: balance;
 }
-.dao-hero-theme > strong em { color: var(--cinnabar); font-weight: 500; }
+.dao-hero-theme > em {
+  display: block;
+  margin-top: 10px;
+  color: var(--cinnabar);
+  font-size: clamp(17px, 1.25vw, 20px);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .06em;
+}
 .dao-hero-en {
   max-width: 620px;
   color: var(--ink-soft);
@@ -1182,7 +1192,7 @@ a { color: inherit; }
   .dao-hero-copy { padding: 62px 50px 54px; }
   .dao-hero h1 { font-size: clamp(44px, 4.8vw, 58px); }
   .dao-conference-en { font-size: clamp(18px, 1.9vw, 22px); }
-  .dao-hero-theme > strong { font-size: clamp(27px, 3vw, 34px); }
+  .dao-hero-theme > strong { font-size: clamp(22px, 2.5vw, 27px); }
   .dao-hero-image { min-height: 680px; }
   .dao-scroll-mark { display: none; }
 
@@ -1281,7 +1291,8 @@ a { color: inherit; }
   .dao-hero h1 { font-size: clamp(40px, 10.8vw, 53px); line-height: 1.16; letter-spacing: .015em; }
   .dao-conference-en { margin-top: 14px; font-size: 19px; line-height: 1.45; }
   .dao-hero-theme { margin: 27px 0 25px; }
-  .dao-hero-theme > strong { font-size: 31px; line-height: 1.12; }
+  .dao-hero-theme > strong { font-size: 25px; line-height: 1.2; }
+  .dao-hero-theme > em { font-size: 18px; }
   .dao-hero-en { font-size: 16px; }
   .dao-hero-zh { font-size: 17px; }
   .dao-actions { align-items: stretch; flex-direction: column; gap: 18px; }
@@ -1376,7 +1387,7 @@ a { color: inherit; }
   .dao-hero-copy { padding-top: 47px; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }
   .dao-conference-en { font-size: 18px; }
-  .dao-hero-theme > strong { font-size: 28px; }
+  .dao-hero-theme > strong { font-size: 23px; }
   .dao-hero-image { min-height: 440px; }
   .dao-hero-image figcaption > span { width: 46px; height: 46px; font-size: 24px; }
   .dao-section { padding: 65px 20px; }
