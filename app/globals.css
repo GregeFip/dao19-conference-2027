@@ -45,7 +45,7 @@ a { color: inherit; }
 .dao-demo-bar span { color: #dec184; margin-right: 12px; }
 
 .dao-header {
-  height: 82px;
+  height: 96px;
   padding: 0 clamp(28px, 5.8vw, 94px);
   display: flex;
   align-items: center;
@@ -60,44 +60,46 @@ a { color: inherit; }
 .dao-brand {
   display: flex;
   align-items: center;
-  gap: 14px;
-  min-width: 250px;
+  gap: 17px;
+  min-width: 300px;
   text-align: left;
 }
 .dao-brand strong {
   display: block;
-  font: 600 13px/1.1 "DM Mono", monospace;
-  letter-spacing: .11em;
+  color: #122019;
+  font: 600 17px/1.15 "DM Mono", monospace;
+  letter-spacing: .09em;
 }
 .dao-brand small {
   display: block;
-  margin-top: 5px;
-  color: var(--ink-soft);
-  font-size: 12px;
-  letter-spacing: .08em;
+  margin-top: 7px;
+  color: #2f3e36;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .035em;
 }
 .dao-seal {
-  width: 38px;
-  height: 38px;
+  width: 48px;
+  height: 48px;
   display: grid;
   place-items: center;
   flex: none;
   background: var(--cinnabar);
   color: #f8eee0;
   border: 1px solid var(--cinnabar-dark);
-  box-shadow: inset 0 0 0 3px rgba(255, 244, 226, .18);
-  font-size: 22px;
+  box-shadow: inset 0 0 0 4px rgba(255, 244, 226, .2);
+  font-size: 28px;
   font-weight: 700;
   line-height: 1;
   transform: rotate(-3deg);
 }
-.dao-header nav { display: flex; align-items: center; gap: clamp(18px, 2.3vw, 36px); }
+.dao-header nav { display: flex; align-items: center; gap: clamp(24px, 3vw, 48px); }
 .dao-header nav > button:not(.dao-register-nav) {
-  padding: 8px 0;
-  color: var(--ink-soft);
+  padding: 10px 0;
+  color: #24342c;
   text-align: left;
-  font: 500 13px/1.25 "DM Mono", monospace;
-  letter-spacing: .03em;
+  font: 600 16px/1.25 "DM Mono", monospace;
+  letter-spacing: .025em;
   position: relative;
 }
 .dao-header nav > button:not(.dao-register-nav)::after {
@@ -113,24 +115,24 @@ a { color: inherit; }
 .dao-header nav > button:not(.dao-register-nav):hover::after { right: 0; }
 .dao-header nav small {
   display: block;
-  margin-top: 4px;
-  color: #7b887f;
-  font: 500 13px/1.2 var(--font-reading);
-  letter-spacing: .13em;
+  margin-top: 6px;
+  color: #435248;
+  font: 600 15px/1.25 var(--font-reading);
+  letter-spacing: .075em;
 }
 .dao-register-nav {
-  padding: 12px 15px;
+  padding: 15px 18px;
   border: 1px solid var(--ink);
-  font: 500 13px "DM Mono", monospace;
-  letter-spacing: .04em;
+  font: 600 15px "DM Mono", monospace;
+  letter-spacing: .03em;
   transition: background .2s, color .2s;
 }
 .dao-register-nav:hover { background: var(--ink); color: var(--paper); }
-.dao-register-nav span { margin-left: 13px; color: var(--cinnabar); font-size: 16px; }
+.dao-register-nav span { margin-left: 13px; color: var(--cinnabar); font-size: 18px; }
 .dao-menu { display: none; }
 
 .dao-hero {
-  min-height: calc(100vh - 113px);
+  min-height: calc(100vh - 127px);
   display: grid;
   grid-template-columns: 56% 44%;
   grid-template-rows: 1fr auto;
@@ -755,10 +757,10 @@ a { color: inherit; }
 
 @media (max-width: 1100px) {
   .dao-header { padding: 0 30px; }
-  .dao-brand { min-width: 210px; }
-  .dao-header nav { gap: 17px; }
-  .dao-header nav > button:not(.dao-register-nav) { font-size: 14px; }
-  .dao-register-nav { padding: 11px 12px; font-size: 14px; }
+  .dao-brand { min-width: 245px; }
+  .dao-header nav { gap: 18px; }
+  .dao-header nav > button:not(.dao-register-nav) { font-size: 15px; }
+  .dao-register-nav { padding: 13px 14px; font-size: 15px; }
 
   .dao-hero { grid-template-columns: 55% 45%; }
   .dao-hero-copy { padding: 78px 50px 58px; }
@@ -795,17 +797,17 @@ a { color: inherit; }
   body { overflow-x: hidden; }
   .dao-demo-bar { padding: 8px 14px; font-size: 12px; letter-spacing: .02em; }
   .dao-demo-bar span { margin-right: 7px; }
-  .dao-header { height: 70px; padding: 0 20px; }
+  .dao-header { height: 78px; padding: 0 20px; }
   .dao-brand { min-width: 0; }
-  .dao-brand strong { font-size: 13px; }
-  .dao-brand small { max-width: 210px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
-  .dao-seal { width: 34px; height: 34px; font-size: 19px; }
+  .dao-brand strong { font-size: 15px; }
+  .dao-brand small { max-width: 210px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+  .dao-seal { width: 40px; height: 40px; font-size: 23px; }
   .dao-menu { width: 42px; height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; }
   .dao-menu span { width: 23px; height: 1px; display: block; background: var(--ink); transition: transform .2s; }
   .dao-header nav {
     display: none;
     position: absolute;
-    top: 70px;
+    top: 78px;
     right: 0;
     left: 0;
     padding: 16px 20px 22px;
@@ -817,9 +819,9 @@ a { color: inherit; }
     box-shadow: 0 18px 30px rgba(21, 35, 29, .14);
   }
   .dao-header nav.open { display: flex; }
-  .dao-header nav > button:not(.dao-register-nav) { min-height: 50px; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .dao-header nav > button:not(.dao-register-nav) { min-height: 52px; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 16px; }
   .dao-header nav small { display: inline; margin: 0 0 0 9px; }
-  .dao-register-nav { min-height: 50px; margin-top: 13px; text-align: center; font-size: 14px; }
+  .dao-register-nav { min-height: 52px; margin-top: 13px; text-align: center; font-size: 15px; }
 
   .dao-hero { min-height: auto; display: block; }
   .dao-hero-copy { padding: 65px 24px 48px; }
