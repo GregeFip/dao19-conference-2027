@@ -25,7 +25,7 @@ test("conference page includes the persistent registration flow", async () => {
 });
 
 test("backend stores, protects, rate-limits, and exports registration records", async () => {
-  const [schema, submitRoute, exportRoute, adminPage, dashboard, migration, auth, loginRoute, workerConfig] = await Promise.all([
+  const [schema, submitRoute, exportRoute, adminPage, dashboard, migration, auth, loginRoute, loginForm, workerConfig] = await Promise.all([
     read("../db/schema.ts"),
     read("../app/api/registrations/route.ts"),
     read("../app/api/admin/registrations/export/route.ts"),
@@ -34,6 +34,7 @@ test("backend stores, protects, rate-limits, and exports registration records", 
     read("../drizzle/0000_sparkling_starjammers.sql"),
     read("../app/admin-auth.ts"),
     read("../app/api/admin/session/route.ts"),
+    read("../app/admin/login/AdminLoginForm.tsx"),
     read("../wrangler.jsonc"),
   ]);
   assert.match(schema, /registrations/);
@@ -47,7 +48,11 @@ test("backend stores, protects, rate-limits, and exports registration records", 
   assert.match(dashboard, /导出完整名单/);
   assert.match(dashboard, /参会身份/);
   assert.match(migration, /CREATE TABLE `registrations`/);
-  assert.match(auth, /PBKDF2/);
+  assert.doesNotMatch(auth, /deriveBits|PBKDF2/);
+  assert.match(loginForm, /PBKDF2/);
+  assert.match(loginForm, /iterations: 210_000/);
+  assert.match(loginForm, /passwordProof/);
+  assert.match(auth, /verifyAdminPasswordProof/);
   assert.match(auth, /HMAC/);
   assert.match(auth, /HttpOnly; Secure; SameSite=Strict/);
   assert.match(loginRoute, /LOGIN_RATE_LIMITER/);

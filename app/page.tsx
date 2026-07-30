@@ -47,8 +47,8 @@ export default function Home() {
   useEffect(() => {
     let cancelled = false;
     fetch("/api/content", { cache: "no-store" })
-      .then((response) => response.json())
-      .then((result: { content?: SiteContent }) => {
+      .then(async (response) => (await response.json()) as { content?: SiteContent })
+      .then((result) => {
         if (!cancelled && result.content) {
           setSiteContent(result.content);
           setActiveDay(0);

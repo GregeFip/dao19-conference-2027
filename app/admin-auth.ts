@@ -107,21 +107,20 @@ export async function requireAdminUser(returnTo: string): Promise<AdminUser> {
   redirect(adminSignInPath(returnTo));
 }
 
-export async function verifyAdminPassword(password: string): Promise<boolean> {
+export async function verifyAdminPasswordProof(passwordProof: string): Promise<boolean> {
   const config = runtimeConfig();
   const expectedHash = config.ADMIN_PASSWORD_HASH;
-  const salt = config.ADMIN_PASSWORD_SALT;
-  if (!password || !expectedHash || !salt) return false;
+  if (!passwordProof || !expectedHash || passwordProof.length > 128) return false;
 
-  const key = await crypto.subtle.importKey("raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"]);
-  const derived = await crypto.subtle.deriveBits(
-    { name: "PBKDF2", hash: "SHA-256", salt: encoder.encode(salt), iterations: 210_000 },
-    key,
-    256,
-  );
-  const actualHash = encoder.encode(encodeBase64Url(new Uint8Array(derived)));
-  const configuredHash = encoder.encode(expectedHash);
-  return timingSafeEqual(actualHash, configuredHash);
+  const [actualHash, configuredHash] = await Promise.all([
+    crypto.subtle.digest("SHA-256", encoder.encode(passwordProof)),
+    crypto.subtle.digest("SHA-256", encoder.encode(expectedHash)),
+  ]);
+  return timingSafeEqual(new Uint8Array(actualHash), new Uint8Array(configuredHash));
+}
+
+export function getAdminPasswordSalt(): string {
+  return runtimeConfig().ADMIN_PASSWORD_SALT?.trim() || "";
 }
 
 export async function createAdminSessionCookie(): Promise<string | null> {

@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
 import {
   createAdminSessionCookie,
   safeAdminReturnPath,
-  verifyAdminPassword,
+  verifyAdminPasswordProof,
 } from "../../../admin-auth";
 
 type RateLimitBinding = {
@@ -20,7 +20,7 @@ function redirectToLogin(error: string, returnTo: string): Response {
 
 export async function POST(request: Request) {
   const formData = await request.formData();
-  const password = String(formData.get("password") || "").slice(0, 300);
+  const passwordProof = String(formData.get("passwordProof") || "").slice(0, 128);
   const returnTo = safeAdminReturnPath(String(formData.get("returnTo") || "/admin"));
   const runtime = env as unknown as SessionRuntimeEnv;
   const clientKey = request.headers.get("cf-connecting-ip") || "unknown-client";
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     : { success: true };
 
   if (!rateLimit.success) return redirectToLogin("limited", returnTo);
-  if (!(await verifyAdminPassword(password))) return redirectToLogin("invalid", returnTo);
+  if (!(await verifyAdminPasswordProof(passwordProof))) return redirectToLogin("invalid", returnTo);
 
   const sessionCookie = await createAdminSessionCookie();
   if (!sessionCookie) return redirectToLogin("configuration", returnTo);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getAdminUser, safeAdminReturnPath } from "../../admin-auth";
+import { getAdminPasswordSalt, getAdminUser, safeAdminReturnPath } from "../../admin-auth";
+import AdminLoginForm from "./AdminLoginForm";
 import "../admin.css";
 import "./login.css";
 
@@ -20,6 +21,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
   const params = await searchParams;
   const returnTo = safeAdminReturnPath(params.return_to || "/admin");
   if (await getAdminUser()) redirect(returnTo);
+  const passwordSalt = getAdminPasswordSalt();
 
   return (
     <main className="admin-login-shell">
@@ -37,21 +39,7 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
         {params.error && errors[params.error] ? (
           <p className="admin-login-error" role="alert">{errors[params.error]}</p>
         ) : null}
-        <form action="/api/admin/session" method="post">
-          <input type="hidden" name="returnTo" value={returnTo} />
-          <label>
-            <span>管理员密码</span>
-            <input
-              autoComplete="current-password"
-              autoFocus
-              name="password"
-              placeholder="请输入后台密码"
-              required
-              type="password"
-            />
-          </label>
-          <button type="submit">进入后台 <b aria-hidden="true">→</b></button>
-        </form>
+        <AdminLoginForm passwordSalt={passwordSalt} returnTo={returnTo} />
         <Link className="admin-login-back" href="/">← 返回会议网站</Link>
       </section>
       <aside className="admin-login-aside" aria-hidden="true">

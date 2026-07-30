@@ -48,8 +48,8 @@ export default function ContentManager({ initialContent, userName, signOutHref }
   useEffect(() => {
     let cancelled = false;
     fetch("/api/admin/media", { cache: "no-store" })
-      .then((response) => response.ok ? response.json() : { files: [] })
-      .then((result: { files: MediaFile[] }) => { if (!cancelled) setMedia(result.files); })
+      .then(async (response) => response.ok ? (await response.json()) as { files: MediaFile[] } : { files: [] })
+      .then((result) => { if (!cancelled) setMedia(result.files); })
       .catch(() => undefined);
     return () => { cancelled = true; };
   }, []);
