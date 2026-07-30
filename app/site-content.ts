@@ -1,133 +1,143 @@
 export type Topic = { number: string; title: string; description: string };
-export type Speaker = { initials: string; name: string; role: string; organization: string; topic: string; tone: string; imageUrl: string };
 export type ScheduleItem = { time: string; title: string; place: string; host: string };
 export type ScheduleDay = { date: string; weekday: string; items: ScheduleItem[] };
 export type ImportantDate = { date: string; title: string; note: string; state: "passed" | "current" | "future" };
 export type FaqItem = { question: string; answer: string };
+export type Organizer = { name: string; country: string };
+export type Remark = { title: string; body: string };
 
 export type SiteContent = {
+  version: 2027;
   basics: {
     shortName: string;
     conferenceName: string;
+    chineseName: string;
     eyebrow: string;
     themeLine1: string;
     themeLine2: string;
     introduction: string;
+    chineseIntroduction: string;
     dateRange: string;
     monthYear: string;
     city: string;
     venueName: string;
     language: string;
-    earlyBirdDeadline: string;
+    announcementDate: string;
     organizer: string;
     contactEmail: string;
   };
   stats: Array<{ value: string; suffix: string; label: string }>;
   about: { kicker: string; titleLine1: string; titleLine2: string; paragraphs: string[] };
+  theme: { english: string; chinese: string };
   topics: Topic[];
-  speakers: Speaker[];
+  organizers: Organizer[];
   schedule: ScheduleDay[];
   importantDates: ImportantDate[];
   venue: { kicker: string; name: string; address: string; transport: string; tags: string[] };
+  remarks: Remark[];
   faqs: FaqItem[];
+  media: { heroImageUrl: string; canonImageUrl: string; campusMapUrl: string; routeMapUrl: string };
 };
 
 export const DEFAULT_SITE_CONTENT: SiteContent = {
+  version: 2027,
   basics: {
-    shortName: "NEXUS 2026",
-    conferenceName: "国际智能科学前沿大会",
-    eyebrow: "NEXUS · 第八届国际智能科学前沿大会",
-    themeLine1: "智能涌现",
-    themeLine2: "科学共生",
-    introduction: "当人工智能成为科学发现的新伙伴，我们如何共同定义下一种研究范式？与全球学者一起，在学科边界处寻找答案。",
-    dateRange: "14—16",
-    monthYear: "NOV · 2026",
-    city: "杭州",
-    venueName: "杭州国际会议中心",
-    language: "中文 / English",
-    earlyBirdDeadline: "2026.09.20",
-    organizer: "未来科学协作网络",
-    contactEmail: "contact@nexus-demo.org",
+    shortName: "DAO 19 · 2027",
+    conferenceName: "The 19th International Conference on Daoist Studies",
+    chineseName: "第十九屆國際道學研討會",
+    eyebrow: "ANNOUNCEMENT NO. 1 · 會議公告（第一號）",
+    themeLine1: "DAOISM",
+    themeLine2: "ACROSS WORLDS",
+    introduction: "A global gathering for the study of Daoism beyond borders—its ideas, living practices, communities, and scriptures.",
+    chineseIntroduction: "聚焦道教在海外的傳播與影響，連結思想、實踐、信仰群體與典籍流傳的跨文化學術對話。",
+    dateRange: "14—18",
+    monthYear: "JULY · 2027",
+    city: "JINAN · CHINA",
+    venueName: "Shandong University · Central Campus",
+    language: "English / 中文",
+    announcementDate: "May 4, 2026 · 2026年5月4日",
+    organizer: "International Organizing Committee",
+    contactEmail: "",
   },
   stats: [
-    { value: "36", suffix: "+", label: "合作高校与机构" },
-    { value: "48", suffix: "", label: "场前沿报告" },
-    { value: "600", suffix: "+", label: "预计参会代表" },
-    { value: "12", suffix: "", label: "国家与地区" },
+    { value: "19", suffix: "TH", label: "International Conference" },
+    { value: "06", suffix: "", label: "Research questions" },
+    { value: "05", suffix: "D", label: "Conference journey" },
+    { value: "75", suffix: "KM", label: "From Jinan to Mount Tai" },
   ],
   about: {
-    kicker: "在边界处，发生新的可能",
-    titleLine1: "一场面向未来的",
-    titleLine2: "跨学科学术对话",
+    kicker: "A LIVING TRADITION · 一個活的傳統",
+    titleLine1: "From native tradition",
+    titleLine2: "to a shared world",
     paragraphs: [
-      "NEXUS 2026 聚焦“智能科学与科学智能”的双向融合，邀请计算机科学、生命科学、材料、医学与社会科学领域的研究者，共同讨论人工智能驱动科学发现的关键路径。",
-      "三天时间里，我们将通过主旨报告、专题论坛、青年学者交流与开放圆桌，让好问题遇见新方法，让不同学科真正开始协作。",
+      "As a native religion of China, Daoism has profoundly shaped Chinese society, culture, everyday life, and national character. Beyond China, it has also been encountered, interpreted, and revered by communities across the world.",
+      "作為中國的本土宗教，道教深刻影響中國古代社會、文化、民眾生活與民族性格，也在海外各地被認識、實踐乃至崇奉。全面而深入地研究其海外傳播，具有重要的學術與文化意義。",
     ],
   },
+  theme: {
+    english: "The Overseas Dissemination of Daoism: Ideas, Practices, and Scriptures",
+    chinese: "道教的海外傳播：觀念、行為與典籍",
+  },
   topics: [
-    { number: "01", title: "智能科学基础", description: "大模型、多模态学习、可信 AI、强化学习与智能体" },
-    { number: "02", title: "AI for Science", description: "生命科学、材料发现、气候建模与科学计算新范式" },
-    { number: "03", title: "技术与社会", description: "人工智能治理、开放科学、教育创新与普惠技术" },
+    { number: "01", title: "Communities & Lineages", description: "海外信仰群體、宮觀廟宇、傳承法脈與傳播途徑" },
+    { number: "02", title: "Ideas & Everyday Life", description: "道教思想對海外民眾精神世界與現實生活的影響" },
+    { number: "03", title: "Medicine, Ritual & Cultivation", description: "海外民眾對道教醫藥、法術、儀式與修煉的實踐" },
+    { number: "04", title: "Society, Culture & Religion", description: "海外道教與當地社會、文化、族群及宗教的關係" },
+    { number: "05", title: "Tradition & Folk Belief", description: "海外道教與中國傳統宗教、民間信仰的互動" },
+    { number: "06", title: "Scriptures in Motion", description: "道教典籍在世界各地的流傳、收藏與再詮釋" },
   ],
-  speakers: [
-    { initials: "RL", name: "林若岚", role: "中国科学院院士", organization: "清华大学 · 人工智能研究院", topic: "可信机器学习的下一程", tone: "blue", imageUrl: "" },
-    { initials: "DC", name: "David Chen", role: "IEEE Fellow", organization: "新加坡国立大学 · 计算机学院", topic: "具身智能与真实世界", tone: "red", imageUrl: "" },
-    { initials: "YZ", name: "周砚青", role: "国家杰出青年基金获得者", organization: "浙江大学 · 生命科学研究院", topic: "计算如何重塑生命科学", tone: "gold", imageUrl: "" },
-    { initials: "MR", name: "Maria Rossi", role: "欧洲科学院院士", organization: "苏黎世联邦理工学院", topic: "开放科学与科研基础设施", tone: "green", imageUrl: "" },
+  organizers: [
+    { name: "Shandong University", country: "China · 中國" },
+    { name: "Boston University", country: "USA · 美國" },
+    { name: "Chinese Research Association of Laozi Daoist Culture", country: "China · 中國" },
+    { name: "Society for the Study of Religious Philosophy", country: "Taiwan, China · 中國臺灣" },
+    { name: "Daejin University", country: "Korea · 韓國" },
+    { name: "Education Foundation of Three Religions", country: "Indonesia · 印尼" },
   ],
   schedule: [
-    { date: "11月14日", weekday: "星期六", items: [
-      { time: "08:30", title: "签到与欢迎咖啡", place: "星河厅前厅", host: "开放交流" },
-      { time: "09:30", title: "开幕式：从工具智能到科学伙伴", place: "星河主会场", host: "大会主席团" },
-      { time: "10:10", title: "主旨报告：可信机器学习的下一程", place: "星河主会场", host: "林若岚 教授" },
-      { time: "11:20", title: "主旨报告：具身智能与真实世界", place: "星河主会场", host: "David Chen 教授" },
-      { time: "14:00", title: "专题论坛 A：AI for Science", place: "曙光厅", host: "六场邀请报告" },
-      { time: "14:00", title: "专题论坛 B：大模型与社会", place: "远见厅", host: "圆桌讨论" },
-      { time: "18:30", title: "欢迎晚宴与青年学者海报交流", place: "云庭", host: "全体参会者" },
-    ] },
-    { date: "11月15日", weekday: "星期日", items: [
-      { time: "09:00", title: "主旨报告：计算如何重塑生命科学", place: "星河主会场", host: "周砚青 教授" },
-      { time: "10:20", title: "交叉前沿快闪报告", place: "星河主会场", host: "8 位青年学者" },
-      { time: "13:30", title: "专题论坛 C：智能医学与健康", place: "曙光厅", host: "五场邀请报告" },
-      { time: "13:30", title: "专题论坛 D：科学计算新范式", place: "远见厅", host: "五场邀请报告" },
-      { time: "16:30", title: "产学对话：从实验室到真实影响", place: "星河主会场", host: "学界 × 产业界" },
-      { time: "19:00", title: "城市学术漫步", place: "滨江步道", host: "自由参加" },
-    ] },
-    { date: "11月16日", weekday: "星期一", items: [
-      { time: "09:00", title: "青年科学家论坛", place: "曙光厅", host: "入选论文作者" },
-      { time: "10:40", title: "开放科学与科研基础设施", place: "星河主会场", host: "Maria Rossi 教授" },
-      { time: "13:30", title: "闭幕圆桌：面向 2030 的共同议程", place: "星河主会场", host: "全体主旨嘉宾" },
-      { time: "15:00", title: "最佳论文与海报颁奖", place: "星河主会场", host: "学术委员会" },
-      { time: "15:40", title: "闭幕致辞", place: "星河主会场", host: "大会主席" },
-    ] },
+    { date: "JUL 14", weekday: "抵達濟南 · ARRIVAL", items: [{ time: "ALL DAY", title: "Arrival in Jinan", place: "Jinan · 濟南", host: "Registration and check-in" }] },
+    { date: "JUL 15—16", weekday: "學術會議 · CONFERENCE", items: [{ time: "FULL DAY", title: "Conference sessions", place: "Shandong University", host: "Keynotes, panels and discussion" }, { time: "16 JUL", title: "Transfer option I", place: "Jinan → Tai'an", host: "18:30 departure" }] },
+    { date: "JUL 17", weekday: "泰山考察 · FIELD STUDY", items: [{ time: "08:00", title: "Transfer option II", place: "Jinan → Tai'an", host: "Morning departure" }, { time: "FULL DAY", title: "Mount Tai and Daoist temples", place: "Mount Tai · 泰山", host: "Academic field visit" }] },
+    { date: "JUL 18", weekday: "離會 · DEPARTURE", items: [{ time: "ALL DAY", title: "Departure", place: "Tai'an / Jinan", host: "End of conference journey" }] },
   ],
   importantDates: [
-    { date: "07.15", title: "大会网站开放", note: "已开放", state: "passed" },
-    { date: "08.10", title: "论文投稿开放", note: "即将开始", state: "current" },
-    { date: "09.20", title: "早鸟注册截止", note: "EARLY BIRD", state: "future" },
-    { date: "10.08", title: "论文投稿截止", note: "23:59 CST", state: "future" },
-    { date: "11.14", title: "大会正式开幕", note: "杭州", state: "future" },
+    { date: "2026.05.04", title: "Announcement No. 1", note: "會議公告發布", state: "passed" },
+    { date: "2027.07.14", title: "Arrival in Jinan", note: "抵達濟南", state: "future" },
+    { date: "2027.07.15", title: "Conference opens", note: "研討會開幕", state: "current" },
+    { date: "2027.07.17", title: "Mount Tai field study", note: "泰山及宮觀考察", state: "future" },
   ],
   venue: {
-    kicker: "相聚杭州",
-    name: "杭州国际会议中心",
-    address: "浙江省杭州市萧山区奔竞大道 353 号",
-    transport: "距杭州东站约 25 分钟车程",
-    tags: ["地铁 6 号线", "会场酒店协议价", "无障碍通行"],
+    kicker: "HOST CITY · 泉城濟南",
+    name: "Shandong University · Central Campus",
+    address: "No. 27 Shanda South Road, Jinan, Shandong, China 250100",
+    transport: "中國山東省濟南市山大南路27號 · 會後赴泰山考察，兩地相距約75公里。",
+    tags: ["Central Campus", "Conference venue", "Campus dining", "Accommodation assistance"],
   },
-  faqs: [
-    { question: "测试版提交的报名信息会保存吗？", answer: "会。为了完整体验后台，本版本提交的信息会保存到站点数据库，并仅在登录后的报名管理后台中显示。请勿填写身份证号等不必要的敏感信息。" },
-    { question: "会议是否接受论文投稿？", answer: "正式会议拟设置全文投稿与海报摘要两种通道。当前测试版暂未开放文件上传，后续可接入投稿编号、附件上传与审稿状态查询。" },
-    { question: "注册费包含哪些内容？", answer: "演示价格包含会议资料、会期午餐、茶歇及欢迎晚宴；交通与住宿需自行安排。实际收费标准以正式通知为准。" },
-    { question: "可以为团队统一报名吗？", answer: "正式版可以增加团体报名入口、批量导入名单和统一开票功能，测试版暂以个人报名体验为主。" },
+  remarks: [
+    { title: "Accommodation · 住宿", body: "The committee plans to assist with rooms at the Scholars’ Dormitory. If full, participants may book nearby hotels independently. 擬協助預訂校內學人大廈，房滿時可自行預訂校園周邊酒店。" },
+    { title: "Dining · 餐飲", body: "Campus dining is available via Alipay or WeChat; restaurants around the campus are another option. 會議期間可在山東大學食堂用餐，亦可自行選擇校園周邊餐館。" },
+    { title: "Mount Tai · 泰山考察", body: "The planned day visit includes a 75 km coach transfer. Admission and cable-car costs are paid separately according to the final arrangement. 擬包車前往泰山，門票及纜車費用依最終安排另行支付。" },
+    { title: "Campus access · 入校手續", body: "Names, passport numbers, and phone numbers will be collected securely by the committee before arrival for campus access. 入校所需身份資料將由會務組另行以安全方式收集，請勿在公開表單填寫護照號碼。" },
   ],
+  faqs: [
+    { question: "Where will the conference take place? / 會議在哪裡舉行？", answer: "At the Central Campus of Shandong University in Jinan, China. 會議地點為中國濟南山東大學中心校區。" },
+    { question: "Is accommodation included? / 是否包含住宿？", answer: "Accommodation is not stated as included. The committee plans to assist with dormitory booking, with nearby hotels as alternatives. 公告未說明住宿包含在內；會務組擬協助預訂校內住宿。" },
+    { question: "What happens after the conference? / 會後有何安排？", answer: "A one-day academic field visit to Mount Tai and its Daoist temples is planned for July 17. 7月17日擬考察泰山及其宮觀。" },
+    { question: "Should passport details be entered here? / 是否在網站填寫護照資料？", answer: "No. This test registration form does not collect passport numbers. The committee will provide a secure process later. 不需要；本測試表單不收集護照號碼，會務組將另行提供安全渠道。" },
+  ],
+  media: {
+    heroImageUrl: "/dao/mount-tai.jpg",
+    canonImageUrl: "/dao/daoist-canon.jpeg",
+    campusMapUrl: "/dao/campus-map.png",
+    routeMapUrl: "/dao/jinan-mount-tai-route.png",
+  },
 };
 
 export function parseSiteContent(value: string | null | undefined): SiteContent {
   if (!value) return DEFAULT_SITE_CONTENT;
   try {
     const parsed = JSON.parse(value) as SiteContent;
-    return parsed?.basics && Array.isArray(parsed.speakers) ? parsed : DEFAULT_SITE_CONTENT;
+    return parsed?.version === 2027 && parsed?.basics && Array.isArray(parsed.topics) ? parsed : DEFAULT_SITE_CONTENT;
   } catch {
     return DEFAULT_SITE_CONTENT;
   }

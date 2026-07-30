@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { FormEvent, useEffect, useState } from "react";
 import { DEFAULT_SITE_CONTENT, type SiteContent } from "./site-content";
 
 const emptyDraft = {
@@ -16,13 +16,13 @@ const emptyDraft = {
 };
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [siteContent, setSiteContent] = useState<SiteContent>(DEFAULT_SITE_CONTENT);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [activeDay, setActiveDay] = useState(0);
+  const [openFaq, setOpenFaq] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [openFaq, setOpenFaq] = useState(0);
   const [draft, setDraft] = useState(emptyDraft);
   const [registrationCode, setRegistrationCode] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -53,6 +53,14 @@ export default function Home() {
     return () => { document.body.style.overflow = ""; };
   }, [modalOpen]);
 
+  const { basics, stats, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
+  const selectedDay = schedule[activeDay] ?? schedule[0];
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
+  };
+
   const openRegistration = () => {
     setStep(1);
     setSubmitted(false);
@@ -62,7 +70,20 @@ export default function Home() {
     setModalOpen(true);
   };
 
-  const submitDemo = async (event: FormEvent<HTMLFormElement>) => {
+  const continueRegistration = () => {
+    if (!draft.name || !draft.title || !draft.organization || !draft.email) {
+      setSubmissionError("请完整填写姓名、称谓、所在单位和电子邮箱。 / Please complete all required fields.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email)) {
+      setSubmissionError("请输入有效的电子邮箱。 / Please enter a valid email address.");
+      return;
+    }
+    setSubmissionError("");
+    setStep(2);
+  };
+
+  const submitRegistration = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     setSubmissionError("");
@@ -84,195 +105,147 @@ export default function Home() {
     }
   };
 
-  const continueRegistration = () => {
-    if (!draft.name || !draft.title || !draft.organization || !draft.email) {
-      setSubmissionError("请完整填写姓名、称谓、所在单位和电子邮箱。");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email)) {
-      setSubmissionError("请输入有效的电子邮箱。");
-      return;
-    }
-    setSubmissionError("");
-    setStep(2);
-  };
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
-  };
-
-  const { basics, stats, about, topics, speakers, schedule, importantDates, venue, faqs } = siteContent;
-  const selectedDay = schedule[activeDay] ?? schedule[0];
-
   return (
     <main>
-      <div className="demo-bar"><span>后台功能测试版</span> 报名信息将保存至站点数据库，请勿填写不必要的敏感信息</div>
+      <div className="dao-demo-bar"><span>PROTOTYPE · 測試版</span> 會議資訊依第一號公告整理，正式安排以組委會後續通知為準</div>
 
-      <header className="site-header">
-        <button className="brand" onClick={() => scrollTo("top")} aria-label="返回首页">
-          <span className="brand-mark">N</span>
-          <span><strong>{basics.shortName}</strong><small>{basics.conferenceName}</small></span>
+      <header className="dao-header">
+        <button className="dao-brand" onClick={() => scrollTo("top")} aria-label="返回首页">
+          <span className="dao-seal">道</span>
+          <span><strong>{basics.shortName}</strong><small>{basics.chineseName}</small></span>
         </button>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-label="打开导航" aria-expanded={menuOpen}>
-          <span /><span />
-        </button>
-        <nav className={menuOpen ? "nav-open" : ""} aria-label="主导航">
-          <button onClick={() => scrollTo("about")}>关于大会</button>
-          <button onClick={() => scrollTo("speakers")}>特邀嘉宾</button>
-          <button onClick={() => scrollTo("schedule")}>会议日程</button>
-          <button onClick={() => scrollTo("dates")}>重要日期</button>
-          <button className="nav-register" onClick={openRegistration}>立即注册 <span>↗</span></button>
+        <button className="dao-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="打开导航" aria-expanded={menuOpen}><span /><span /></button>
+        <nav className={menuOpen ? "open" : ""} aria-label="主导航">
+          <button onClick={() => scrollTo("about")}>About <small>缘起</small></button>
+          <button onClick={() => scrollTo("questions")}>Questions <small>议题</small></button>
+          <button onClick={() => scrollTo("journey")}>Journey <small>日程</small></button>
+          <button onClick={() => scrollTo("venue")}>Place <small>地点</small></button>
+          <button className="dao-register-nav" onClick={openRegistration}>Register interest <span>↗</span></button>
         </nav>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-grid" aria-hidden="true" />
-        <div className="hero-copy">
-          <div className="eyebrow"><span /> {basics.eyebrow}</div>
+      <section className="dao-hero" id="top">
+        <div className="dao-hero-copy">
+          <p className="dao-eyebrow"><span />{basics.eyebrow}</p>
           <h1>{basics.themeLine1}<br /><em>{basics.themeLine2}</em></h1>
-          <p className="hero-intro">{basics.introduction}</p>
-          <div className="hero-actions">
-            <button className="primary-button" onClick={openRegistration}>立即注册参会 <span>→</span></button>
-            <button className="text-button" onClick={() => scrollTo("schedule")}>浏览完整日程 <span>↓</span></button>
+          <p className="dao-hero-en">{basics.introduction}</p>
+          <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
+          <div className="dao-actions">
+            <button className="dao-primary" onClick={openRegistration}>Register interest <span>表达参会意向</span></button>
+            <button className="dao-link" onClick={() => scrollTo("questions")}>Explore the theme <span>↓</span></button>
           </div>
         </div>
-        <div className="hero-visual" aria-label="会议日期及地点">
-          <div className="orbit orbit-one" /><div className="orbit orbit-two" />
-          <div className="orbital-dot dot-one" /><div className="orbital-dot dot-two" /><div className="orbital-dot dot-three" />
-          <div className="hero-date"><strong>{basics.dateRange}</strong><span>{basics.monthYear}</span></div>
-          <div className="hero-place"><span>CHINA</span><strong>{basics.city} · {basics.venueName}</strong></div>
+        <figure className="dao-hero-image">
+          <Image src={media.heroImageUrl} alt="Mount Tai Heavenly Ladder / 泰山天梯" fill priority sizes="(max-width: 760px) 100vw, 48vw" unoptimized />
+          <div className="dao-image-wash" />
+          <figcaption><span>泰</span><p>Heavenly Ladder<br />Mount Tai · 泰山天梯</p></figcaption>
+        </figure>
+        <div className="dao-hero-facts">
+          <div><span>DATE · 日期</span><strong>{basics.monthYear}<br />{basics.dateRange}</strong></div>
+          <div><span>PLACE · 地点</span><strong>{basics.city}<br />{basics.venueName}</strong></div>
+          <div><span>LANGUAGE · 语言</span><strong>{basics.language}</strong></div>
         </div>
-        <div className="hero-meta">
-          <div><span>大会语言</span><strong>{basics.language}</strong></div>
-          <div><span>早鸟注册截止</span><strong>{basics.earlyBirdDeadline}</strong></div>
-          <div><span>主办单位</span><strong>{basics.organizer}</strong></div>
+        <span className="dao-scroll-mark">SCROLL TO ENTER <i>↓</i></span>
+      </section>
+
+      <section className="dao-stats" aria-label="会议概览">
+        {stats.map((item, index) => <article key={`${item.label}-${index}`}><strong>{item.value}<sup>{item.suffix}</sup></strong><span>{item.label}</span></article>)}
+      </section>
+
+      <section className="dao-about dao-section" id="about">
+        <div className="dao-section-index"><span>壹</span><small>01 · CONTEXT</small></div>
+        <div className="dao-about-title">
+          <p className="dao-kicker">{about.kicker}</p>
+          <h2>{about.titleLine1}<br /><em>{about.titleLine2}</em></h2>
+        </div>
+        <div className="dao-about-copy">
+          {about.paragraphs.map((paragraph, index) => <p className={index % 2 ? "zh" : ""} key={index}>{paragraph}</p>)}
+        </div>
+        <div className="dao-vertical-script" aria-hidden="true">道行天下<br />和而不同</div>
+      </section>
+
+      <section className="dao-theme">
+        <div className="dao-theme-orbit" aria-hidden="true"><i /><i /></div>
+        <div className="dao-section-index light"><span>贰</span><small>02 · THEME</small></div>
+        <p>CONFERENCE THEME · 會議主題</p>
+        <h2>{theme.english}</h2>
+        <strong>{theme.chinese}</strong>
+      </section>
+
+      <section className="dao-questions dao-section" id="questions">
+        <div className="dao-section-index"><span>叁</span><small>03 · QUESTIONS</small></div>
+        <div className="dao-section-heading">
+          <div><p className="dao-kicker">SIX LINES OF INQUIRY · 六個討論方向</p><h2>Tracing Daoism<br />across borders</h2></div>
+          <p>Six connected questions examine how Daoism travels through people, institutions, practice, and text.</p>
+        </div>
+        <div className="dao-question-grid">
+          {topics.map((topic) => <article key={topic.number}><span>{topic.number}</span><div><h3>{topic.title}</h3><p>{topic.description}</p></div><i>↗</i></article>)}
         </div>
       </section>
 
-      <section className="stats" aria-label="大会规模">
-        {stats.map((item, index) => <div key={`${item.label}-${index}`}><strong>{item.value}{item.suffix && <sup>{item.suffix}</sup>}</strong><span>{item.label}</span></div>)}
+      <section className="dao-journey dao-section" id="journey">
+        <div className="dao-section-index light"><span>肆</span><small>04 · JOURNEY</small></div>
+        <div className="dao-section-heading light-heading">
+          <div><p className="dao-kicker">JULY 14—18, 2027</p><h2>Five days,<br />two sacred cities</h2></div>
+          <p>Academic exchange in Jinan, followed by a field visit to Mount Tai and its Daoist temples.</p>
+        </div>
+        <div className="dao-day-tabs" role="tablist" aria-label="选择会议日期">
+          {schedule.map((day, index) => <button key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}><small>0{index + 1}</small><strong>{day.date}</strong><span>{day.weekday}</span></button>)}
+        </div>
+        <div className="dao-schedule" role="tabpanel">
+          {selectedDay?.items.map((item, index) => <article key={`${item.time}-${item.title}-${index}`}><time>{item.time}</time><h3>{item.title}</h3><span>{item.place}</span><p>{item.host}</p></article>)}
+        </div>
       </section>
 
-      <section className="about section" id="about">
-        <div className="section-label"><span>01</span> ABOUT NEXUS</div>
-        <div className="about-layout">
-          <div>
-            <p className="kicker">{about.kicker}</p>
-            <h2>{about.titleLine1}<br />{about.titleLine2}</h2>
+      <section className="dao-organizers dao-section">
+        <div className="dao-section-index"><span>伍</span><small>05 · ORGANIZERS</small></div>
+        <div className="dao-organizer-intro"><p className="dao-kicker">A GLOBAL SCHOLARLY NETWORK</p><h2>Six institutions,<br />one conversation</h2><p>本次會議由亞洲、北美多家大學與學術機構共同主辦。</p></div>
+        <div className="dao-organizer-list">{organizers.map((item, index) => <article key={`${item.name}-${index}`}><span>0{index + 1}</span><h3>{item.name}</h3><p>{item.country}</p></article>)}</div>
+      </section>
+
+      <section className="dao-field-study" aria-label="泰山学术考察">
+        <figure className="dao-canon-image"><Image src={media.canonImageUrl} alt="The Daoist Canon collected in Tai'an Museum / 泰安市博物馆藏明代道藏" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>The Daoist Canon<br /><span>泰安市博物館藏明代《道藏》</span></figcaption></figure>
+        <div className="dao-field-copy"><div className="dao-section-index light"><span>陆</span><small>06 · FIELD STUDY</small></div><p className="dao-kicker">MOUNT TAI · 泰山</p><h2>Reading tradition<br />in the landscape</h2><p>The conference extends from the seminar room into the sacred landscape of Mount Tai—visiting temples, collections, and places where Daoist history remains tangible.</p><p className="zh">會後考察將學術討論延伸至泰山的宮觀、文物與宗教景觀，在行走與觀看之間理解傳統。</p><div className="dao-distance"><strong>75</strong><span>KM<br />JINAN → TAI&apos;AN</span></div></div>
+      </section>
+
+      <section className="dao-venue dao-section" id="venue">
+        <div className="dao-section-index"><span>柒</span><small>07 · PLACE</small></div>
+        <div className="dao-venue-card">
+          <div className="dao-venue-copy"><p className="dao-kicker">{venue.kicker}</p><h2>{venue.name}</h2><p>{venue.address}</p><p className="zh">{venue.transport}</p><div>{venue.tags.map((tag, index) => <span key={`${tag}-${index}`}>{tag}</span>)}</div></div>
+          <figure><Image src={media.campusMapUrl} alt="Shandong University Central Campus map" fill sizes="(max-width: 760px) 100vw, 50vw" unoptimized /><figcaption>Campus guide · 校園導覽圖</figcaption></figure>
+        </div>
+      </section>
+
+      <section className="dao-practical dao-section">
+        <div className="dao-section-index"><span>捌</span><small>08 · PRACTICAL</small></div>
+        <div className="dao-section-heading"><div><p className="dao-kicker">BEFORE YOU ARRIVE · 行前資訊</p><h2>Practical notes</h2></div><p>Details are drawn from Announcement No. 1 and may be refined by the organizing committee.</p></div>
+        <div className="dao-remark-grid">{remarks.map((item, index) => <article key={`${item.title}-${index}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
+      </section>
+
+      <section className="dao-faq dao-section">
+        <div><p className="dao-kicker">QUESTIONS · 常見問題</p><h2>Before the journey</h2><p>Useful answers for participants preparing to come to Jinan.</p></div>
+        <div className="dao-faq-list">{faqs.map((item, index) => <article className={openFaq === index ? "open" : ""} key={`${item.question}-${index}`}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{item.question}</span><i>{openFaq === index ? "−" : "+"}</i></button><div><p>{item.answer}</p></div></article>)}</div>
+      </section>
+
+      <section className="dao-final">
+        <span className="dao-final-seal">道</span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><button className="dao-primary inverse" onClick={openRegistration}>Register interest <span>表达参会意向</span></button><small>Announcement issued {basics.announcementDate}</small>
+      </section>
+
+      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal">道</span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>ADMINISTRATION · 管理</span><a href="/admin">Registration records →</a><a href="/admin/content">Website content →</a></div><p>© 2027 DAO 19 · Prototype based on Announcement No. 1</p></footer>
+
+      {modalOpen && <div className="dao-modal-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setModalOpen(false)}>
+        <section className="dao-modal" role="dialog" aria-modal="true" aria-labelledby="registration-title">
+          <button className="dao-modal-close" onClick={() => setModalOpen(false)} aria-label="关闭报名窗口">×</button>
+          <aside><span className="dao-seal">道</span><div><p>REGISTER INTEREST</p><h2>Begin the<br />journey</h2><strong>參會意向登記</strong></div><small>{basics.monthYear} · {basics.dateRange}<br />{basics.venueName}</small></aside>
+          <div className="dao-form-main">
+            <div className="dao-form-notice"><strong>PROTOTYPE</strong> This form records conference interest only. Please do not enter passport details. 本表單僅用於測試及參會意向登記，請勿填寫護照資料。</div>
+            <div className="dao-stepper"><span className={step >= 1 ? "active" : ""}><i>1</i>PROFILE</span><b /><span className={step >= 2 ? "active" : ""}><i>2</i>PLANS</span><b /><span className={step >= 3 ? "active" : ""}><i>3</i>DONE</span></div>
+            {step === 1 && <div className="dao-form-step"><p className="dao-form-overline">STEP 01 · 基本資料</p><h2 id="registration-title">Tell us about yourself</h2><p>Required fields are marked with an asterisk.</p><div className="dao-field-grid"><label>Name / 姓名 *<input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} required /></label><label>Title / 稱謂 *<select value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} required><option value="" disabled>Select / 請選擇</option><option>Professor / 教授</option><option>Dr. / 博士</option><option>Mr. / 先生</option><option>Ms. / 女士</option><option>Other / 其他</option></select></label><label className="full">Institution / 所在單位 *<input value={draft.organization} onChange={(event) => setDraft({ ...draft, organization: event.target.value })} required /></label><label>Email / 電子郵箱 *<input type="email" value={draft.email} onChange={(event) => setDraft({ ...draft, email: event.target.value })} required /></label><label>Phone / 電話<input type="tel" value={draft.phone} onChange={(event) => setDraft({ ...draft, phone: event.target.value })} /></label></div>{submissionError && <p className="dao-form-error">{submissionError}</p>}<div className="dao-form-actions"><span>約 2 分鐘</span><button onClick={continueRegistration}>Continue <b>→</b></button></div></div>}
+            {step === 2 && <form className="dao-form-step" onSubmit={submitRegistration}><p className="dao-form-overline">STEP 02 · 參會計劃</p><h2>Your conference plans</h2><p>No conference fee is collected in this prototype.</p><div className="dao-role-options"><label><input type="radio" name="role" value="early" checked={draft.ticketType === "early"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>RESEARCHER</i><strong>Scholar / 學者</strong><small>Faculty, researchers and independent scholars</small></span></label><label><input type="radio" name="role" value="student" checked={draft.ticketType === "student"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>STUDENT</i><strong>Student / 學生</strong><small>Graduate and undergraduate participants</small></span></label></div><div className="dao-checks"><label><input type="checkbox" checked={draft.attendDinner} onChange={(event) => setDraft({ ...draft, attendDinner: event.target.checked })} /> I&apos;m interested in the Mount Tai field study / 擬參加泰山考察</label><label><input type="checkbox" checked={draft.needHotel} onChange={(event) => setDraft({ ...draft, needHotel: event.target.checked })} /> I need accommodation assistance / 需要住宿協助</label><label><input type="checkbox" required /> I agree to submit this information for the prototype / 同意提交測試資料 *</label></div>{submissionError && <p className="dao-form-error">{submissionError}</p>}<div className="dao-form-actions"><button type="button" className="back" onClick={() => setStep(1)}>← Back</button><button type="submit" disabled={submitting}>{submitting ? "Saving…" : "Submit interest"} <b>→</b></button></div></form>}
+            {step === 3 && submitted && <div className="dao-success"><span>✓</span><p className="dao-form-overline">INTEREST RECORDED</p><h2>Thank you.</h2><p>Your record is now available in the protected registration administration system. This is not a final admission confirmation.</p><div><small>REFERENCE</small><strong>{registrationCode}</strong></div><button onClick={() => setModalOpen(false)}>Return to the conference site</button></div>}
           </div>
-          <div className="about-body">
-            {about.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-            <button className="inline-link" onClick={() => scrollTo("topics")}>探索大会主题 <span>↘</span></button>
-          </div>
-        </div>
-      </section>
-
-      <section className="topics section" id="topics">
-        <div className="section-label light"><span>02</span> PROGRAM TRACKS</div>
-        <div className="topics-heading">
-          <h2>三条主线，连接<br />智能与科学</h2>
-          <p>从底层理论到真实世界影响，建立跨越学科边界的共同语言。</p>
-        </div>
-        <div className="topic-list">
-          {topics.map(({ number, title, description }) => (
-            <article className="topic-card" key={number}>
-              <span className="topic-number">{number}</span>
-              <div><h3>{title}</h3><p>{description}</p></div>
-              <span className="topic-arrow">↗</span>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="speakers section" id="speakers">
-        <div className="section-label"><span>03</span> KEYNOTE SPEAKERS</div>
-        <div className="section-title-row">
-          <div><p className="kicker">与定义前沿的人面对面</p><h2>特邀主旨嘉宾</h2></div>
-          <p>来自全球一流研究机构的科学家，将带来他们正在思考的关键问题。</p>
-        </div>
-        <div className="speaker-grid">
-          {speakers.map((speaker) => (
-            <article className="speaker-card" key={speaker.name}>
-              <div className={`speaker-portrait ${speaker.tone} ${speaker.imageUrl ? "has-photo" : ""}`}>{speaker.imageUrl ? <Image className="speaker-photo" src={speaker.imageUrl} alt={`${speaker.name} 嘉宾照片`} fill sizes="(max-width: 680px) 50vw, 25vw" unoptimized /> : <><span>{speaker.initials}</span><i /></>}</div>
-              <div className="speaker-info"><span>{speaker.role}</span><h3>{speaker.name}</h3><p>{speaker.organization}</p><strong>“{speaker.topic}”</strong></div>
-            </article>
-          ))}
-        </div>
-        <p className="speaker-note">更多演讲嘉宾将于 2026 年 8 月陆续公布</p>
-      </section>
-
-      <section className="schedule section" id="schedule">
-        <div className="section-label light"><span>04</span> PROGRAM AT A GLANCE</div>
-        <div className="schedule-head"><div><p className="kicker">三天，建立新的连接</p><h2>大会日程</h2></div><p>以下为体验版日程，正式安排可能根据嘉宾行程微调。</p></div>
-        <div className="day-tabs" role="tablist" aria-label="选择会议日期">
-          {schedule.map((day, index) => (
-            <button key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}>
-              <span>DAY {index + 1}</span><strong>{day.date}</strong><small>{day.weekday}</small>
-            </button>
-          ))}
-        </div>
-        <div className="schedule-table" role="tabpanel">
-          {selectedDay?.items.map(({ time, title, place, host }, index) => (
-            <div className="schedule-row" key={`${time}-${title}-${index}`}><time>{time}</time><h3>{title}</h3><span>{place}</span><small>{host}</small></div>
-          ))}
-        </div>
-      </section>
-
-      <section className="dates section" id="dates">
-        <div className="section-label"><span>05</span> IMPORTANT DATES</div>
-        <div className="dates-layout">
-          <div><p className="kicker">把重要节点加入日历</p><h2>重要日期</h2><p className="dates-intro">现在报名可享早鸟价格。论文投稿与青年学者论坛申请将于 8 月同步开放。</p></div>
-          <div className="date-list">
-            {importantDates.map((item, index) => <div className={`date-item ${item.state === "future" ? "" : item.state}`} key={`${item.date}-${item.title}-${index}`}><time>{item.date}</time><span><strong>{item.title}</strong><small>{item.note}</small></span></div>)}
-          </div>
-        </div>
-      </section>
-
-      <section className="venue section">
-        <div className="venue-card">
-          <div className="venue-map" aria-hidden="true"><span className="river river-one" /><span className="river river-two" /><i className="map-pin">N</i><small>{basics.city}</small></div>
-          <div className="venue-copy"><div className="section-label light"><span>06</span> VENUE</div><p className="kicker">{venue.kicker}</p><h2>{venue.name}</h2><p>{venue.address}<br />{venue.transport}</p><div className="venue-tags">{venue.tags.map((tag, index) => <span key={`${tag}-${index}`}>{tag}</span>)}</div></div>
-        </div>
-      </section>
-
-      <section className="faq section">
-        <div className="section-label"><span>07</span> FAQ</div>
-        <div className="faq-layout">
-          <div><p className="kicker">参会之前</p><h2>常见问题</h2><p>如果没有找到答案，正式版可增加会务组联系方式与在线咨询。</p></div>
-          <div className="faq-list">
-            {faqs.map(({ question, answer }, index) => (
-              <article className={openFaq === index ? "faq-item open" : "faq-item"} key={question}>
-                <button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{question}</span><i>{openFaq === index ? "−" : "+"}</i></button>
-                <div><p>{answer}</p></div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="final-cta">
-        <div className="final-orbit" aria-hidden="true" />
-        <p>{basics.shortName} · {basics.city}</p><h2>加入这场面向未来的<br /><em>学术对话</em></h2><button className="primary-button light-button" onClick={openRegistration}>立即注册参会 <span>→</span></button><small>早鸟注册截止：{basics.earlyBirdDeadline}</small>
-      </section>
-
-      <footer><div className="footer-brand"><span className="brand-mark">N</span><div><strong>{basics.shortName}</strong><small>{basics.conferenceName} · 测试版</small></div></div><div><span>主办</span><strong>{basics.organizer}</strong></div><div><span>会务咨询</span><strong>{basics.contactEmail}</strong><a className="footer-admin-link" href="/admin">报名管理 →</a><a className="footer-admin-link" href="/admin/content">内容管理 →</a></div><p>© 2026 {basics.shortName} Demo. 本站内容均为体验用途。</p></footer>
-
-      {modalOpen && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setModalOpen(false)}>
-          <section className="registration-modal" role="dialog" aria-modal="true" aria-labelledby="registration-title">
-            <button className="modal-close" onClick={() => setModalOpen(false)} aria-label="关闭报名窗口">×</button>
-            <div className="modal-side"><span className="brand-mark inverse">N</span><div><p>REGISTRATION</p><h2>与新的想法<br />在{basics.city}相遇</h2></div><small>{basics.monthYear} · {basics.dateRange}<br />{basics.venueName}</small></div>
-            <div className="modal-main">
-              <div className="demo-notice"><strong>后台测试模式</strong> 提交后信息会写入测试数据库，并可在管理后台导出。</div>
-              <div className="stepper" aria-label="报名步骤"><span className={step >= 1 ? "active" : ""}><i>1</i>基本信息</span><b /><span className={step >= 2 ? "active" : ""}><i>2</i>参会选择</span><b /><span className={step >= 3 ? "active" : ""}><i>3</i>完成</span></div>
-              {step === 1 && <div className="form-step"><p className="form-overline">STEP 01</p><h2 id="registration-title">参会人基本信息</h2><p>请填写以下信息，带 * 为必填项。</p><div className="field-grid"><label>姓名 *<input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} placeholder="请输入真实姓名" required /></label><label>称谓 *<select value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} required><option value="" disabled>请选择</option><option>女士</option><option>先生</option><option>不便透露</option></select></label><label className="full">所在单位 *<input value={draft.organization} onChange={(event) => setDraft({ ...draft, organization: event.target.value })} placeholder="高校、研究机构或企业名称" required /></label><label>电子邮箱 *<input type="email" value={draft.email} onChange={(event) => setDraft({ ...draft, email: event.target.value })} placeholder="name@example.com" required /></label><label>手机号码<input type="tel" value={draft.phone} onChange={(event) => setDraft({ ...draft, phone: event.target.value })} placeholder="用于会务联系" /></label></div>{submissionError && <p className="form-error">{submissionError}</p>}<div className="form-actions"><span>预计用时 2 分钟</span><button type="button" onClick={continueRegistration}>下一步 <b>→</b></button></div></div>}
-              {step === 2 && <form className="form-step" onSubmit={submitDemo}><p className="form-overline">STEP 02</p><h2>参会与票务选择</h2><p>选择最适合你的参会方式。</p><div className="ticket-options"><label><input type="radio" name="ticket" value="early" checked={draft.ticketType === "early"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>早鸟票</i><strong>¥ 1,680</strong><small>教师、科研人员及行业代表<br />含会议资料、午餐与欢迎晚宴</small></span></label><label><input type="radio" name="ticket" value="student" checked={draft.ticketType === "student"} onChange={(event) => setDraft({ ...draft, ticketType: event.target.value })} /><span><i>学生票</i><strong>¥ 880</strong><small>需在报到时出示有效学生证<br />名额有限</small></span></label></div><div className="check-row"><label><input type="checkbox" checked={draft.attendDinner} onChange={(event) => setDraft({ ...draft, attendDinner: event.target.checked })} /> 我计划参加 11 月 14 日欢迎晚宴</label><label><input type="checkbox" checked={draft.needHotel} onChange={(event) => setDraft({ ...draft, needHotel: event.target.checked })} /> 我需要会务组提供酒店协议价信息</label><label><input type="checkbox" required /> 我同意将报名信息用于本次后台测试 *</label></div>{submissionError && <p className="form-error">{submissionError}</p>}<div className="form-actions"><button type="button" className="back-button" onClick={() => setStep(1)}>← 上一步</button><button type="submit" disabled={submitting}>{submitting ? "正在保存…" : "提交测试报名"} <b>→</b></button></div></form>}
-              {step === 3 && submitted && <div className="success-step"><span className="success-mark">✓</span><p className="form-overline">REGISTRATION SAVED</p><h2>报名已写入后台</h2><p>这条记录现在可以在报名管理后台中查看、筛选并导出。正式版还可继续增加确认邮件与支付状态。</p><div className="success-code"><span>报名编号</span><strong>{registrationCode}</strong></div><button onClick={() => setModalOpen(false)}>返回会议首页</button></div>}
-            </div>
-          </section>
-        </div>
-      )}
+        </section>
+      </div>}
     </main>
   );
 }
