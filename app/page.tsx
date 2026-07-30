@@ -97,7 +97,7 @@ export default function Home() {
     };
   }, []);
 
-  const { basics, stats, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
+  const { basics, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
   const selectedDay = schedule[activeDay] ?? schedule[0];
   const activeSectionIndex = Math.max(0, pageSections.findIndex((section) => section.id === activeSection));
   const activeSectionMeta = pageSections[activeSectionIndex];
@@ -219,16 +219,7 @@ export default function Home() {
           <div className="dao-image-wash" />
           <figcaption><span>泰</span><p>Heavenly Ladder<br />Mount Tai · 泰山天梯</p></figcaption>
         </figure>
-        <div className="dao-hero-facts">
-          <div><span>DATE · 日期</span><strong>{basics.monthYear}<br />{basics.dateRange}</strong></div>
-          <div><span>PLACE · 地点</span><strong>{basics.city}<br />{basics.venueName}</strong></div>
-          <div><span>LANGUAGE · 语言</span><strong>{basics.language}</strong></div>
-        </div>
         <span className="dao-scroll-mark">SCROLL TO ENTER <i>↓</i></span>
-      </section>
-
-      <section className="dao-stats" aria-label="会议概览">
-        {stats.map((item, index) => <article key={`${item.label}-${index}`}><strong>{item.value}<sup>{item.suffix}</sup></strong><span>{item.label}</span></article>)}
       </section>
 
       <section className="dao-about dao-section" id="about">
@@ -241,6 +232,11 @@ export default function Home() {
           {about.paragraphs.map((paragraph, index) => <p className={index % 2 ? "zh" : ""} key={index}>{paragraph}</p>)}
         </div>
         <div className="dao-vertical-script" aria-hidden="true">道行天下<br />和而不同</div>
+        <div className="dao-about-facts" aria-label="会议日期、地点和语言">
+          <div><span>DATE · 日期</span><strong>{basics.monthYear}<br />{basics.dateRange}</strong></div>
+          <div><span>PLACE · 地点</span><strong>{basics.city}<br />{basics.venueName}</strong></div>
+          <div><span>LANGUAGE · 语言</span><strong>{basics.language}</strong></div>
+        </div>
       </section>
 
       <section className="dao-theme" id="theme">

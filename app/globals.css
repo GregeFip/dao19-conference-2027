@@ -252,7 +252,7 @@ a { color: inherit; }
   min-height: calc(100vh - 127px);
   display: grid;
   grid-template-columns: 56% 44%;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: 1fr;
   position: relative;
   overflow: hidden;
   background:
@@ -374,20 +374,6 @@ a { color: inherit; }
   font-size: 29px;
 }
 .dao-hero-image figcaption p { text-align: right; font: 500 12px/1.65 "DM Mono", monospace; letter-spacing: .06em; }
-.dao-hero-facts {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr .8fr;
-  margin: 0 clamp(32px, 7vw, 112px);
-  border-top: 1px solid var(--line);
-  position: relative;
-  z-index: 2;
-}
-.dao-hero-facts div { min-height: 86px; padding: 19px 28px; border-right: 1px solid var(--line); }
-.dao-hero-facts div:first-child { padding-left: 0; }
-.dao-hero-facts div:last-child { border-right: 0; }
-.dao-hero-facts span { display: block; margin-bottom: 8px; color: #768279; font: 500 12px "DM Mono", monospace; letter-spacing: .08em; }
-.dao-hero-facts strong { font-size: 16px; line-height: 1.6; letter-spacing: .02em; }
 .dao-scroll-mark {
   position: absolute;
   right: 24px;
@@ -399,20 +385,6 @@ a { color: inherit; }
   writing-mode: vertical-rl;
 }
 .dao-scroll-mark i { margin-top: 13px; color: #fff; font-size: 14px; font-style: normal; }
-
-.dao-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 30px clamp(32px, 7vw, 112px);
-  background: var(--pine);
-  color: #f2eee3;
-}
-.dao-stats article { padding: 10px 24px; border-right: 1px solid rgba(255, 255, 255, .17); }
-.dao-stats article:first-child { padding-left: 0; }
-.dao-stats article:last-child { border-right: 0; }
-.dao-stats strong { display: block; font: 500 37px/1 "Playfair Display", serif; }
-.dao-stats sup { margin-left: 4px; color: #d0ae70; font: 500 10px "DM Mono", monospace; }
-.dao-stats span { display: block; margin-top: 9px; color: #c8d2cb; font: 500 13px "DM Mono", monospace; letter-spacing: .04em; }
 
 .dao-section {
   min-height: max(720px, calc(100svh - 96px));
@@ -495,6 +467,36 @@ a { color: inherit; }
   line-height: 2.2;
   letter-spacing: .22em;
   writing-mode: vertical-rl;
+}
+.dao-about-facts {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr .8fr;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  z-index: 1;
+}
+.dao-about-facts div {
+  min-height: 78px;
+  padding: 16px 26px;
+  border-right: 1px solid var(--line);
+}
+.dao-about-facts div:first-child { padding-left: 0; }
+.dao-about-facts div:last-child { border-right: 0; }
+.dao-about-facts span {
+  display: block;
+  margin-bottom: 7px;
+  color: #6b786f;
+  font: 600 11px/1.4 "DM Mono", monospace;
+  letter-spacing: .1em;
+}
+.dao-about-facts strong {
+  color: #213128;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: .02em;
 }
 
 .dao-theme {
@@ -980,6 +982,12 @@ a { color: inherit; }
   .dao-section-index { margin-bottom: 32px; }
   .dao-section-heading { margin-bottom: 30px; }
 
+  .dao-about { grid-template-rows: auto minmax(0, 1fr) auto; }
+  .dao-about-title,
+  .dao-about-copy,
+  .dao-vertical-script { align-self: center; }
+  .dao-about-facts { margin-top: 24px; }
+
   .dao-questions {
     display: grid;
     grid-template-rows: auto auto minmax(0, 1fr);
@@ -1105,12 +1113,11 @@ a { color: inherit; }
   .dao-conference-en { font-size: clamp(18px, 1.9vw, 22px); }
   .dao-hero-theme > strong { font-size: clamp(27px, 3vw, 34px); }
   .dao-hero-image { min-height: 680px; }
-  .dao-hero-facts { margin: 0 50px; }
   .dao-scroll-mark { display: none; }
-  .dao-stats { padding-right: 50px; padding-left: 50px; }
 
   .dao-section { padding: 92px 50px; }
   .dao-about { grid-template-columns: minmax(280px, .9fr) minmax(340px, 1.1fr) 50px; column-gap: 50px; }
+  .dao-about-facts { margin-top: 48px; }
   .dao-theme { padding-right: 70px; padding-left: 70px; }
   .dao-question-grid article { min-height: 205px; grid-template-columns: 42px 1fr 22px; gap: 15px; }
   .dao-day-tabs button { padding-right: 16px; padding-left: 16px; }
@@ -1211,16 +1218,6 @@ a { color: inherit; }
   .dao-link { min-height: 42px; text-align: left; }
   .dao-hero-image { min-height: 520px; }
   .dao-hero-image figcaption { right: 22px; bottom: 22px; left: 22px; }
-  .dao-hero-facts { grid-template-columns: 1fr; margin: 0 24px; }
-  .dao-hero-facts div { min-height: 70px; padding: 15px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-  .dao-hero-facts div:last-child { border-bottom: 0; }
-  .dao-stats { grid-template-columns: 1fr 1fr; padding: 22px 24px; }
-  .dao-stats article { padding: 16px 12px; border-bottom: 1px solid rgba(255,255,255,.16); }
-  .dao-stats article:nth-child(2) { border-right: 0; }
-  .dao-stats article:nth-child(3) { padding-left: 0; border-bottom: 0; }
-  .dao-stats article:nth-child(4) { border-bottom: 0; }
-  .dao-stats strong { font-size: 31px; }
-
   .dao-section { min-height: 0; padding: 76px 24px; }
   .dao-section-index { margin-bottom: 37px; }
   .dao-section-heading { display: block; margin-bottom: 36px; }
@@ -1231,6 +1228,9 @@ a { color: inherit; }
   .dao-about-copy { padding-top: 34px; }
   .dao-about-copy p { font-size: 17px; }
   .dao-vertical-script { display: none; }
+  .dao-about-facts { grid-template-columns: 1fr; margin-top: 42px; }
+  .dao-about-facts div { min-height: 70px; padding: 15px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .dao-about-facts div:last-child { border-bottom: 0; }
   .dao-theme { min-height: 570px; padding: 72px 24px; align-items: flex-start; text-align: left; }
   .dao-theme > .dao-section-index { margin-bottom: 70px; }
   .dao-theme h2 { margin-right: 0; margin-left: 0; font-size: 49px; }
@@ -1308,8 +1308,6 @@ a { color: inherit; }
   .dao-hero-theme > strong { font-size: 28px; }
   .dao-hero-image { min-height: 440px; }
   .dao-hero-image figcaption > span { width: 46px; height: 46px; font-size: 24px; }
-  .dao-stats article { min-width: 0; }
-  .dao-stats span { font-size: 13px; line-height: 1.55; }
   .dao-section { padding: 65px 20px; }
   .dao-section-heading h2, .dao-about-title h2, .dao-organizer-intro h2, .dao-faq > div:first-child h2 { font-size: 41px; }
   .dao-theme { padding: 62px 20px; }
