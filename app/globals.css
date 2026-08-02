@@ -122,8 +122,11 @@ a { color: inherit; }
   letter-spacing: .075em;
 }
 .dao-register-nav {
+  display: inline-flex;
+  align-items: center;
   padding: 15px 18px;
   border: 1px solid var(--ink);
+  text-decoration: none;
   font: 600 15px "DM Mono", monospace;
   letter-spacing: .03em;
   transition: background .2s, color .2s;
@@ -345,11 +348,13 @@ a { color: inherit; }
 }
 .dao-actions { display: flex; align-items: center; gap: 28px; margin-top: 31px; }
 .dao-primary {
+  display: inline-block;
   min-width: 198px;
   padding: 15px 18px;
   background: var(--cinnabar);
   color: #fff8ec;
   text-align: left;
+  text-decoration: none;
   box-shadow: 5px 5px 0 var(--cinnabar-dark);
   font: 500 14px/1.3 "DM Mono", monospace;
   transition: transform .2s, box-shadow .2s;
