@@ -80,19 +80,36 @@ a { color: inherit; }
   letter-spacing: .035em;
 }
 .dao-seal {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   display: grid;
   place-items: center;
   flex: none;
-  background: var(--cinnabar);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 49%, rgba(255, 245, 226, .13) 0 32%, transparent 33%),
+    var(--cinnabar);
   color: #f8eee0;
-  border: 1px solid var(--cinnabar-dark);
-  box-shadow: inset 0 0 0 4px rgba(255, 244, 226, .2);
-  font-size: 28px;
-  font-weight: 700;
+  border: 1px solid #6e2b20;
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 244, 226, .16),
+    0 3px 0 rgba(116, 48, 35, .16);
+  font-family: "STKaiti", "Kaiti TC", "KaiTi", "楷体", "Songti SC", serif;
+  font-size: 32px;
+  font-weight: 500;
   line-height: 1;
-  transform: rotate(-3deg);
+  text-shadow: 0 1px 0 rgba(91, 31, 21, .28);
+  position: relative;
+  transform: none;
+}
+.dao-seal::before {
+  content: "";
+  border: 1px solid rgba(255, 244, 226, .62);
+  border-radius: 1px;
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
 }
 .dao-header nav { display: flex; align-items: center; gap: clamp(24px, 3vw, 48px); }
 .dao-header nav > button:not(.dao-register-nav) {
@@ -870,15 +887,30 @@ a { color: inherit; }
 .dao-final::before { top: -270px; left: -120px; }
 .dao-final::after { right: -160px; bottom: -310px; }
 .dao-final-seal {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   display: grid;
   place-items: center;
   margin-bottom: 28px;
-  border: 1px solid rgba(255, 246, 233, .7);
-  box-shadow: inset 0 0 0 4px rgba(255, 246, 233, .12);
-  font-size: 27px;
-  transform: rotate(-3deg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 246, 233, .78);
+  border-radius: 2px;
+  background: radial-gradient(circle at 50% 49%, rgba(255, 246, 233, .12) 0 32%, transparent 33%);
+  box-shadow: inset 0 0 0 3px rgba(255, 246, 233, .11);
+  font-family: "STKaiti", "Kaiti TC", "KaiTi", "楷体", "Songti SC", serif;
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1;
+  position: relative;
+  transform: none;
+}
+.dao-final-seal::before {
+  content: "";
+  border: 1px solid rgba(255, 246, 233, .58);
+  border-radius: 1px;
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
 }
 .dao-final > p { color: #f4d7cc; font: 500 12px "DM Mono", monospace; letter-spacing: .12em; }
 .dao-final h2 { margin: 24px 0 14px; font: 500 clamp(52px, 7vw, 96px)/.98 "Playfair Display", serif; letter-spacing: -.05em; }
@@ -1261,7 +1293,8 @@ a { color: inherit; }
   .dao-header-condensed.dao-header-hidden { transform: translateY(calc(-100% - 12px)); box-shadow: none; }
   .dao-header-condensed.dao-header-hidden:focus-within { transform: translateY(0); }
   .dao-header-condensed .dao-brand { min-width: 205px; gap: 10px; }
-  .dao-header-condensed .dao-seal { width: 36px; height: 36px; font-size: 21px; box-shadow: inset 0 0 0 3px rgba(255, 244, 226, .2); }
+  .dao-header-condensed .dao-seal { width: 36px; height: 36px; font-size: 24px; }
+  .dao-header-condensed .dao-seal::before { inset: 4px; }
   .dao-header-condensed .dao-brand strong { font-size: 13px; }
   .dao-header-condensed .dao-brand small { display: none; }
   .dao-header-condensed nav { gap: clamp(18px, 2.3vw, 34px); }
@@ -1315,7 +1348,8 @@ a { color: inherit; }
   .dao-brand { min-width: 0; }
   .dao-brand strong { font-size: 15px; }
   .dao-brand small { max-width: 210px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
-  .dao-seal { width: 40px; height: 40px; font-size: 23px; }
+  .dao-seal { width: 42px; height: 42px; font-size: 27px; }
+  .dao-seal::before { inset: 5px; }
   .dao-menu { width: 44px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; }
   .dao-menu span { width: 23px; height: 1px; display: block; background: var(--ink); transition: transform .22s ease, translate .22s ease; }
   .dao-menu.open span:first-child { transform: rotate(45deg); translate: 0 3.5px; }
