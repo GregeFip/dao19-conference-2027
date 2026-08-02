@@ -29,12 +29,28 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
   const [activeSection, setActiveSection] = useState("top");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [desktopHeader, setDesktopHeader] = useState({ condensed: false, visible: true });
 
   useEffect(() => {
     let frame = 0;
+    let lastScrollY = window.scrollY;
+    let wasCondensed = false;
+    let headerVisible = true;
     const updateScrollState = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       setScrollProgress(scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0);
+
+      const hero = document.getElementById("top");
+      const condensed = window.innerWidth > 820 && Boolean(hero && hero.getBoundingClientRect().bottom <= 0);
+      const scrollDelta = window.scrollY - lastScrollY;
+      if (!condensed || !wasCondensed) headerVisible = true;
+      else if (scrollDelta > 8) headerVisible = false;
+      else if (scrollDelta < -8) headerVisible = true;
+      setDesktopHeader((current) => current.condensed === condensed && current.visible === headerVisible
+        ? current
+        : { condensed, visible: headerVisible });
+      lastScrollY = window.scrollY;
+      wasCondensed = condensed;
 
       const readingLine = window.innerHeight * 0.42;
       let current = pageSections[0].id;
@@ -134,7 +150,7 @@ export default function Home() {
     <main>
       <div className="dao-demo-bar"><span>PROTOTYPE · 測試版</span> 會議資訊依第一號公告整理，正式安排以組委會後續通知為準</div>
 
-      <header className="dao-header">
+      <header className={`dao-header${desktopHeader.condensed ? " dao-header-condensed" : ""}${desktopHeader.visible ? "" : " dao-header-hidden"}`}>
         <button className="dao-brand" onClick={() => scrollTo("top")} aria-label="返回首页">
           <span className="dao-seal">道</span>
           <span><strong>{basics.shortName}</strong><small>{basics.chineseName}</small></span>
