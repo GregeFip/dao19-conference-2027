@@ -139,8 +139,14 @@ export default function Home() {
           <span className="dao-seal">道</span>
           <span><strong>{basics.shortName}</strong><small>{basics.chineseName}</small></span>
         </button>
-        <button className="dao-menu" onClick={() => setMenuOpen(!menuOpen)} aria-label="打开导航" aria-expanded={menuOpen}><span /><span /></button>
-        <nav className={menuOpen ? "open" : ""} aria-label="主导航">
+        <button
+          className={`dao-menu ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? "关闭导航" : "打开导航"}
+          aria-controls="dao-main-nav"
+          aria-expanded={menuOpen}
+        ><span /><span /></button>
+        <nav id="dao-main-nav" className={menuOpen ? "open" : ""} aria-label="主导航">
           <button onClick={() => scrollTo("about")}>About <small>缘起</small></button>
           <button onClick={() => scrollTo("questions")}>Questions <small>议题</small></button>
           <button onClick={() => scrollTo("journey")}>Journey <small>日程</small></button>
@@ -247,6 +253,7 @@ export default function Home() {
         <div className="dao-day-tabs" role="tablist" aria-label="选择会议日期">
           {schedule.map((day, index) => <button key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}><small>0{index + 1}</small><strong>{day.date}</strong><span>{day.weekday}</span></button>)}
         </div>
+        <p className="dao-day-swipe-hint" aria-hidden="true">← 左右滑動日期 · SWIPE DAYS →</p>
         <div className="dao-schedule" role="tabpanel">
           {selectedDay?.items.map((item, index) => <article key={`${item.time}-${item.title}-${index}`}><time>{item.time}</time><h3>{item.title}</h3><span>{item.place}</span><p>{item.host}</p></article>)}
         </div>

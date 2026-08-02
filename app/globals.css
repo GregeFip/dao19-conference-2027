@@ -621,6 +621,7 @@ a { color: inherit; }
 .dao-day-tabs small { display: block; color: #dec383; font: 500 12px "DM Mono", monospace; }
 .dao-day-tabs strong { display: block; margin: 12px 0 9px; font: 500 19px "Playfair Display", serif; }
 .dao-day-tabs span { font-size: 14px; letter-spacing: .025em; }
+.dao-day-swipe-hint { display: none; }
 .dao-schedule { border-bottom: 1px solid rgba(255, 255, 255, .2); }
 .dao-schedule article {
   display: grid;
@@ -1226,33 +1227,36 @@ a { color: inherit; }
 }
 
 @media (max-width: 820px) {
-  body { overflow-x: hidden; }
+  body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+  button, a { -webkit-tap-highlight-color: transparent; }
   .dao-page-rail {
-    width: auto;
-    min-width: 174px;
-    height: 50px;
-    padding: 6px 6px 6px 15px;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 10px;
+    width: 56px;
+    min-width: 56px;
+    height: auto;
+    min-height: 104px;
+    padding: 7px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
     border-color: rgba(255, 255, 255, .13);
-    border-radius: 28px;
+    border-radius: 29px;
     background: rgba(21, 35, 29, .93);
     color: #f2eee3;
     box-shadow: 0 14px 38px rgba(21, 35, 29, .28);
     top: auto;
-    right: 16px;
-    bottom: 18px;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
     transform: none;
+    backdrop-filter: blur(14px);
   }
   .dao-rail-progress, .dao-rail-nav { display: none; }
-  .dao-rail-mobile-status { display: flex; align-items: center; gap: 8px; }
-  .dao-rail-mobile-status span { color: #d8bd7c; font: 500 10px "DM Mono", monospace; }
-  .dao-rail-mobile-status strong { font-size: 13px; letter-spacing: .06em; }
-  .dao-rail-mobile-status small { color: #aebcb3; font: 500 9px "DM Mono", monospace; }
+  .dao-rail-mobile-status { min-height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; }
+  .dao-rail-mobile-status span { color: #d8bd7c; font: 500 9px "DM Mono", monospace; }
+  .dao-rail-mobile-status strong { font-size: 11px; line-height: 1.2; letter-spacing: .04em; white-space: nowrap; }
+  .dao-rail-mobile-status small { color: #aebcb3; font: 500 8px "DM Mono", monospace; }
   .dao-rail-top {
-    width: 38px;
-    min-height: 38px;
+    width: 40px;
+    min-height: 40px;
     flex: none;
     border: 0;
     border-radius: 50%;
@@ -1261,18 +1265,20 @@ a { color: inherit; }
   }
   .dao-rail-top span { color: #fff7ec; font-size: 17px; }
   .dao-rail-top small { display: none; }
-  .dao-demo-bar { padding: 8px 14px; font-size: 12px; letter-spacing: .02em; }
+  .dao-demo-bar { padding: 8px 14px; font-size: 11px; line-height: 1.45; letter-spacing: .02em; text-wrap: balance; }
   .dao-demo-bar span { margin-right: 7px; }
-  .dao-header { height: 78px; padding: 0 20px; }
+  .dao-header { height: 78px; padding: 0 20px; position: sticky; top: 0; z-index: 30; background: rgba(241, 237, 226, .96); backdrop-filter: blur(16px); }
   .dao-brand { min-width: 0; }
   .dao-brand strong { font-size: 15px; }
   .dao-brand small { max-width: 210px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
   .dao-seal { width: 40px; height: 40px; font-size: 23px; }
-  .dao-menu { width: 42px; height: 42px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; }
-  .dao-menu span { width: 23px; height: 1px; display: block; background: var(--ink); transition: transform .2s; }
+  .dao-menu { width: 44px; height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 8px; }
+  .dao-menu span { width: 23px; height: 1px; display: block; background: var(--ink); transition: transform .22s ease, translate .22s ease; }
+  .dao-menu.open span:first-child { transform: rotate(45deg); translate: 0 3.5px; }
+  .dao-menu.open span:last-child { transform: rotate(-45deg); translate: 0 -3.5px; }
   .dao-header nav {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 78px;
     right: 0;
     left: 0;
@@ -1283,20 +1289,24 @@ a { color: inherit; }
     background: rgba(241, 237, 226, .98);
     border-top: 1px solid var(--line);
     box-shadow: 0 18px 30px rgba(21, 35, 29, .14);
+    max-height: calc(100svh - 78px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
-  .dao-header nav.open { display: flex; }
+  .dao-header nav.open { display: flex; animation: dao-mobile-menu-in .22s ease both; }
   .dao-header nav > button:not(.dao-register-nav) { min-height: 52px; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 16px; }
   .dao-header nav small { display: inline; margin: 0 0 0 9px; }
   .dao-register-nav { min-height: 52px; margin-top: 13px; text-align: center; font-size: 15px; }
 
+  .dao-hero, .dao-section, .dao-theme, .dao-field-study, .dao-final { scroll-margin-top: 78px; }
   .dao-hero { min-height: auto; display: block; }
   .dao-hero-copy { padding: 54px 24px 48px; }
   .dao-eyebrow { font-size: 12px; }
   .dao-conference-lockup { margin-top: 27px; }
-  .dao-hero h1 { font-size: clamp(40px, 10.8vw, 53px); line-height: 1.16; letter-spacing: .015em; }
+  .dao-hero h1 { font-size: clamp(38px, 10.5vw, 49px); line-height: 1.16; letter-spacing: .015em; text-wrap: balance; overflow-wrap: anywhere; }
   .dao-conference-en { margin-top: 14px; font-size: 19px; line-height: 1.45; }
   .dao-hero-theme { margin: 27px 0 25px; }
-  .dao-hero-theme > strong { font-size: 25px; line-height: 1.2; }
+  .dao-hero-theme > strong { font-size: clamp(22px, 6.3vw, 25px); line-height: 1.22; text-wrap: balance; overflow-wrap: anywhere; }
   .dao-hero-theme > em { font-size: 18px; }
   .dao-hero-en { font-size: 16px; }
   .dao-hero-zh { font-size: 17px; }
@@ -1308,7 +1318,7 @@ a { color: inherit; }
   .dao-section { min-height: 0; padding: 76px 24px; }
   .dao-section-index { margin-bottom: 37px; }
   .dao-section-heading { display: block; margin-bottom: 36px; }
-  .dao-section-heading h2 { font-size: 48px; }
+  .dao-section-heading h2 { font-size: clamp(40px, 11vw, 48px); text-wrap: balance; overflow-wrap: anywhere; }
   .dao-section-heading > p { margin-top: 22px; }
   .dao-about { display: block; background: var(--paper); }
   .dao-about-title h2 { font-size: 47px; }
@@ -1320,7 +1330,7 @@ a { color: inherit; }
   .dao-about-facts div:last-child { border-bottom: 0; }
   .dao-theme { min-height: 570px; padding: 72px 24px; align-items: flex-start; text-align: left; }
   .dao-theme > .dao-section-index { margin-bottom: 70px; }
-  .dao-theme h2 { margin-right: 0; margin-left: 0; font-size: 49px; }
+  .dao-theme h2 { margin-right: 0; margin-left: 0; font-size: clamp(39px, 11vw, 49px); text-wrap: balance; overflow-wrap: anywhere; }
   .dao-theme > strong { font-size: 16px; line-height: 1.8; }
   .dao-question-grid { grid-template-columns: 1fr; }
   .dao-question-grid article, .dao-question-grid article:nth-child(even) { min-height: 0; padding: 27px 0; border-right: 0; }
@@ -1333,32 +1343,33 @@ a { color: inherit; }
   .dao-schedule article { grid-template-columns: 74px 1fr; gap: 7px 14px; padding: 20px 0; }
   .dao-schedule article h3 { font-size: 16px; }
   .dao-schedule article span, .dao-schedule article p { grid-column: 2; }
+  .dao-day-swipe-hint { display: block; margin: 12px 0 0; color: #c8d1cb; font: 500 10px "DM Mono", monospace; letter-spacing: .09em; text-align: right; }
   .dao-journey-route { min-height: 170px; grid-template-columns: 1fr 1fr; gap: 22px 28px; padding: 30px 0; }
   .dao-journey-route > div { min-width: 0; }
   .dao-journey-route > p { grid-column: 1 / -1; grid-row: 2; }
   .dao-journey-route strong { font-size: 25px; }
   .dao-organizers { display: block; }
-  .dao-organizer-intro h2 { font-size: 47px; }
+  .dao-organizer-intro h2 { font-size: clamp(40px, 11vw, 47px); text-wrap: balance; }
   .dao-organizer-list { margin-top: 45px; }
   .dao-organizer-list article { grid-template-columns: 30px 1fr; padding: 18px 0; }
   .dao-organizer-list p { grid-column: 2; text-align: left; }
   .dao-field-study { min-height: 0; display: block; }
   .dao-canon-image { min-height: 520px; }
   .dao-field-copy { min-height: 630px; padding: 70px 24px; }
-  .dao-field-copy h2 { font-size: 50px; }
+  .dao-field-copy h2 { font-size: clamp(40px, 11vw, 50px); text-wrap: balance; }
   .dao-field-copy > p:not(.dao-kicker) { font-size: 17px; }
   .dao-distance strong { font-size: 51px; }
 
   .dao-venue-card { display: block; min-height: 0; box-shadow: 9px 9px 0 rgba(21,35,29,.055); }
   .dao-venue-copy { padding: 46px 25px; }
-  .dao-venue-copy h2 { font-size: 42px; }
+  .dao-venue-copy h2 { font-size: clamp(36px, 10vw, 42px); text-wrap: balance; overflow-wrap: anywhere; }
   .dao-venue-card figure { min-height: 380px; }
   .dao-remark-grid { grid-template-columns: 1fr; }
   .dao-remark-grid article { min-height: 0; padding: 26px 0; border-right: 0; }
   .dao-remark-grid article:nth-child(2) { border-right: 0; }
   .dao-remark-grid h3 { margin: 27px 0 14px; }
   .dao-faq { display: block; }
-  .dao-faq > div:first-child h2 { font-size: 47px; }
+  .dao-faq > div:first-child h2 { font-size: clamp(40px, 11vw, 47px); text-wrap: balance; }
   .dao-faq-list { margin-top: 42px; padding: 8px 18px; box-shadow: 8px 8px 0 rgba(21,35,29,.05); }
   .dao-faq-list article > button { min-height: 58px; padding: 18px 0; }
   .dao-final { min-height: 570px; padding: 86px 24px; }
@@ -1367,6 +1378,11 @@ a { color: inherit; }
   .dao-footer { grid-template-columns: 1fr; gap: 27px; padding: 38px 24px; }
   .dao-footer > div:not(.dao-footer-brand) { padding: 19px 0 0; border-top: 1px solid rgba(255,255,255,.14); border-left: 0; }
   .dao-footer > p { grid-column: auto; }
+
+  @keyframes dao-mobile-menu-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
   .dao-modal-backdrop { padding: 12px; align-items: start; overflow-y: auto; }
   .dao-modal { display: block; min-height: 0; margin: 12px 0; }
@@ -1387,13 +1403,17 @@ a { color: inherit; }
 }
 
 @media (max-width: 520px) {
-  .dao-page-rail { right: 10px; bottom: 12px; }
+  .dao-page-rail { width: 50px; min-width: 50px; min-height: 76px; padding: 3px; gap: 0; right: max(8px, env(safe-area-inset-right)); bottom: max(9px, env(safe-area-inset-bottom)); }
+  .dao-rail-mobile-status { min-height: 24px; }
+  .dao-rail-mobile-status strong, .dao-rail-mobile-status small { display: none; }
+  .dao-rail-mobile-status span { font-size: 9px; }
+  .dao-rail-top { width: 44px; min-height: 44px; }
   .dao-brand small { max-width: 155px; }
   .dao-hero-copy { padding-top: 47px; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }
   .dao-conference-en { font-size: 18px; }
   .dao-hero-theme > strong { font-size: 23px; }
-  .dao-hero-image { min-height: 440px; }
+  .dao-hero-image { min-height: clamp(370px, 118vw, 440px); }
   .dao-hero-image figcaption > span { width: 46px; height: 46px; font-size: 24px; }
   .dao-section { padding: 65px 20px; }
   .dao-section-heading h2, .dao-about-title h2, .dao-organizer-intro h2, .dao-faq > div:first-child h2 { font-size: 41px; }
@@ -1401,8 +1421,9 @@ a { color: inherit; }
   .dao-theme h2 { font-size: 42px; }
   .dao-question-grid article { grid-template-columns: 35px 1fr 18px; gap: 11px; }
   .dao-question-grid p { font-size: 17px; }
-  .dao-day-tabs { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }
-  .dao-day-tabs button { min-width: 158px; flex: 0 0 158px; border-right: 1px solid rgba(255,255,255,.15); scroll-snap-align: start; }
+  .dao-day-tabs { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+  .dao-day-tabs::-webkit-scrollbar { display: none; }
+  .dao-day-tabs button { min-width: 158px; flex: 0 0 158px; border-right: 1px solid rgba(255,255,255,.15); scroll-snap-align: start; scroll-snap-stop: always; }
   .dao-schedule article { grid-template-columns: 64px minmax(0, 1fr); }
   .dao-organizer-list h3 { overflow-wrap: anywhere; font-size: 15px; }
   .dao-canon-image { min-height: 430px; }
