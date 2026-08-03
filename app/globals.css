@@ -100,8 +100,8 @@ a { color: inherit; }
 }
 .dao-seal > img,
 .dao-final-seal > img {
-  width: 84%;
-  height: 84%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   position: relative;
   z-index: 1;

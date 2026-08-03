@@ -152,7 +152,7 @@ export default function Home() {
 
       <header className={`dao-header${desktopHeader.condensed ? " dao-header-condensed" : ""}${desktopHeader.visible ? "" : " dao-header-hidden"}`}>
         <button className="dao-brand" onClick={() => scrollTo("top")} aria-label="返回首页">
-          <span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={168} height={132} /></span>
+          <span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span>
           <span><strong>{basics.shortName}</strong><small>{basics.chineseName}</small></span>
         </button>
         <button
@@ -311,10 +311,10 @@ export default function Home() {
       </section>
 
       <section className="dao-final" id="final">
-        <span className="dao-final-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={168} height={132} /></span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>表达参会意向</span></a><small>Announcement issued {basics.announcementDate}</small>
+        <span className="dao-final-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>表达参会意向</span></a><small>Announcement issued {basics.announcementDate}</small>
       </section>
 
-      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={168} height={132} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>REGISTRATION · 報名</span><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Microsoft Forms →</a><small>测试入口 · Test form</small></div><p>© 2027 DAO 19 · Prototype based on Announcement No. 1</p></footer>
+      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>REGISTRATION · 報名</span><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Microsoft Forms →</a><small>测试入口 · Test form</small></div><p>© 2027 DAO 19 · Prototype based on Announcement No. 1</p></footer>
     </main>
   );
 }
