@@ -1396,7 +1396,7 @@ a { color: inherit; }
   .dao-hero-zh { font-size: 17px; }
   .dao-actions { align-items: stretch; flex-direction: column; }
   .dao-primary { min-width: 0; width: 100%; min-height: 52px; }
-  .dao-hero-image { min-height: 520px; }
+  .dao-hero-image { min-height: clamp(560px, calc(100svh - 78px), 820px); }
   .dao-hero-image figcaption { right: 22px; bottom: 22px; left: 22px; }
   .dao-section { min-height: 0; padding: 76px 24px; }
   .dao-section-index { margin-bottom: 37px; }
@@ -1496,7 +1496,6 @@ a { color: inherit; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }
   .dao-conference-en { font-size: 18px; }
   .dao-hero-theme > strong { font-size: 23px; }
-  .dao-hero-image { min-height: clamp(370px, 118vw, 440px); }
   .dao-hero-image figcaption > span { width: 46px; height: 46px; font-size: 24px; }
   .dao-section { padding: 65px 20px; }
   .dao-section-heading h2, .dao-about-title h2, .dao-organizer-intro h2, .dao-faq > div:first-child h2 { font-size: 41px; }
