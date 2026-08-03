@@ -1,4 +1,4 @@
-name: Deploy Microsoft Forms test to GitHub Pages
+name: Deploy DAO Conference 2027 to GitHub Pages
 
 on:
   push:
