@@ -1458,9 +1458,41 @@ a { color: inherit; }
   .dao-final { min-height: 570px; padding: 86px 24px; }
   .dao-final h2 { font-size: clamp(49px, 13vw, 72px); }
   .dao-final > strong { font-size: 16px; }
-  .dao-footer { grid-template-columns: 1fr; gap: 27px; padding: 38px 24px; }
-  .dao-footer > div:not(.dao-footer-brand) { padding: 19px 0 0; border-top: 1px solid rgba(255,255,255,.14); border-left: 0; }
-  .dao-footer > p { grid-column: auto; }
+  .dao-footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 20px;
+    padding: 26px 24px 22px;
+  }
+  .dao-footer-brand {
+    grid-column: 1 / -1;
+    gap: 12px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+  }
+  .dao-footer-brand .dao-seal { width: 40px; height: 40px; }
+  .dao-footer-brand strong { font-size: 14px !important; line-height: 1.35 !important; }
+  .dao-footer-brand small { margin-top: 4px !important; font-size: 12px !important; }
+  .dao-footer > div:not(.dao-footer-brand) {
+    min-width: 0;
+    padding: 18px 0 16px;
+    border-top: 0;
+    border-left: 0;
+  }
+  .dao-footer > div:nth-child(2) {
+    padding-right: 14px;
+    border-right: 1px solid rgba(255,255,255,.14);
+  }
+  .dao-footer > div > span { margin-bottom: 7px; font-size: 11px; }
+  .dao-footer > div strong { font-size: 13px; line-height: 1.45; }
+  .dao-footer > div small { margin-top: 5px; font-size: 11px; line-height: 1.45; }
+  .dao-footer > div a { margin-top: 5px; font-size: 12px; white-space: nowrap; }
+  .dao-footer > p {
+    grid-column: 1 / -1;
+    margin-top: 0;
+    padding-top: 16px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
 
   @keyframes dao-mobile-menu-in {
     from { opacity: 0; transform: translateY(-8px); }
@@ -1492,6 +1524,8 @@ a { color: inherit; }
   .dao-rail-mobile-status span { font-size: 9px; }
   .dao-rail-top { width: 44px; min-height: 44px; }
   .dao-brand small { max-width: 155px; }
+  .dao-footer { gap: 0 14px; padding: 24px 20px 20px; }
+  .dao-footer > div:nth-child(2) { padding-right: 10px; }
   .dao-hero-copy { padding-top: 47px; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }
   .dao-conference-en { font-size: 18px; }
