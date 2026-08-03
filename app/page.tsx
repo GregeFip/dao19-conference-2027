@@ -148,7 +148,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="dao-demo-bar"><span>PROTOTYPE · 測試版</span> 會議資訊依第一號公告整理，正式安排以組委會後續通知為準</div>
+      <div className="dao-announcement-bar"><span>ANNOUNCEMENT NO. 1 · 第一號公告</span> 會議資訊依第一號公告整理，正式安排以組委會後續通知為準</div>
 
       <header className={`dao-header${desktopHeader.condensed ? " dao-header-condensed" : ""}${desktopHeader.visible ? "" : " dao-header-hidden"}`}>
         <button className="dao-brand" onClick={() => scrollTo("top")} aria-label="返回首页">
@@ -313,7 +313,7 @@ export default function Home() {
         <span className="dao-final-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>参会注册</span></a><small>Announcement issued {basics.announcementDate}</small>
       </section>
 
-      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>REGISTRATION · 報名</span><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Microsoft Forms →</a><small>测试入口 · Test form</small></div><p>© 2027 DAO 19 · Prototype based on Announcement No. 1</p></footer>
+      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>REGISTRATION · 報名</span><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Microsoft Forms →</a><small>線上報名 · Online registration</small></div><p>© 2027 DAO 19 · Based on Announcement No. 1</p></footer>
     </main>
   );
 }
