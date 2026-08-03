@@ -117,7 +117,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   ],
   faqs: [
     { question: "Where will the conference take place? / 會議在哪裡舉行？", answer: "At the Central Campus of Shandong University in Jinan, China. 會議地點為中國濟南山東大學中心校區。" },
-    { question: "Is accommodation included? / 是否包含住宿？", answer: "Accommodation is not stated as included. The committee plans to assist with dormitory booking, with nearby hotels as alternatives. 公告未說明住宿包含在內；會務組擬協助預訂校內住宿。" },
+    { question: "Is accommodation included? / 是否包含住宿？", answer: "The committee plans to assist with dormitory booking, with nearby hotels as alternatives. 會務組擬協助預訂校內住宿，亦可選擇附近酒店。" },
     { question: "What happens after the conference? / 會後有何安排？", answer: "A one-day academic field visit to Mount Tai and its Daoist temples is planned for July 17. 7月17日擬考察泰山及其宮觀。" },
     { question: "Should passport details be entered here? / 是否在網站填寫護照資料？", answer: "No. The online registration form does not collect passport numbers. The committee will provide a secure process later. 不需要；線上報名表不收集護照號碼，會務組將另行提供安全渠道。" },
   ],
