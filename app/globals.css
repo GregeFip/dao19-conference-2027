@@ -381,7 +381,15 @@ a { color: inherit; }
   transition: transform .2s, box-shadow .2s;
 }
 .dao-primary:hover { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--cinnabar-dark); }
-.dao-primary span { display: block; margin-top: 5px; color: #f8e4dc; font: 500 13px var(--font-reading); letter-spacing: .04em; }
+.dao-primary span {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  color: #f8e4dc;
+  font: 700 15px/1.35 "STKaiti", "Kaiti SC", "KaiTi", "楷体", serif;
+  letter-spacing: .12em;
+  text-align: center;
+}
 .dao-link { color: var(--ink); font: 500 13px "DM Mono", monospace; }
 .dao-link span { margin-left: 14px; color: var(--cinnabar); font-size: 16px; }
 .dao-hero-image { min-height: 720px; position: relative; overflow: hidden; background: var(--pine); }
