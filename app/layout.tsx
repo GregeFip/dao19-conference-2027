@@ -1,17 +1,5 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-// Jingfeng Zhongshan Kingdom Seal Script, SIL OFL 1.1.
-// The bundled webfont contains only the glyph “道”; see public/dao/JFZSKSealScript-OFL.txt.
-const daoSealFont = localFont({
-  src: "./fonts/jfzsk-dao-subset.woff2",
-  variable: "--font-dazhuan",
-  display: "swap",
-  preload: true,
-  weight: "400",
-  fallback: ["STKaiti", "KaiTi", "serif"],
-});
 
 export const metadata: Metadata = {
   title: "DAO 19 · 2027｜第十九届国际道学研讨会",
@@ -21,7 +9,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN">
-      <body className={daoSealFont.variable}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

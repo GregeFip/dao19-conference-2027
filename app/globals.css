@@ -95,14 +95,17 @@ a { color: inherit; }
   box-shadow:
     inset 0 0 0 3px rgba(255, 244, 226, .16),
     0 3px 0 rgba(116, 48, 35, .16);
-  font-family: var(--font-dazhuan), "STKaiti", "Kaiti TC", "KaiTi", "楷体", serif;
-  font-size: 32px;
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 1;
-  text-shadow: 0 1px 0 rgba(91, 31, 21, .28);
   position: relative;
   transform: none;
+}
+.dao-seal > img,
+.dao-final-seal > img {
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 1px 0 rgba(91, 31, 21, .28));
 }
 .dao-seal::before {
   content: "";
@@ -898,11 +901,6 @@ a { color: inherit; }
   border-radius: 2px;
   background: radial-gradient(circle at 50% 49%, rgba(255, 246, 233, .12) 0 32%, transparent 33%);
   box-shadow: inset 0 0 0 3px rgba(255, 246, 233, .11);
-  font-family: var(--font-dazhuan), "STKaiti", "Kaiti TC", "KaiTi", "楷体", serif;
-  font-size: 34px;
-  font-weight: 400;
-  font-synthesis: none;
-  line-height: 1;
   position: relative;
   transform: none;
 }

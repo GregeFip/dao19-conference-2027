@@ -1,0 +1,8 @@
+Logo glyph: 道
+Calligrapher: Wu Rui / 吴叡 (1298–1355)
+Source work: 吴叡隶书道德经卷, 1335 (元统三年)
+Collection: The Palace Museum, Beijing / 故宫博物院
+Official collection record: https://www.dpm.org.cn/collection/handwriting/229075.html
+
+This web asset is a cleaned, transparent one-glyph extraction prepared for the
+DAO 19 conference identity. It preserves the original handwritten structure.
