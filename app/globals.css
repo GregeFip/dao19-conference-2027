@@ -119,7 +119,7 @@ a { color: inherit; }
 .dao-header nav > button:not(.dao-register-nav) {
   padding: 10px 0;
   color: #24342c;
-  text-align: left;
+  text-align: center;
   font: 600 16px/1.25 "DM Mono", monospace;
   letter-spacing: .025em;
   position: relative;
@@ -374,7 +374,7 @@ a { color: inherit; }
   padding: 15px 18px;
   background: var(--cinnabar);
   color: #fff8ec;
-  text-align: left;
+  text-align: center;
   text-decoration: none;
   box-shadow: 5px 5px 0 var(--cinnabar-dark);
   font: 500 14px/1.3 "DM Mono", monospace;
