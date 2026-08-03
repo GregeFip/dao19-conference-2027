@@ -211,14 +211,11 @@ export default function Home() {
           </div>
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
-          <div className="dao-actions">
-            <a className="dao-primary" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>参会注册</span></a>
-            <button className="dao-link" onClick={() => scrollTo("questions")}>Explore the theme <span>↓</span></button>
-          </div>
         </div>
         <figure className="dao-hero-image">
           <Image src={publicAsset(media.heroImageUrl)} alt="Mount Tai Heavenly Ladder / 泰山天梯" fill priority sizes="(max-width: 760px) 100vw, 48vw" unoptimized />
           <div className="dao-image-wash" />
+          <a className="dao-primary dao-hero-register" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>参会注册</span></a>
           <figcaption><span>泰</span><p>Heavenly Ladder<br />Mount Tai · 泰山天梯</p></figcaption>
         </figure>
         <span className="dao-scroll-mark">SCROLL TO ENTER <i>↓</i></span>
