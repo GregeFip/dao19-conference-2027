@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "DAO 19 · 2027｜第十九届国际道学研讨会",
-  description: "第十九届国际道学研讨会——道教的海外传播：观念、行为与典籍。2027年7月14日至18日，中国济南。",
+  description: "第十九届国际道学研讨会 Daoism Overseas: Ideas, Practices, and Scriptures。2027年5月25日至29日，中国山东济南五峰山。报名与摘要提交截止：2027年3月1日。",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -13,3 +13,4 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+

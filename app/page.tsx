@@ -13,13 +13,15 @@ const pageSections = [
   { id: "about", number: "01", label: "缘起" },
   { id: "theme", number: "02", label: "主题" },
   { id: "questions", number: "03", label: "议题" },
-  { id: "journey", number: "04", label: "日程" },
-  { id: "organizers", number: "05", label: "主办" },
-  { id: "field-study", number: "06", label: "泰山" },
-  { id: "venue", number: "07", label: "会场" },
-  { id: "practical", number: "08", label: "行前" },
-  { id: "faq", number: "09", label: "答疑" },
-  { id: "final", number: "10", label: "报名" },
+  { id: "format", number: "04", label: "形式" },
+  { id: "journey", number: "05", label: "日程" },
+  { id: "organizers", number: "06", label: "主办" },
+  { id: "field-study", number: "07", label: "考察" },
+  { id: "venue", number: "08", label: "会场" },
+  { id: "fees", number: "09", label: "费用" },
+  { id: "practical", number: "10", label: "行前" },
+  { id: "faq", number: "11", label: "答疑" },
+  { id: "final", number: "12", label: "注册" },
 ];
 
 export default function Home() {
@@ -27,6 +29,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeDay, setActiveDay] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const [organizerTab, setOrganizerTab] = useState(0);
   const [activeSection, setActiveSection] = useState("top");
   const [scrollProgress, setScrollProgress] = useState(0);
   const [desktopHeader, setDesktopHeader] = useState({ condensed: false, visible: true });
@@ -136,7 +139,13 @@ export default function Home() {
     };
   }, []);
 
-  const { basics, about, theme, topics, organizers, schedule, venue, remarks, faqs, media } = siteContent;
+  const { basics, about, theme, topics, organizers, academicGuests, standingCommittee, formats, schedule, importantDates, venue, fees, feeNotes, remarks, faqs, registration, media } = siteContent;
+  const registrationEmail = `mailto:${basics.contactEmail}?subject=${encodeURIComponent(registration.subject)}`;
+  const organizerGroups = [
+    { label: "Chairs & keynotes · 主席與演講", items: academicGuests },
+    { label: "Organizers · 主辦與協辦", items: organizers },
+    { label: "Committee · 常設委員會", items: standingCommittee },
+  ];
   const selectedDay = schedule[activeDay] ?? schedule[0];
   const activeSectionIndex = Math.max(0, pageSections.findIndex((section) => section.id === activeSection));
   const activeSectionMeta = pageSections[activeSectionIndex];
@@ -148,7 +157,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="dao-announcement-bar"><span>ANNOUNCEMENT NO. 1 · 第一號公告</span> 會議資訊依第一號公告整理，正式安排以組委會後續通知為準</div>
+      <div className="dao-announcement-bar"><span>DAO 19 · 2027</span> MAY 25—29 · 濟南五峰山 <a href="#final">Registration & abstracts by March 1 · 3月1日截止</a></div>
 
       <header className={`dao-header${desktopHeader.condensed ? " dao-header-condensed" : ""}${desktopHeader.visible ? "" : " dao-header-hidden"}`}>
         <button className="dao-brand" onClick={() => scrollTo("top")} aria-label="返回首页">
@@ -167,7 +176,7 @@ export default function Home() {
           <button onClick={() => scrollTo("questions")}>Questions <small>议题</small></button>
           <button onClick={() => scrollTo("journey")}>Journey <small>日程</small></button>
           <button onClick={() => scrollTo("venue")}>Place <small>地点</small></button>
-          <a className="dao-register-nav" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>↗</span></a>
+          <a className="dao-register-nav" href="#final" onClick={() => setMenuOpen(false)}>Register <span>↗</span></a>
         </nav>
       </header>
 
@@ -175,7 +184,7 @@ export default function Home() {
         <div className="dao-rail-progress" aria-hidden="true">
           <span>00</span>
           <i><b style={{ height: `${scrollProgress}%` }} /></i>
-          <small>10</small>
+          <small>{pageSections.at(-1)?.number}</small>
         </div>
         <nav className="dao-rail-nav" aria-label="快速跳转到页面章节">
           {pageSections.map((section) => (
@@ -207,18 +216,18 @@ export default function Home() {
           <div className="dao-hero-theme" aria-label="2027年会议主题">
             <span>OFFICIAL CONFERENCE THEME · 正式會議主題</span>
             <strong>{theme.english}</strong>
-            <em>{theme.chinese}</em>
+            <em><small className="dao-translation-label">中文譯題</small>{theme.chinese}</em>
           </div>
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
           <div className="dao-actions">
-            <a className="dao-primary" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>参会注册</span></a>
+            <a className="dao-primary" href="#final">Conference registration <span>参会注册</span></a>
           </div>
         </div>
         <figure className="dao-hero-image">
-          <Image src={publicAsset(media.heroImageUrl)} alt="Mount Tai Heavenly Ladder / 泰山天梯" fill priority sizes="(max-width: 760px) 100vw, 48vw" unoptimized />
+          <Image src={publicAsset(media.heroImageUrl)} alt="Mount Wufeng, Jinan / 濟南五峰山" fill priority sizes="(max-width: 760px) 100vw, 48vw" unoptimized />
           <div className="dao-image-wash" />
-          <figcaption><span>泰</span><p>Heavenly Ladder<br />Mount Tai · 泰山天梯</p></figcaption>
+          <figcaption><span>山</span><p>Mount Wufeng<br />Jinan · 濟南五峰山</p></figcaption>
         </figure>
         <span className="dao-scroll-mark">SCROLL TO ENTER <i>↓</i></span>
       </section>
@@ -245,7 +254,7 @@ export default function Home() {
         <div className="dao-section-index light"><span>贰</span><small>02 · THEME</small></div>
         <p>CONFERENCE THEME · 會議主題</p>
         <h2>{theme.english}</h2>
-        <strong>{theme.chinese}</strong>
+        <strong><small className="dao-translation-label">中文譯題</small>{theme.chinese}</strong>
       </section>
 
       <section className="dao-questions dao-section" id="questions">
@@ -259,61 +268,104 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="dao-format dao-section" id="format">
+        <div className="dao-section-index"><span>肆</span><small>04 · FORMAT</small></div>
+        <div className="dao-section-heading"><div><p className="dao-kicker">PAPERS & PRACTICE · 交流與體驗</p><h2>Ways to<br />take part</h2></div><p>Panels and practical workshops are conducted in English and Chinese.<br />專題研討與體驗工作坊，使用英文及中文。</p></div>
+        <div className="dao-format-grid">{formats.map((item, index) => <article key={item.title}><span>0{index + 1} · {index === 0 ? "DISCUSSION" : "EXPERIENCE"}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
+      </section>
+
       <section className="dao-journey dao-section" id="journey">
-        <div className="dao-section-index light"><span>肆</span><small>04 · JOURNEY</small></div>
+        <div className="dao-section-index light"><span>伍</span><small>05 · JOURNEY</small></div>
         <div className="dao-section-heading light-heading">
-          <div><p className="dao-kicker">JULY 14—18, 2027</p><h2>Five days,<br />two sacred cities</h2></div>
-          <p>Academic exchange in Jinan, followed by a field visit to Mount Tai and its Daoist temples.</p>
+          <div><p className="dao-kicker">MAY 25—29, 2027</p><h2>Five days,<br />from mountain to sea</h2></div>
+          <p>May 26–27: conference on Mount Wufeng. May 28–29: optional excursion to Mount Tai and Mount Lao via Qingdao.<br />五峰山學術會議，接續自選泰山、青島與崂山行程。</p>
         </div>
-        <div className="dao-day-tabs" role="tablist" aria-label="选择会议日期">
-          {schedule.map((day, index) => <button key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}><small>0{index + 1}</small><strong>{day.date}</strong><span>{day.weekday}</span></button>)}
+        <div className="dao-day-tabs" role="tablist" aria-label="选择会议日期" onKeyDown={(event) => {
+          if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+          const index = event.key === "Home" ? 0 : event.key === "End" ? schedule.length - 1 : (activeDay + (event.key === "ArrowRight" ? 1 : -1) + schedule.length) % schedule.length;
+          setActiveDay(index);
+          event.currentTarget.querySelectorAll<HTMLButtonElement>("[role=tab]")[index]?.focus();
+        }}>
+          {schedule.map((day, index) => <button id={`day-tab-${index}`} aria-controls="day-panel" tabIndex={activeDay === index ? 0 : -1} key={`${day.date}-${index}`} className={activeDay === index ? "active" : ""} onClick={() => setActiveDay(index)} role="tab" aria-selected={activeDay === index}><small>0{index + 1}</small><strong>{day.date}</strong><span>{day.weekday}</span></button>)}
         </div>
         <p className="dao-day-swipe-hint" aria-hidden="true">← 左右滑動日期 · SWIPE DAYS →</p>
-        <div className="dao-schedule" role="tabpanel">
+        <div className="dao-schedule" id="day-panel" role="tabpanel" aria-labelledby={`day-tab-${activeDay}`} tabIndex={0}>
           {selectedDay?.items.map((item, index) => <article key={`${item.time}-${item.title}-${index}`}><time>{item.time}</time><h3>{item.title}</h3><span>{item.place}</span><p>{item.host}</p></article>)}
         </div>
-        <div className="dao-journey-route" aria-label="济南至泰安会议行程概览">
-          <div><small>BASE CITY · 會議城市</small><strong>JINAN</strong><span>濟南</span></div>
-          <p><i /><em>75 KM · CONFERENCE ROUTE</em><i /></p>
-          <div><small>FIELD DESTINATION · 考察地</small><strong>TAI&apos;AN</strong><span>MOUNT TAI · 泰山</span></div>
+        <div className="dao-journey-route" aria-label="五峰山、泰山、青岛、崂山行程">
+          <div><small>CONFERENCE · 學術會議</small><strong>WUFENG</strong><span>JINAN · 濟南五峰山</span></div>
+          <p><i /><em>MOUNT TAI → QINGDAO → MOUNT LAO</em><i /></p>
+          <div><small>OPTIONAL · 自選考察</small><strong>28—29 MAY</strong><span>泰山 · 青島 · 崂山</span></div>
         </div>
       </section>
 
       <section className="dao-organizers dao-section" id="organizers">
-        <div className="dao-section-index"><span>伍</span><small>05 · ORGANIZERS</small></div>
-        <div className="dao-organizer-intro"><p className="dao-kicker">A GLOBAL SCHOLARLY NETWORK</p><h2>Six institutions,<br />one conversation</h2><p>本次會議由亞洲、北美多家大學與學術機構共同主辦。</p></div>
-        <div className="dao-organizer-list">{organizers.map((item, index) => <article key={`${item.name}-${index}`}><span>0{index + 1}</span><h3>{item.name}</h3><p>{item.country}</p></article>)}</div>
-      </section>
-
-      <section className="dao-field-study" id="field-study" aria-label="泰山学术考察">
-        <figure className="dao-canon-image"><Image src={publicAsset(media.canonImageUrl)} alt="The Daoist Canon collected in Tai'an Museum / 泰安市博物馆藏明代道藏" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>The Daoist Canon<br /><span>泰安市博物館藏明代《道藏》</span></figcaption></figure>
-        <div className="dao-field-copy"><div className="dao-section-index light"><span>陆</span><small>06 · FIELD STUDY</small></div><p className="dao-kicker">MOUNT TAI · 泰山</p><h2>Reading tradition<br />in the landscape</h2><p>The conference extends from the seminar room into the sacred landscape of Mount Tai—visiting temples, collections, and places where Daoist history remains tangible.</p><p className="zh">會後考察將學術討論延伸至泰山的宮觀、文物與宗教景觀，在行走與觀看之間理解傳統。</p><div className="dao-distance"><strong>75</strong><span>KM<br />JINAN → TAI&apos;AN</span></div></div>
-      </section>
-
-      <section className="dao-venue dao-section" id="venue">
-        <div className="dao-section-index"><span>柒</span><small>07 · PLACE</small></div>
-        <div className="dao-venue-card">
-          <div className="dao-venue-copy"><p className="dao-kicker">{venue.kicker}</p><h2>{venue.name}</h2><p>{venue.address}</p><p className="zh">{venue.transport}</p><div>{venue.tags.map((tag, index) => <span key={`${tag}-${index}`}>{tag}</span>)}</div></div>
-          <figure><Image src={publicAsset(media.campusMapUrl)} alt="Shandong University Central Campus map" fill sizes="(max-width: 760px) 100vw, 50vw" unoptimized /><figcaption>Campus guide · 校園導覽圖</figcaption></figure>
+        <div className="dao-section-index"><span>陸</span><small>06 · ORGANIZERS</small></div>
+        <div className="dao-organizer-intro"><p className="dao-kicker">A GLOBAL SCHOLARLY NETWORK</p><h2>People behind<br />the conversation</h2><p>Conference chairs, keynote speakers, sponsors, co-organizers, and the standing committee.<br />會議主席、主題演講嘉賓、主辦協辦機構與常設委員會。</p></div>
+        <div className="dao-organizer-directory">
+          <div className="dao-directory-tabs" role="tablist" aria-label="主办信息类别" onKeyDown={(event) => {
+            if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+            event.preventDefault();
+            const index = event.key === "Home" ? 0 : event.key === "End" ? 2 : (organizerTab + (event.key === "ArrowRight" ? 1 : -1) + 3) % 3;
+            setOrganizerTab(index);
+            event.currentTarget.querySelectorAll<HTMLButtonElement>("[role=tab]")[index]?.focus();
+          }}>{organizerGroups.map((group, index) => <button role="tab" id={`directory-tab-${index}`} aria-controls={`directory-panel-${index}`} aria-selected={organizerTab === index} tabIndex={organizerTab === index ? 0 : -1} onClick={() => setOrganizerTab(index)} key={group.label}>{group.label}</button>)}</div>
+          {organizerGroups.map((group, index) => <div className="dao-organizer-list" role="tabpanel" id={`directory-panel-${index}`} aria-labelledby={`directory-tab-${index}`} hidden={organizerTab !== index} key={group.label}>{group.items.map((item, itemIndex) => <article key={item.name}><span>0{itemIndex + 1}</span><h3>{item.name}</h3><p>{item.country}</p></article>)}</div>)}
         </div>
       </section>
 
+      <section className="dao-field-study" id="field-study" aria-label="泰山与崂山自选考察">
+        <div className="dao-canon-image dao-excursion-images"><figure><Image src={publicAsset(media.routeMapUrl)} alt="Ladder to Heaven on Mount Tai / 泰山天梯" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>28 MAY · Mount Tai<span>泰山天梯</span></figcaption></figure><figure><Image src={publicAsset(media.excursionImageUrl)} alt="Taiqing Temple on Mount Lao / 崂山太清宮" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>29 MAY · Mount Lao<span>崂山太清宮</span></figcaption></figure></div>
+        <div className="dao-field-copy"><div className="dao-section-index light"><span>柒</span><small>07 · FIELD STUDY</small></div><p className="dao-kicker">MAY 28—29 · OPTIONAL 自選</p><h2>Mountains,<br />then the sea</h2><p>Leave Mount Wufeng at 08:00 on May 28, visit Mount Tai, and continue to Qingdao for the night. On May 29, visit Mount Lao and return to Qingdao by late afternoon.</p><p className="zh">5月28日退房後08:00出發，考察泰山，再赴青島住宿；29日考察崂山，傍晚前返回青島。此後行程自行安排，會務組可協助機場接送及酒店預訂。</p><div className="dao-distance"><strong>02</strong><span>DAYS · 兩日<br />MOUNT TAI → MOUNT LAO</span></div></div>
+      </section>
+
+      <section className="dao-venue dao-section" id="venue">
+        <div className="dao-section-index"><span>捌</span><small>08 · PLACE</small></div>
+        <div className="dao-venue-card">
+          <div className="dao-venue-copy"><p className="dao-kicker">{venue.kicker}</p><h2>{venue.name}</h2><p>{venue.address}</p><p className="zh">{venue.transport}</p><div>{venue.tags.map((tag, index) => <span key={`${tag}-${index}`}>{tag}</span>)}</div></div>
+          <figure><Image src={publicAsset(media.campusMapUrl)} alt="Dongzhen Temple on Mount Wufeng / 五峰山洞真觀" fill sizes="(max-width: 760px) 100vw, 50vw" unoptimized /><figcaption>Dongzhen Temple · 五峰山洞真觀</figcaption></figure>
+        </div>
+      </section>
+
+      <section className="dao-fees dao-section" id="fees">
+        <div className="dao-section-index"><span>玖</span><small>09 · FEES</small></div>
+        <div className="dao-section-heading"><div><p className="dao-kicker">CONFERENCE & EXCURSION · 會議與考察</p><h2>Plan your stay</h2></div><p>All prices in US dollars. Hotel charges are separate from the conference and excursion fees.<br />以下均為美元報價；住宿費與會議、考察費分別支付。</p></div>
+        <div className="dao-fee-grid">{fees.map((fee) => <article key={fee.title}><h3>{fee.title}</h3><p className="dao-fee-amount"><small>US $</small>{fee.amount}</p><p>{fee.detail}</p><span>{fee.payment}</span></article>)}</div>
+        <div className="dao-fee-notes">{feeNotes.map((note) => <p key={note}>{note}</p>)}</div>
+      </section>
+
       <section className="dao-practical dao-section" id="practical">
-        <div className="dao-section-index"><span>捌</span><small>08 · PRACTICAL</small></div>
-        <div className="dao-section-heading"><div><p className="dao-kicker">BEFORE YOU ARRIVE · 行前資訊</p><h2>Practical notes</h2></div><p>Details are drawn from Announcement No. 1 and may be refined by the organizing committee.</p></div>
+        <div className="dao-section-index"><span>拾</span><small>10 · PRACTICAL</small></div>
+        <div className="dao-section-heading"><div><p className="dao-kicker">BEFORE YOU ARRIVE · 行前資訊</p><h2>Your way<br />to Wufeng</h2></div><p>Jinan West Railway Station → Metro Line 1 → Gongyanyuan Station → Wufengge Hotel.<br />濟南西站 → 地鐵1號線 → 工研院站 → 五峰閣賓館。</p></div>
         <div className="dao-remark-grid">{remarks.map((item, index) => <article key={`${item.title}-${index}`}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
       </section>
 
       <section className="dao-faq dao-section" id="faq">
-        <div><p className="dao-kicker">QUESTIONS · 常見問題</p><h2>Before the journey</h2><p>Useful answers for participants preparing to come to Jinan.</p></div>
+        <div><p className="dao-kicker">11 · QUESTIONS · 常見問題</p><h2>Before the journey</h2><p>Useful answers for participants preparing to come to Jinan.<br />關於報名、住宿、考察與資料展示。</p></div>
         <div className="dao-faq-list">{faqs.map((item, index) => <article className={openFaq === index ? "open" : ""} key={`${item.question}-${index}`}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{item.question}</span><i>{openFaq === index ? "−" : "+"}</i></button><div><p>{item.answer}</p></div></article>)}</div>
       </section>
 
-      <section className="dao-final" id="final">
-        <span className="dao-final-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><p>{basics.monthYear} · {basics.city}</p><h2>Join the conversation.<br /><em>Walk the mountain.</em></h2><strong>參與對話 · 共赴泰山</strong><a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Register interest <span>参会注册</span></a><small>Announcement issued {basics.announcementDate}</small>
+      <section className="dao-final dao-registration" id="final">
+        <div className="dao-registration-intro">
+        <span className="dao-final-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span>
+        <p>12 · REGISTRATION · 参会注册</p>
+        <h2>Meet us<br /><em>on Mount Wufeng.</em></h2>
+        <strong>2027年5月 · 相會五峰山</strong>
+        <div className="dao-registration-dates">{importantDates.slice(0, 2).map((date) => <div key={date.date}><time>{date.date}</time><span>{date.title}<br />{date.note}</span></div>)}</div>
+        </div>
+        <div className="dao-registration-content">
+        <div className="dao-registration-materials">{registration.materials.map((item) => <div key={item.title}><h3>{item.title}</h3><p>{item.body}</p></div>)}</div>
+        <a className="dao-registration-email" href={registrationEmail}>{basics.contactEmail}</a>
+        <a className="dao-primary inverse" href={registrationEmail}>Register by email <span>参会注册</span></a>
+        <p className="dao-registration-note">Please email the information above to complete registration.<br />請依最新公告，將上述資料寄送至會務郵箱完成報名。</p>
+        <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Online form · 輔助登記 ↗</a><a href={publicAsset("/dao/dao19-announcement.docx")} download>Download announcement · 下載會議資料 ↓</a></div>
+        <small className="dao-form-context">The online form is an additional entry point; email registration follows the announcement.<br />線上表單保留作輔助入口，正式報名請按公告寄送郵件。</small>
+        </div>
       </section>
 
-      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>{basics.city}</small></div><div><span>REGISTRATION · 報名</span><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Microsoft Forms →</a><small>線上報名 · Online registration</small></div><p>© 2027 DAO 19 · Based on Announcement No. 1</p></footer>
+      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>25—29 MAY 2027</small></div><div><span>REGISTRATION · 報名</span><a href={registrationEmail}>{basics.contactEmail}</a><small>Deadline · 2027.03.01</small></div><p>© 2027 DAO 19 · International Conference on Daoist Studies</p></footer>
     </main>
   );
 }
+
