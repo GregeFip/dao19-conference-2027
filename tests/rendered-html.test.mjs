@@ -49,3 +49,11 @@ test("the existing static Pages deployment configuration is retained", async () 
   assert.match(workflow, /actions\/deploy-pages@v4/);
   assert.match(workflow, /NEXT_PUBLIC_BASE_PATH/);
 });
+
+test("review revisions retain the agreed content and bilingual presentation", () => {
+  for (const value of ["Subjects", "Schedule", "03 · SUBJECTS", "05 · SCHEDULE", "08 · VENUE", "The indigenous higher religion of China", "Six connected subjects examine how Daoism disseminates", "Communities, Temples", "Society, Culture", "Ethnic group", "Religion", "Folk Belief", "Chair · Boston University", "Keynote Speech", "Journal of Daoist Studies / Three Pines Press"]) assert.ok(text.includes(value), `Missing requested revision: ${value}`);
+  assert.doesNotMatch(text, /CO-CHAIR|Check-in: Wufengge Hotel 五峰閣賓館|Six connected questions/);
+  assert.match(html, /class="dao-theme-line">Daoism Overseas:<\/span><span class="dao-theme-line">Ideas, Practices, and Scriptures/);
+  assert.match(html, /class="dao-language-line" lang="en">Arrival &amp; check-in<\/bdi><bdi class="dao-language-line" lang="zh-Hant">報到/);
+  assert.equal((html.match(/href="https:\/\/forms\.cloud\.microsoft\/r\/7c8DrdS0dw"/g) || []).length, 4);
+});
