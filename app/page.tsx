@@ -210,8 +210,8 @@ export default function Home() {
         <div className="dao-hero-copy">
           <p className="dao-eyebrow"><span />{basics.eyebrow}</p>
           <div className="dao-conference-lockup">
-            <h1>{basics.chineseName}</h1>
-            <p className="dao-conference-en">{basics.conferenceName}</p>
+            <h1 lang="en">{basics.conferenceName}</h1>
+            <p className="dao-conference-zh" lang="zh-Hant">{basics.chineseName}</p>
           </div>
           <div className="dao-hero-theme" aria-label="2027年会议主题">
             <strong>{theme.english}</strong>

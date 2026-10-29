@@ -39,7 +39,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   version: 2027,
   basics: {
     shortName: "DAO 19 · 2027",
-    conferenceName: "The 19th International Conference on Daoist Studies",
+    conferenceName: "19th International Conference on Daoist Studies",
     chineseName: "第十九屆國際道學研討會",
     eyebrow: "MAY 25—29, 2027 · 中國濟南五峰山",
     introduction: "May 25–29, 2027 · Mount Wufeng, Jinan, Shandong, China.",

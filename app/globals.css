@@ -313,15 +313,15 @@ a { color: inherit; }
 .dao-hero h1 {
   max-width: 740px;
   color: #122019;
-  font: 700 clamp(46px, 4.7vw, 74px)/1.14 var(--font-reading);
-  letter-spacing: .025em;
+  font: 700 clamp(46px, 4.7vw, 74px)/1.14 "Playfair Display", Georgia, serif;
+  letter-spacing: -.018em;
   text-wrap: balance;
 }
-.dao-conference-en {
+.dao-conference-zh {
   max-width: 670px;
   margin-top: 15px;
   color: #39483f;
-  font: 500 clamp(19px, 1.65vw, 25px)/1.4 "Playfair Display", Georgia, serif;
+  font: 500 clamp(19px, 1.65vw, 25px)/1.4 var(--font-reading);
 }
 .dao-hero-theme {
   max-width: 680px;
@@ -1236,7 +1236,7 @@ a { color: inherit; }
   .dao-hero { grid-template-columns: 55% 45%; }
   .dao-hero-copy { padding: 62px 50px 54px; }
   .dao-hero h1 { font-size: clamp(44px, 4.8vw, 58px); }
-  .dao-conference-en { font-size: clamp(18px, 1.9vw, 22px); }
+  .dao-conference-zh { font-size: clamp(18px, 1.9vw, 22px); }
   .dao-hero-theme > strong { font-size: clamp(22px, 2.5vw, 27px); }
   .dao-hero-image { min-height: 680px; }
   .dao-scroll-mark { display: none; }
@@ -1387,8 +1387,8 @@ a { color: inherit; }
   .dao-hero-copy { padding: 54px 24px 48px; }
   .dao-eyebrow { font-size: 12px; }
   .dao-conference-lockup { margin-top: 27px; }
-  .dao-hero h1 { font-size: clamp(38px, 10.5vw, 49px); line-height: 1.16; letter-spacing: .015em; text-wrap: balance; overflow-wrap: anywhere; }
-  .dao-conference-en { margin-top: 14px; font-size: 19px; line-height: 1.45; }
+  .dao-hero h1 { font-size: clamp(38px, 10.5vw, 49px); line-height: 1.16; letter-spacing: -.018em; text-wrap: balance; overflow-wrap: anywhere; }
+  .dao-conference-zh { margin-top: 14px; font-size: 19px; line-height: 1.45; }
   .dao-hero-theme { margin: 27px 0 25px; }
   .dao-hero-theme > strong { font-size: clamp(22px, 6.3vw, 25px); line-height: 1.22; text-wrap: balance; overflow-wrap: anywhere; }
   .dao-hero-theme > em { font-size: 18px; }
@@ -1528,7 +1528,7 @@ a { color: inherit; }
   .dao-footer > div:nth-child(2) { padding-right: 10px; }
   .dao-hero-copy { padding-top: 47px; }
   .dao-hero h1 { font-size: clamp(37px, 10.5vw, 46px); }
-  .dao-conference-en { font-size: 18px; }
+  .dao-conference-zh { font-size: 18px; }
   .dao-hero-theme > strong { font-size: 23px; }
   .dao-hero-image figcaption > span { width: 46px; height: 46px; font-size: 24px; }
   .dao-section { padding: 65px 20px; }
