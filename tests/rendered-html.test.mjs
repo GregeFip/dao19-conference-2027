@@ -19,7 +19,7 @@ test("the exported page contains the new dates, venue, deadlines, and fees", () 
 });
 
 test("registration explains the email route and preserves the auxiliary form", () => {
-  assert.match(html, /href="mailto:hkhongdao100@163\.com\?subject=/);
+  assert.match(html, /href="mailto:sdufroum@163\.com\?subject=/);
   assert.match(html, /href="https:\/\/forms\.cloud\.microsoft\/pages\/responsepage\.aspx/);
   assert.match(text, /Please email the information above to complete registration/);
   assert.match(text, /ID or passport number/);
