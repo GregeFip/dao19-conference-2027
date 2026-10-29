@@ -51,7 +51,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     language: "English / 中文",
     announcementDate: "",
     organizer: "Guo Wu · Livia Kohn",
-    contactEmail: "hkhongdao100@163.com",
+    contactEmail: "sdufroum@163.com",
   },
   stats: [
     { value: "19", suffix: "TH", label: "International Conference" },
@@ -159,7 +159,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   ],
   faqs: [
     { question: "Where and when? / 何時、何地舉行？", answer: "Mount Wufeng, Jinan, Shandong, China. Check-in is May 25; conference sessions are May 26–27, 2027. Optional excursions follow on May 28–29. 中國山東濟南五峰山；2027年5月25日報到，26—27日學術會議，28—29日自選考察。" },
-    { question: "How do I register? / 如何報名？", answer: "Email hkhongdao100@163.com by March 1, 2027 with the required personal details, paper title if presenting, accommodation choice, and excursion choice. Abstracts are due on the same date. 請於2027年3月1日前寄送報名資料至上述郵箱，並說明住宿與考察意向；摘要亦於同日截止。" },
+    { question: "How do I register? / 如何報名？", answer: "Email sdufroum@163.com by March 1, 2027 with the required personal details, paper title if presenting, accommodation choice, and excursion choice. Abstracts are due on the same date. 請於2027年3月1日前寄送報名資料至上述郵箱，並說明住宿與考察意向；摘要亦於同日截止。" },
     { question: "What are the hotel arrangements? / 如何安排住宿？", answer: "Wufengge Hotel: US $150 for three nights, double occupancy; pay at the hotel. Name your roommate or request roommate matching when registering. Self-arranged accommodation is also possible. 五峰閣賓館三晚雙人入住費用為150美元，直接向酒店付款；報名時請註明室友或是否需要協助配對，亦可自行安排住宿。" },
     { question: "Is the excursion optional? / 考察是否自願參加？", answer: "Yes. The May 28–29 excursion visits Mount Tai and Mount Lao via Qingdao. The US $100 fee includes transport, cable cars, tickets, meals, and guides; Qingdao hotel charges are separate. 是，自選考察經青島參訪泰山及崂山。100美元考察費包含交通、纜車、門票、餐食及導遊；青島酒店另付。" },
     { question: "Can I display books or materials? / 可否展示圖書及資料？", answer: "A limited number of tables will be available free of charge for fliers, pamphlets, books, CDs, and other materials. 提供有限數量的免費展桌，可分發宣傳單、冊子，以及銷售圖書、CD等資料。" },
