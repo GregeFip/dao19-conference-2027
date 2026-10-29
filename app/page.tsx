@@ -214,9 +214,8 @@ export default function Home() {
             <p className="dao-conference-en">{basics.conferenceName}</p>
           </div>
           <div className="dao-hero-theme" aria-label="2027年会议主题">
-            <span>OFFICIAL CONFERENCE THEME · 正式會議主題</span>
             <strong>{theme.english}</strong>
-            <em><small className="dao-translation-label">中文譯題</small>{theme.chinese}</em>
+            <em>{theme.chinese}</em>
           </div>
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
@@ -254,7 +253,7 @@ export default function Home() {
         <div className="dao-section-index light"><span>贰</span><small>02 · THEME</small></div>
         <p>CONFERENCE THEME · 會議主題</p>
         <h2>{theme.english}</h2>
-        <strong><small className="dao-translation-label">中文譯題</small>{theme.chinese}</strong>
+        <strong>{theme.chinese}</strong>
       </section>
 
       <section className="dao-questions dao-section" id="questions">
@@ -311,7 +310,7 @@ export default function Home() {
             setOrganizerTab(index);
             event.currentTarget.querySelectorAll<HTMLButtonElement>("[role=tab]")[index]?.focus();
           }}>{organizerGroups.map((group, index) => <button role="tab" id={`directory-tab-${index}`} aria-controls={`directory-panel-${index}`} aria-selected={organizerTab === index} tabIndex={organizerTab === index ? 0 : -1} onClick={() => setOrganizerTab(index)} key={group.label}>{group.label}</button>)}</div>
-          {organizerGroups.map((group, index) => <div className="dao-organizer-list" role="tabpanel" id={`directory-panel-${index}`} aria-labelledby={`directory-tab-${index}`} hidden={organizerTab !== index} key={group.label}>{group.items.map((item, itemIndex) => <article key={item.name}><span>0{itemIndex + 1}</span><h3>{item.name}</h3><p>{item.country}</p></article>)}</div>)}
+          {organizerGroups.map((group, index) => <div className="dao-organizer-list" role="tabpanel" id={`directory-panel-${index}`} aria-labelledby={`directory-tab-${index}`} hidden={organizerTab !== index} key={group.label}>{group.items.map((item, itemIndex) => <article key={item.name}><span>0{itemIndex + 1}</span><h3>{item.name}</h3>{item.country && <p>{item.country}</p>}</article>)}</div>)}
         </div>
       </section>
 

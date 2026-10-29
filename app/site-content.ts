@@ -83,7 +83,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   academicGuests: [
     { name: "Guo Wu", country: "CHAIR · Shandong University" },
     { name: "Livia Kohn", country: "CO-CHAIR · Boston University" },
-    { name: "LAI ChiTim", country: "KEYNOTE · Chinese University of Hong Kong, Hong Kong" },
+    { name: "LAI ChiTim", country: "" },
     { name: "Further keynote to be announced", country: "其他主題演講嘉賓待公布" },
   ],
   organizers: [
