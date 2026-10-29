@@ -1727,3 +1727,424 @@ a:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 5px; }
   .dao-registration-dates > div { align-items: flex-start; flex-direction: column; gap: 6px; }
 }
 
+/* Local review revision: preserve the visual system and separate translations. */
+.dao-question-title-zh, .dao-fees-title-zh { margin-top: 16px; color: var(--ink-soft); font: 600 20px/1.6 var(--font-reading); letter-spacing: .035em; }
+.dao-bilingual, .dao-language-line { display: block; color: inherit; font: inherit; letter-spacing: inherit; }
+.dao-language-line + .dao-language-line { margin-top: .35em; font-family: var(--font-reading); letter-spacing: .015em; }
+.dao-kicker .dao-language-line + .dao-language-line { margin-top: .45em; letter-spacing: .08em; }
+.dao-announcement-bar .dao-bilingual { line-height: 1.45; }
+.dao-announcement-bar a { vertical-align: middle; }
+.dao-eyebrow .dao-bilingual { min-width: 0; }
+.dao-theme h2 { max-width: 1150px; font-size: clamp(40px, 5vw, 76px); line-height: 1.14; letter-spacing: -.03em; }
+.dao-theme-line { display: block; }
+.dao-theme-line + .dao-theme-line { margin-top: .08em; }
+.dao-schedule-intro { max-width: 430px; color: #cad4cd; font-size: 16px; line-height: 1.65; }
+.dao-schedule-intro > p + p { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.18); }
+.dao-schedule article { align-items: start; }
+.dao-schedule h3 { line-height: 1.45; }
+.dao-schedule .dao-language-line + .dao-language-line { margin-top: .45em; }
+.dao-organizer-intro h2 { font-size: clamp(38px, 3.3vw, 52px); line-height: 1.13; letter-spacing: -.025em; }
+.dao-organizer-intro h2 > span { display: block; }
+.dao-organizer-intro > p:last-child { max-width: 39ch; margin-top: 24px; }
+.dao-directory-tabs button { padding-top: 13px; padding-bottom: 13px; }
+.dao-excursion-images figcaption > span { display: block; margin-top: 5px; }
+.dao-format-grid .dao-language-line + .dao-language-line,
+.dao-remark-grid p .dao-language-line + .dao-language-line,
+.dao-registration-materials p .dao-language-line + .dao-language-line { margin-top: .7em; }
+.dao-fee-grid h3 { min-height: 3.8em; }
+.dao-fee-grid .dao-language-line + .dao-language-line { margin-top: .5em; }
+.dao-fee-notes .dao-language-line + .dao-language-line { margin-top: .6em; }
+.dao-venue-copy > div > span { display: flex; align-items: center; }
+.dao-faq-list .dao-language-line + .dao-language-line { margin-top: .5em; }
+.dao-footer .dao-language-line + .dao-language-line { margin-top: .25em; }
+
+@media (min-width: 1101px) {
+  .dao-theme-line { white-space: nowrap; }
+  .dao-fees { padding-top: 44px; padding-bottom: 44px; }
+  .dao-fees > .dao-section-index { margin-bottom: 22px; }
+  .dao-fees .dao-section-heading { margin-bottom: 22px; }
+  .dao-fees .dao-section-heading h2 { font-size: clamp(44px, 4vw, 58px); }
+  .dao-journey > .dao-section-index { margin-bottom: 22px; }
+  .dao-journey .dao-section-heading { gap: 35px; margin-bottom: 23px; }
+  .dao-journey .dao-section-heading h2 { font-size: clamp(38px, 3.3vw, 51px); }
+  .dao-schedule-intro { max-width: 450px; font-size: 15px; line-height: 1.55; }
+  .dao-schedule-intro > p + p { margin-top: 12px; padding-top: 12px; }
+  .dao-day-tabs button { min-height: 100px; padding-top: 14px; padding-bottom: 14px; }
+  .dao-day-tabs strong { margin-top: 8px; margin-bottom: 6px; }
+  .dao-schedule article { grid-template-columns: 94px minmax(0, .95fr) minmax(0, 1fr) minmax(0, 1.65fr); gap: 20px; padding: 18px 0; }
+  .dao-schedule span, .dao-schedule p { font-size: 15px; line-height: 1.55; }
+  .dao-journey .dao-journey-route { min-height: 110px; padding-top: 18px; padding-bottom: 18px; }
+  .dao-organizers { grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); gap: 42px; }
+  .dao-organizer-directory { padding-top: 0; }
+  .dao-organizer-intro .dao-kicker { margin-bottom: 22px; }
+  .dao-organizer-list article { align-content: start; padding-top: 22px; padding-bottom: 22px; }
+  .dao-about-copy { font-size: 17px; line-height: 1.75; }
+  .dao-about-copy > p { line-height: 1.75; }
+  .dao-fee-grid article { padding-top: 24px; padding-bottom: 24px; }
+  .dao-fee-grid .dao-fee-amount { margin-top: 14px; margin-bottom: 18px; }
+  .dao-registration-materials > div { padding-top: 18px; padding-bottom: 18px; }
+  .dao-registration-materials p { font-size: 15px; line-height: 1.65; }
+}
+
+@media (min-width: 1101px) and (max-width: 1280px) {
+  .dao-journey .dao-section-heading h2 { font-size: 38px; }
+  .dao-schedule-intro { max-width: 375px; font-size: 14px; }
+  .dao-schedule article { grid-template-columns: 78px minmax(0, .9fr) minmax(0, 1fr) minmax(0, 1.6fr); gap: 14px; padding-top: 14px; padding-bottom: 14px; }
+  .dao-schedule span, .dao-schedule p { font-size: 14px; }
+  .dao-schedule h3 { font-size: 17px; }
+  .dao-organizers { column-gap: 30px; }
+}
+
+@media (min-width: 1101px) and (max-width: 1280px), (min-width: 1281px) and (max-width: 1440px) and (max-height: 900px) {
+  .dao-fees, .dao-practical { padding-top: 44px; padding-bottom: 44px; }
+  .dao-fees > .dao-section-index, .dao-practical > .dao-section-index { margin-bottom: 22px; }
+  .dao-fees .dao-section-heading, .dao-practical .dao-section-heading { margin-bottom: 22px; }
+  .dao-fees .dao-section-heading h2 { font-size: 44px; }
+  .dao-fee-grid article { padding-top: 18px; padding-bottom: 18px; }
+  .dao-fee-grid .dao-fee-amount { font-size: 54px; margin-top: 12px; margin-bottom: 15px; }
+  .dao-fee-notes { margin-top: 16px; gap: 20px; }
+  .dao-practical .dao-section-heading h2 { font-size: 40px; }
+  .dao-practical .dao-remark-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dao-practical .dao-remark-grid article:nth-child(even) { border-right: 0; }
+  .dao-practical .dao-remark-grid article { padding: 12px 16px; }
+  .dao-practical .dao-remark-grid h3 { margin-top: 6px; margin-bottom: 10px; font-size: 19px; line-height: 1.3; }
+  .dao-practical .dao-remark-grid p { line-height: 1.55; }
+  .dao-practical .dao-remark-grid p .dao-language-line + .dao-language-line { margin-top: .5em; }
+  .dao-registration { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 36px 136px 36px 60px; }
+  .dao-registration-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 32px; }
+  .dao-registration .dao-final-seal { position: absolute; top: 0; left: 0; width: 32px; height: 32px; margin: 0; }
+  .dao-registration-intro > p { grid-column: 1; padding-left: 44px; }
+  .dao-registration h2 { grid-column: 1; margin-top: 14px; margin-bottom: 10px; font-size: 38px; line-height: 1.06; }
+  .dao-registration h2 br { display: none; }
+  .dao-registration h2 em { display: block; }
+  .dao-registration-intro > strong { grid-column: 1; font-size: 18px; }
+  .dao-registration-dates { grid-column: 2; grid-row: 1 / 4; margin: 0; align-self: center; }
+  .dao-registration-dates > div { padding: 13px 0; }
+  .dao-registration-dates time { font-size: 17px; }
+  .dao-registration-content { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 13px 26px; align-content: start; }
+  .dao-registration-materials { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; }
+  .dao-registration-materials > div { padding: 12px 0; }
+  .dao-registration-materials h3 { margin-bottom: 9px; font-size: 16px; line-height: 1.4; }
+  .dao-registration-materials p { line-height: 1.6; }
+  .dao-registration-email { grid-column: 1; grid-row: 2; margin: 0; align-self: center; }
+  .dao-registration .dao-primary { grid-column: 2; grid-row: 2; width: 100%; min-width: 0; }
+  .dao-registration-note { grid-column: 1 / -1; margin: 0; }
+  .dao-registration-links { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; margin: 0; }
+  .dao-form-context { grid-column: 1 / -1; margin: 0; }
+}
+
+@media (max-width: 1100px) {
+  .dao-schedule-intro { max-width: none; }
+  .dao-organizer-intro h2 { font-size: clamp(38px, 4.7vw, 52px); }
+}
+
+@media (max-width: 760px) {
+  .dao-theme h2 { font-size: clamp(36px, 9.5vw, 48px); }
+  .dao-schedule-intro { margin-top: 24px; font-size: 16px; }
+  .dao-schedule-intro > p + p { margin-top: 17px; padding-top: 17px; }
+  .dao-schedule article { grid-template-columns: 74px minmax(0, 1fr); padding-top: 23px; padding-bottom: 23px; }
+  .dao-schedule article > span, .dao-schedule article > p { grid-column: 2; }
+  .dao-schedule h3 { font-size: 18px; }
+  .dao-organizer-intro h2 { font-size: clamp(34px, 8.9vw, 47px); }
+  .dao-organizer-intro > p:last-child { max-width: none; }
+  .dao-directory-tabs button { line-height: 1.6; }
+  .dao-fee-grid h3 { min-height: 0; }
+  .dao-footer > div { min-width: 0; }
+}
+
+@media (max-width: 380px) {
+  .dao-schedule article { grid-template-columns: 64px minmax(0, 1fr); gap: 9px 12px; }
+  .dao-theme h2 { font-size: 36px; }
+}
+
+/* Approved local refinement: one hierarchy, stable anchors and readable cards. */
+.dao-header-slot { height: 96px; position: relative; z-index: 40; }
+.dao-header-top { display: none; }
+.dao-announcement-bar { scroll-snap-align: start; scroll-snap-stop: always; }
+.dao-nowrap { white-space: nowrap; font: inherit; color: inherit; }
+.dao-section-heading h2, .dao-about-title h2, .dao-organizer-intro h2,
+.dao-field-copy h2, .dao-venue-copy h2, .dao-faq > div:first-child h2 {
+  font-size: clamp(46px, 4vw, 58px); line-height: 1.08; letter-spacing: -.03em; text-wrap: balance;
+}
+.dao-section-title-zh {
+  margin: 10px 0 0; color: var(--ink-soft); font: 600 20px/1.5 var(--font-reading); letter-spacing: .035em;
+}
+.dao-organizer-intro > .dao-section-title-zh,
+.dao-venue-copy > .dao-section-title-zh,
+.dao-faq > div:first-child > .dao-section-title-zh { margin: 12px 0 0; font: 600 20px/1.5 var(--font-reading); }
+.dao-theme > strong { font-size: clamp(21px, 1.7vw, 25px); line-height: 1.65; }
+.light-heading .dao-section-title-zh, .dao-field-copy > .dao-section-title-zh { color: #e5d4a4; }
+.dao-field-copy > p.dao-section-title-zh { margin: 12px 0 0; color: #e5d4a4; font: 600 20px/1.5 var(--font-reading); }
+.dao-field-copy > p.zh { text-wrap: balance; }
+.dao-venue-copy > p.dao-section-title-zh { font: 600 20px/1.5 var(--font-reading); }
+.dao-journey .dao-kicker, .dao-field-copy .dao-kicker { color: #e2c889; }
+.dao-registration h2 em { color: #fff0d1; }
+.dao-language-line[lang="zh-Hant"] { text-wrap: pretty; }
+.dao-schedule .dao-language-line[lang="zh-Hant"] { text-wrap: balance; }
+.dao-hero-theme > em { text-wrap: balance; }
+.dao-question-grid article, .dao-question-grid article:nth-child(even) { grid-template-columns: 28px minmax(0, 1fr); }
+.dao-question-grid article:hover { background: transparent; padding-right: 20px; }
+.dao-question-grid h3 { line-height: 1.3; }
+.dao-question-grid p { text-wrap: balance; }
+.dao-fee-amount { white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+
+@media (min-width: 1101px) {
+  .dao-section { padding-top: 80px; padding-bottom: 36px; }
+  .dao-section-index { margin-bottom: 20px; }
+  .dao-section-heading { gap: 38px; margin-bottom: 24px; }
+  .dao-kicker { margin-bottom: 12px; }
+  .dao-questions > .dao-section-index, .dao-journey > .dao-section-index,
+  .dao-fees > .dao-section-index, .dao-practical > .dao-section-index { margin-bottom: 18px; }
+  .dao-questions .dao-section-heading h2, .dao-format .dao-section-heading h2,
+  .dao-fees .dao-section-heading h2 { font-size: clamp(48px, 4vw, 58px); }
+  .dao-question-grid h3 { min-height: 2.6em; }
+  .dao-question-grid article, .dao-question-grid article:nth-child(even) { padding: 20px; }
+  .dao-format-grid article { padding-top: 22px; padding-bottom: 22px; }
+  .dao-format-grid h3 { margin-top: 16px; margin-bottom: 14px; }
+  .dao-format-grid p { line-height: 1.7; }
+  .dao-journey .dao-section-heading { margin-bottom: 18px; }
+  .dao-journey .dao-section-heading h2 { font-size: clamp(46px, 3.5vw, 52px); line-height: 1.04; }
+  .dao-journey .dao-section-title-zh { font-size: 18px; }
+  .dao-day-tabs button { min-height: 92px; padding: 10px 22px; }
+  .dao-day-tabs small { display: none; }
+  .dao-day-tabs strong { margin: 0 0 5px; font-size: 24px; line-height: 1.15; }
+  .dao-day-tabs span { font-size: 13px; line-height: 1.3; }
+  .dao-day-tabs .dao-language-line + .dao-language-line { margin-top: 3px; }
+  .dao-journey .dao-journey-route { min-height: 100px; padding-top: 14px; padding-bottom: 14px; }
+  .dao-organizers { grid-template-columns: minmax(290px, .74fr) minmax(0, 1.26fr); grid-template-rows: 30px minmax(0, 1fr); column-gap: 38px; row-gap: 24px; align-items: start; }
+  .dao-organizers > .dao-section-index { position: static; margin: 0; }
+  .dao-organizer-intro { align-self: center; }
+  .dao-organizer-intro h2 { font-size: clamp(40px, 3.5vw, 52px); }
+  .dao-organizer-directory { height: 100%; min-height: 0; padding: 0; display: flex; flex-direction: column; align-self: stretch; }
+  .dao-directory-tabs { flex: none; margin-top: 0; margin-bottom: 16px; }
+  .dao-organizer-list { flex: 1; min-height: 0; grid-auto-rows: 1fr; }
+  .dao-organizer-list article { min-height: 0; padding: 18px 15px; gap: 8px 10px; grid-template-columns: 24px minmax(0, 1fr); align-content: start; }
+  #directory-panel-0 article { align-content: center; }
+  .dao-organizer-list h3 { font-size: 20px; line-height: 1.35; }
+  .dao-organizer-list p { font-size: 15px; line-height: 1.5; }
+  .dao-field-copy { padding-top: 80px; padding-bottom: 36px; }
+  .dao-field-copy .dao-section-index { margin-bottom: 24px; }
+  .dao-venue-copy h2 { font-size: clamp(48px, 4vw, 58px); }
+  .dao-venue-copy > .dao-section-title-zh { margin: 10px 0 20px; }
+  .dao-fees .dao-section-heading { margin-bottom: 18px; }
+  .dao-fees .dao-section-heading .dao-kicker { margin-bottom: 8px; }
+  .dao-fees .dao-section-title-zh { margin-top: 8px; font-size: 18px; }
+  .dao-fee-grid article { padding-top: 14px; padding-bottom: 14px; }
+  .dao-fee-grid h3 { min-height: 3.2em; }
+  .dao-fee-grid .dao-fee-amount { margin-top: 10px; margin-bottom: 12px; font-size: 52px; }
+  .dao-fee-grid article > p:not(.dao-fee-amount) { line-height: 1.6; }
+  .dao-fee-grid article > span { padding-top: 12px; }
+  .dao-fee-notes { margin-top: 16px; gap: 24px; }
+  .dao-practical { display: flex; flex-direction: column; }
+  .dao-practical .dao-section-heading h2 { font-size: clamp(42px, 3.5vw, 52px); }
+  .dao-practical .dao-title-break { display: none; }
+  .dao-practical .dao-section-heading { margin-bottom: 18px; }
+  .dao-practical .dao-remark-grid { flex: 1; grid-template-columns: minmax(0, 1fr); grid-auto-rows: minmax(min-content, 1fr); }
+  .dao-practical .dao-remark-grid article { min-height: 0; padding: 10px 16px; display: grid; grid-template-columns: 28px 170px minmax(0, 1fr); gap: 18px; align-items: center; border-right: 0; border-bottom: 1px solid var(--line); }
+  .dao-practical .dao-remark-grid article > span { align-self: start; padding-top: 4px; }
+  .dao-practical .dao-remark-grid h3 { margin: 0; font-size: 19px; line-height: 1.35; }
+  .dao-practical .dao-remark-grid p { font-size: 16px; line-height: 1.55; }
+  .dao-practical .dao-remark-grid p .dao-language-line + .dao-language-line { margin-top: .4em; }
+  .dao-practical .dao-remark-grid .dao-language-line[lang="zh-Hant"] { text-wrap: balance; }
+  .dao-faq { align-items: start; padding-top: 88px; padding-bottom: 36px; }
+  .dao-faq > div:first-child { align-self: center; }
+  .dao-faq-list { align-self: start; }
+  .dao-registration { padding-top: 80px; padding-bottom: 36px; }
+}
+
+@media (min-width: 1101px) and (max-width: 1280px) {
+  .dao-organizers { grid-template-columns: minmax(290px, .7fr) minmax(0, 1.3fr); gap: 20px 28px; }
+  .dao-organizer-list article { padding: 12px; gap: 6px; grid-template-columns: 20px minmax(0, 1fr); }
+  .dao-organizer-list h3 { font-size: 18px; }
+  .dao-organizer-list p { font-size: 14px; }
+  .dao-faq-list article > button { padding-top: 11px; padding-bottom: 11px; }
+  .dao-faq-list article.open > div p { padding-bottom: 20px; }
+  .dao-practical .dao-remark-grid article { grid-template-columns: 24px 140px minmax(0, 1fr); gap: 12px; padding: 8px 12px; }
+}
+
+@media (min-width: 1101px) and (max-width: 1440px) and (max-height: 900px) {
+  .dao-registration { gap: 18px; padding-top: 80px; padding-bottom: 28px; }
+  .dao-registration-content { row-gap: 10px; }
+}
+
+@media (max-width: 1100px) {
+  .dao-section-heading h2, .dao-about-title h2, .dao-organizer-intro h2,
+  .dao-field-copy h2, .dao-venue-copy h2, .dao-faq > div:first-child h2 { font-size: clamp(38px, 5.3vw, 48px); }
+  .dao-organizers > .dao-section-index { margin-bottom: 32px; }
+}
+
+@media (max-width: 820px) {
+  .dao-header-slot { height: 78px; position: sticky; top: 0; }
+  .dao-header { position: relative; gap: 10px; }
+  .dao-brand { flex: 1; min-width: 0; gap: 10px; }
+  .dao-brand > span:last-child { min-width: 0; }
+  .dao-brand strong { font-size: 14px; white-space: nowrap; }
+  .dao-brand small { max-width: none; }
+  .dao-menu { flex: none; }
+  .dao-header-top { display: flex; flex: none; width: 44px; height: 44px; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid var(--line); border-radius: 22px; color: var(--cinnabar); }
+  .dao-header-top small { font: 500 9px/1 "DM Mono", monospace; }
+  .dao-header-top span { font-size: 19px; line-height: 1; }
+  .dao-page-rail { display: none; }
+  .dao-register-nav { justify-content: center; }
+  .dao-section-title-zh, .dao-organizer-intro > .dao-section-title-zh,
+  .dao-venue-copy > .dao-section-title-zh, .dao-faq > div:first-child > .dao-section-title-zh { font-size: 19px; }
+  .dao-theme > strong { font-size: 20px; text-wrap: balance; }
+  .dao-question-grid article, .dao-question-grid article:nth-child(odd),
+  .dao-question-grid article:nth-child(even) { border-right: 0; padding-right: 0; grid-template-columns: 28px minmax(0, 1fr); }
+  .dao-question-grid article:hover { padding-right: 0; }
+  .dao-question-grid h3 { min-height: 0; }
+  .dao-field-study { display: flex; flex-direction: column; }
+  .dao-field-copy { order: 0; }
+  .dao-excursion-images { order: 1; min-height: clamp(620px, 195vw, 760px); }
+  .dao-field-copy > p.dao-section-title-zh { font-size: 19px; }
+  .dao-venue-copy > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .dao-venue-copy > div > span { min-width: 0; margin: 0; }
+  .dao-venue-copy > div > span:last-child { grid-column: 1 / -1; }
+  .dao-venue-copy > .dao-section-title-zh { margin-bottom: 20px; }
+  .dao-venue-copy > p.dao-section-title-zh { font-size: 19px; }
+  .dao-fee-grid { grid-template-columns: minmax(0, 1fr); }
+  .dao-fee-grid article, .dao-fee-grid article:nth-child(even) { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 18px; padding: 24px 0; border-right: 0; }
+  .dao-fee-grid h3 { grid-column: 1; margin: 0; align-self: center; min-height: 0; }
+  .dao-fee-grid .dao-fee-amount { grid-column: 2; grid-row: 1; align-self: center; margin: 0; font-size: 48px; }
+  .dao-fee-grid article > p:not(.dao-fee-amount), .dao-fee-grid article > span { grid-column: 1 / -1; margin: 0; padding: 0; }
+  .dao-registration { display: flex; flex-direction: column; align-items: stretch; gap: 24px; }
+  .dao-registration-intro { order: 0; }
+  .dao-registration-content { display: contents; }
+  .dao-registration .dao-final-seal { width: 36px; height: 36px; margin-bottom: 16px; }
+  .dao-registration h2 { font-size: 42px; margin: 18px 0 12px; }
+  .dao-registration-intro > strong { font-size: 18px; }
+  .dao-registration-dates { margin-top: 22px; }
+  .dao-registration-dates > div { padding: 13px 0; }
+  .dao-registration .dao-primary { order: 1; width: 100%; max-width: none; margin: 0; align-self: stretch; }
+  .dao-registration-email { order: 2; margin: 0; align-self: center; }
+  .dao-registration-materials { order: 3; }
+  .dao-registration-note { order: 4; margin: 0; }
+  .dao-registration-links { order: 5; margin: 0; }
+  .dao-form-context { order: 6; margin: 0; }
+}
+
+@media (max-width: 380px) {
+  .dao-brand strong { font-size: 12px; }
+  .dao-brand small { font-size: 11px; }
+  .dao-hero h1 { font-size: clamp(30px, 9.7vw, 36px); }
+  .dao-conference-opening { white-space: nowrap; }
+  .dao-hero-theme > em { letter-spacing: 0; }
+  .dao-theme-chinese-part { display: block; }
+  .dao-fee-grid .dao-fee-amount { font-size: 43px; }
+}
+
+/* Fit desktop chapters to the browser's actual content area, not the screen.
+   CSS zoom participates in layout, keeping anchors and page turns in sync. */
+@media (min-width: 1101px) and (min-height: 650px) {
+  .dao-viewport-fit > :is(.dao-section, .dao-theme, .dao-field-study, .dao-final) {
+    zoom: var(--dao-chapter-scale);
+    height: var(--dao-page-height);
+    min-height: var(--dao-page-height);
+    max-height: var(--dao-page-height);
+  }
+  .dao-viewport-fit > .dao-hero {
+    zoom: var(--dao-hero-scale);
+    height: var(--dao-hero-height);
+    min-height: var(--dao-hero-height);
+    max-height: var(--dao-hero-height);
+    scroll-margin-top: calc(var(--dao-home-chrome) / var(--dao-hero-scale));
+  }
+  .dao-viewport-fit .dao-hero-image { min-height: 0; }
+  .dao-viewport-fit .dao-section,
+  .dao-viewport-fit .dao-field-copy,
+  .dao-viewport-fit .dao-registration {
+    padding-top: calc(80px / var(--dao-chapter-scale));
+  }
+  .dao-viewport-fit .dao-theme-line { white-space: normal; }
+}
+
+/* Very short windows or browsers without layout zoom retain readable scrolling. */
+@media (min-width: 1101px) {
+  html:not(:has(.dao-viewport-fit)) { scroll-snap-type: none; }
+  main:not(.dao-viewport-fit) > :is(.dao-section, .dao-theme, .dao-field-study, .dao-final) {
+    height: auto;
+    min-height: 800px;
+    max-height: none;
+    overflow: clip;
+  }
+}
+
+/* Registration: keep each action and its supporting information together. */
+.dao-registration-actions, .dao-registration-contact,
+.dao-registration-submit, .dao-registration-download { min-width: 0; }
+.dao-registration-submit .dao-primary { width: 100%; min-width: 0; }
+.dao-registration-download .dao-form-context { margin: 8px 0 0; }
+
+@media (min-width: 1101px) {
+  .dao-registration {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: stretch;
+    gap: 26px;
+  }
+  .dao-registration-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 32px;
+    align-self: start;
+  }
+  .dao-registration .dao-final-seal {
+    position: absolute; top: 0; left: 0; width: 32px; height: 32px; margin: 0;
+  }
+  .dao-registration-intro > p { grid-column: 1; padding-left: 44px; }
+  .dao-registration h2 {
+    grid-column: 1; margin: 14px 0 10px;
+    font-size: clamp(38px, 3vw, 52px); line-height: 1.06;
+  }
+  .dao-registration h2 br { display: none; }
+  .dao-registration h2 em { display: block; }
+  .dao-registration-intro > strong { grid-column: 1; font-size: 18px; }
+  .dao-registration-dates { grid-column: 2; grid-row: 1 / 4; margin: 0; align-self: center; }
+  .dao-registration-dates > div { padding: 13px 0; }
+  .dao-registration-dates time { font-size: 17px; }
+  .dao-registration-content {
+    min-height: 0; margin: 0; display: flex; flex-direction: column;
+    justify-content: center; gap: 24px;
+  }
+  .dao-registration-materials {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px;
+  }
+  .dao-registration-materials > div { padding: 14px 0 18px; }
+  .dao-registration-materials h3 { margin-bottom: 10px; font-size: 17px; line-height: 1.4; }
+  .dao-registration-materials p { font-size: 15px; line-height: 1.65; }
+  .dao-registration-actions {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px; align-items: start;
+  }
+  .dao-registration-contact { padding-top: 12px; }
+  .dao-registration-email { margin: 0 0 14px; }
+  .dao-registration-note { max-width: 55ch; margin: 0; line-height: 1.7; }
+  .dao-registration-submit { width: calc(100% - 32px); max-width: 470px; justify-self: start; }
+  .dao-registration .dao-primary { margin: 0; }
+  .dao-registration-links {
+    display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    align-items: start; gap: 22px; margin: 20px 0 0; padding-top: 16px;
+    border-top: 1px solid rgba(255, 246, 233, .3);
+  }
+  .dao-registration-links a { font-size: 14px; line-height: 1.55; }
+  .dao-registration-download .dao-form-context { font-size: 12px; line-height: 1.55; }
+}
+
+@media (min-width: 821px) and (max-width: 1100px) {
+  .dao-registration { padding-right: 148px; }
+  .dao-registration-actions { display: grid; gap: 24px; }
+  .dao-registration-contact .dao-registration-email { margin-top: 0; }
+  .dao-registration-submit .dao-registration-links { gap: 16px 24px; }
+}
+
+@media (max-width: 820px) {
+  .dao-registration-actions, .dao-registration-contact,
+  .dao-registration-submit { display: contents; }
+  .dao-registration-links {
+    display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+    align-items: start; gap: 20px; padding-top: 20px;
+    border-top: 1px solid rgba(255, 246, 233, .3);
+  }
+  .dao-registration .dao-registration-contact .dao-registration-email { margin: 0; }
+}
+

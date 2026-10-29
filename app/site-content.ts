@@ -55,7 +55,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   },
   stats: [
     { value: "19", suffix: "TH", label: "International Conference" },
-    { value: "06", suffix: "", label: "Research questions" },
+    { value: "06", suffix: "", label: "Research subjects" },
     { value: "05", suffix: "D", label: "Conference and excursion" },
     { value: "02", suffix: "", label: "Working languages" },
   ],
@@ -64,7 +64,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     titleLine1: "From native tradition",
     titleLine2: "to a shared world",
     paragraphs: [
-      "Daoism has profoundly shaped Chinese society, culture, everyday life, and national character. Beyond China, it has also been recognized and revered. A comprehensive, systematic study of its overseas dissemination and influence holds great academic and cultural significance.",
+      "The indigenous higher religion of China, Daoism has not only had a profound impact on ancient Chinese society, culture, lifestyle, and national character, but has also been recognized, and even revered by people overseas. Conducting a comprehensive, systematic and in-depth study of the dissemination and influence of Daoism overseas holds great academic value and cultural significance.",
       "道教作為中國本土宗教，深刻影響中國社會、文化、生活方式與民族性格，也在海外受到認識乃至崇奉。全面、系統、深入地研究道教在海外的傳播與影響，具有重要的學術價值與文化意義。",
     ],
   },
@@ -73,22 +73,22 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     chinese: "道教在海外：觀念、實踐與典籍",
   },
   topics: [
-    { number: "01", title: "Communities & Lineages", description: "世界各地的道教信仰群體、宮觀廟宇、傳承法脈與傳播方式" },
+    { number: "01", title: "Communities, Temples & Lineages", description: "世界各地的道教信仰群體、宮觀廟宇、傳承法脈與傳播方式" },
     { number: "02", title: "Ideas & Everyday Life", description: "道教思想對海外民眾精神世界與日常生活的影響" },
     { number: "03", title: "Medicine, Ritual & Cultivation", description: "中國以外的道教醫藥、法術、儀式與修煉實踐" },
-    { number: "04", title: "Society, Culture & Religion", description: "海外道教與當地社會、文化、族群及宗教的關係" },
-    { number: "05", title: "Tradition & Folk Belief", description: "海外道教與中國傳統宗教、民間信仰的關係" },
+    { number: "04", title: "Society, Culture & Ethnic group", description: "海外道教與當地社會、文化、族群及宗教的關係" },
+    { number: "05", title: "Religion & Folk Belief", description: "海外道教與中國傳統宗教、民間信仰的關係" },
     { number: "06", title: "Scriptures & Collections", description: "道教典籍在世界各地的傳播與收藏" },
   ],
   academicGuests: [
-    { name: "Guo Wu", country: "CHAIR · Shandong University" },
-    { name: "Livia Kohn", country: "CO-CHAIR · Boston University" },
-    { name: "LAI ChiTim", country: "" },
+    { name: "Guo Wu", country: "Chair · Shandong University" },
+    { name: "Livia Kohn", country: "Chair · Boston University" },
+    { name: "LAI ChiTim", country: "Keynote Speech" },
     { name: "Further keynote to be announced", country: "其他主題演講嘉賓待公布" },
   ],
   organizers: [
     { name: "Research Center for Overseas Communication of Traditional Chinese Culture, Shandong University", country: "SPONSOR · China" },
-    { name: "Three Pines Press", country: "SPONSOR · USA" },
+    { name: "Journal of Daoist Studies / Three Pines Press", country: "SPONSOR · USA" },
     { name: "The Chinese Research Association of Laozi Daoist Culture", country: "CO-ORGANIZER · China" },
     { name: "Daoist Association of Shandong Province", country: "CO-ORGANIZER · China" },
     { name: "Chinese Society for the Study of Religious Philosophy", country: "CO-ORGANIZER · Taiwan, China" },
@@ -138,7 +138,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     kicker: "MOUNT WUFENG · 濟南五峰山",
     name: "Mount Wufeng",
     address: "Jinan, Shandong, China · 中國山東濟南五峰山",
-    transport: "Check-in: Wufengge Hotel 五峰閣賓館 · May 25, 15:00–18:30. 報到地點：五峰閣賓館；5月25日15:00—18:30。",
+    transport: "Check-in: Wufengge Hotel · May 25, 15:00–18:30. 報到地點：五峰閣賓館；5月25日15:00—18:30。",
     tags: ["Wufengge Hotel · 五峰閣賓館", "Dongzhen Temple · 洞真觀", "English & Chinese · 中英雙語"],
   },
   fees: [
@@ -149,7 +149,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   ],
   feeNotes: [
     "If staying at the same hotel near Qingdao airport on May 29 as well, the two-night hotel charge is US $160. 5月29日晚如續住青島機場附近同一酒店，兩晚住宿費為160美元。",
-    "Alternative accommodation: Fengshan kuaijie 峰山快捷賓館 or Xingdong Hotel 星東旅館; book independently. 其他住宿可自行預訂峰山快捷賓館或星東旅館。",
+    "Alternative accommodation: Fengshan kuaijie or Xingdong Hotel; book independently. 其他住宿可自行預訂峰山快捷賓館或星東旅館。",
   ],
   remarks: [
     { title: "Arriving in Jinan · 抵達濟南", body: "Arrive at Yaoqiang Airport, then travel to Jinan West Railway Station. Trains from other cities are another option. 建議從濟南遙牆機場轉往濟南西站；亦可由其他城市乘火車抵達。" },
