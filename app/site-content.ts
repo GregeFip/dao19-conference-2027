@@ -34,7 +34,7 @@ export type SiteContent = {
   media: { heroImageUrl: string; canonImageUrl: string; campusMapUrl: string; routeMapUrl: string; excursionImageUrl: string };
 };
 
-// Conference facts transcribed from the supplied 19DaoConf (3).docx.
+// Conference facts transcribed from DaoConf 2027-R.docx; registration URL follows the user's explicit exception.
 export const DEFAULT_SITE_CONTENT: SiteContent = {
   version: 2027,
   basics: {
@@ -51,7 +51,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     language: "English / 中文",
     announcementDate: "",
     organizer: "Guo Wu · Livia Kohn",
-    contactEmail: "sdufroum@163.com",
+    contactEmail: "sduforum@163.com",
   },
   stats: [
     { value: "19", suffix: "TH", label: "International Conference" },
@@ -155,11 +155,11 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     { title: "Arriving in Jinan · 抵達濟南", body: "Arrive at Yaoqiang Airport, then travel to Jinan West Railway Station. Trains from other cities are another option. 建議從濟南遙牆機場轉往濟南西站；亦可由其他城市乘火車抵達。" },
     { title: "Metro & taxi · 地鐵與出租車", body: "From Jinan West take Metro Line 1 to Gongyanyuan Station, then a taxi to Wufengge Hotel (about US $4). 濟南西站乘地鐵1號線至工研院站，再乘出租車前往五峰閣賓館，車費約4美元。" },
     { title: "Arrival shuttle · 報到接駁", body: "On May 25 at 18:00, a shuttle bus will wait at Exit B of Gongyanyuan Station and travel to the hotel. 5月25日18:00，會務接駁巴士將在工研院站B出口等候，接送參會者前往酒店。" },
-    { title: "Travel payments · 交通支付", body: "NIHAO CHINA: register and link a bank or credit card for metro and bus ride codes. Exchange some RMB on arrival. 建議下載NIHAO CHINA，註冊並綁定銀行卡或信用卡，使用地鐵、巴士乘車碼；入境時兌換部分人民幣。" },
+    { title: "Travel payments · 交通支付", body: "Install the international TRIP, DIDI, and Nihao China apps; register and link a bank or credit card for metro, bus, and taxi rides. Exchange some RMB on arrival. 建議下載TRIP、DIDI及Nihao China國際版，註冊並綁定銀行卡或信用卡，以乘搭地鐵、巴士及出租車；入境時兌換部分人民幣。" },
   ],
   faqs: [
     { question: "Where and when? / 何時、何地舉行？", answer: "Mount Wufeng, Jinan, Shandong, China. Check-in is May 25; conference sessions are May 26–27, 2027. Optional excursions follow on May 28–29. 中國山東濟南五峰山；2027年5月25日報到，26—27日學術會議，28—29日自選考察。" },
-    { question: "How do I register? / 如何報名？", answer: "Complete the online registration form by March 1, 2027. Abstracts are due on the same date. For enquiries, contact sdufroum@163.com. 請於2027年3月1日前填寫線上報名表；摘要亦於同日截止。如有疑問，請聯絡會務郵箱 sdufroum@163.com。" },
+    { question: "How do I register? / 如何報名？", answer: "Register online or email the completed registration form to sduforum@163.com by March 1, 2027. Abstracts are due the same day. 請於2027年3月1日前線上報名，或將填妥的報名回執寄至 sduforum@163.com；摘要亦於同日截止。" },
     { question: "What are the hotel arrangements? / 如何安排住宿？", answer: "Wufengge Hotel: US $150 for three nights, double occupancy; pay at the hotel. Name your roommate or request roommate matching when registering. Self-arranged accommodation is also possible. 五峰閣賓館三晚雙人入住費用為150美元，直接向酒店付款；報名時請註明室友或是否需要協助配對，亦可自行安排住宿。" },
     { question: "Is the excursion optional? / 考察是否自願參加？", answer: "Yes. The May 28–29 excursion visits Mount Tai and Mount Lao via Qingdao. The US $100 fee includes transport, cable cars, tickets, meals, and guides; Qingdao hotel charges are separate. 是，自選考察經青島參訪泰山及崂山。100美元考察費包含交通、纜車、門票、餐食及導遊；青島酒店另付。" },
     { question: "Can I display books or materials? / 可否展示圖書及資料？", answer: "A limited number of tables will be available free of charge for fliers, pamphlets, books, CDs, and other materials. 提供有限數量的免費展桌，可分發宣傳單、冊子，以及銷售圖書、CD等資料。" },
@@ -167,7 +167,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   registration: {
     subject: "DAO 19 2027 Conference Registration",
     materials: [
-      { title: "Personal details · 個人資料", body: "Name, institution, nationality, ID or passport number, email address, and phone number. 姓名、單位、國籍、身份證或護照號碼、電子郵箱及電話。" },
+      { title: "Personal details · 個人資料", body: "Name, institution, nationality, ID or passport number, email address, and phone number. For Hong Kong, Macao and Taiwan: mainland travel-permit number. 姓名、單位、國籍、身份證或護照號碼、郵箱及電話。港澳臺居民請填寫往來大陸（內地）通行證號碼。" },
       { title: "Paper & arrangements · 論文與安排", body: "Paper title if presenting; main-hotel room request, roommate name or matching request, or self-arranged lodging; whether you will join the excursion. 發表者請附論文題目；說明住宿、室友或配對需求，以及是否參加考察。" },
     ],
     note: "Registration closes and abstracts are due March 1, 2027. The program will be published on the website April 1, 2027. 報名與摘要提交截止：2027年3月1日；會議議程將於4月1日在網站公布。",

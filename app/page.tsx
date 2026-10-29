@@ -358,9 +358,9 @@ export default function Home() {
         <div className="dao-registration-materials">{registration.materials.map((item) => <div key={item.title}><h3>{item.title}</h3><p>{item.body}</p></div>)}</div>
         <a className="dao-registration-email" href={registrationEmail}>{basics.contactEmail}</a>
         <a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Conference registration <span>参会注册</span></a>
-        <p className="dao-registration-note">Please complete the online form to register for the conference.<br />請填寫線上報名表，完成參會登記。</p>
+        <p className="dao-registration-note">Register online, or email the completed registration form to the address above.<br />請線上報名，或將填妥的報名回執寄至上述郵箱。</p>
         <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Online registration · 線上報名 ↗</a><a href={publicAsset("/dao/dao19-announcement.docx")} download>Download announcement · 下載會議資料 ↓</a></div>
-        <small className="dao-form-context">The registration form opens in a new tab. For enquiries, please contact the conference email above.<br />報名表將在新分頁開啟；如有疑問，請聯絡上述會務郵箱。</small>
+        <small className="dao-form-context">The download includes the registration form.<br />下載文件附有報名回執。</small>
         </div>
       </section>
 
