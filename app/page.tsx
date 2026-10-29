@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { DEFAULT_SITE_CONTENT, type SiteContent } from "./site-content";
 
-const MICROSOFT_FORM_URL = "https://forms.cloud.microsoft/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAM-e_QdUREJIWFdER1ZETUFRTlhWODQwMlFROTVXRy4u&route=shorturl";
+const MICROSOFT_FORM_URL = "https://forms.cloud.microsoft/r/7c8DrdS0dw";
 const PUBLIC_BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const publicAsset = (path: string) => path.startsWith("/") ? `${PUBLIC_BASE_PATH}${path}` : path;
 
@@ -176,7 +176,7 @@ export default function Home() {
           <button onClick={() => scrollTo("questions")}>Questions <small>议题</small></button>
           <button onClick={() => scrollTo("journey")}>Journey <small>日程</small></button>
           <button onClick={() => scrollTo("venue")}>Place <small>地点</small></button>
-          <a className="dao-register-nav" href="#final" onClick={() => setMenuOpen(false)}>Register <span>↗</span></a>
+          <a className="dao-register-nav" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)}>Register <span>↗</span></a>
         </nav>
       </header>
 
@@ -221,7 +221,7 @@ export default function Home() {
           <p className="dao-hero-en">{basics.introduction}</p>
           <p className="dao-hero-zh">{basics.chineseIntroduction}</p>
           <div className="dao-actions">
-            <a className="dao-primary" href="#final">Conference registration <span>参会注册</span></a>
+            <a className="dao-primary" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Conference registration <span>参会注册</span></a>
           </div>
         </div>
         <figure className="dao-hero-image">
@@ -357,14 +357,14 @@ export default function Home() {
         <div className="dao-registration-content">
         <div className="dao-registration-materials">{registration.materials.map((item) => <div key={item.title}><h3>{item.title}</h3><p>{item.body}</p></div>)}</div>
         <a className="dao-registration-email" href={registrationEmail}>{basics.contactEmail}</a>
-        <a className="dao-primary inverse" href={registrationEmail}>Register by email <span>参会注册</span></a>
-        <p className="dao-registration-note">Please email the information above to complete registration.<br />請依最新公告，將上述資料寄送至會務郵箱完成報名。</p>
-        <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Online form · 輔助登記 ↗</a><a href={publicAsset("/dao/dao19-announcement.docx")} download>Download announcement · 下載會議資料 ↓</a></div>
-        <small className="dao-form-context">The online form is an additional entry point; email registration follows the announcement.<br />線上表單保留作輔助入口，正式報名請按公告寄送郵件。</small>
+        <a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Conference registration <span>参会注册</span></a>
+        <p className="dao-registration-note">Please complete the online form to register for the conference.<br />請填寫線上報名表，完成參會登記。</p>
+        <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Online registration · 線上報名 ↗</a><a href={publicAsset("/dao/dao19-announcement.docx")} download>Download announcement · 下載會議資料 ↓</a></div>
+        <small className="dao-form-context">The registration form opens in a new tab. For enquiries, please contact the conference email above.<br />報名表將在新分頁開啟；如有疑問，請聯絡上述會務郵箱。</small>
         </div>
       </section>
 
-      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>25—29 MAY 2027</small></div><div><span>REGISTRATION · 報名</span><a href={registrationEmail}>{basics.contactEmail}</a><small>Deadline · 2027.03.01</small></div><p>© 2027 DAO 19 · International Conference on Daoist Studies</p></footer>
+      <footer className="dao-footer"><div className="dao-footer-brand"><span className="dao-seal" aria-hidden="true"><Image src={publicAsset("/dao/wurui-lishu-dao.png")} alt="" width={190} height={190} /></span><div><strong>{basics.conferenceName}</strong><small>{basics.chineseName}</small></div></div><div><span>VENUE · 地點</span><strong>{basics.venueName}</strong><small>25—29 MAY 2027</small></div><div><span>CONTACT · 會務聯絡</span><a href={registrationEmail}>{basics.contactEmail}</a><small>Deadline · 2027.03.01</small></div><p>© 2027 DAO 19 · International Conference on Daoist Studies</p></footer>
     </main>
   );
 }
