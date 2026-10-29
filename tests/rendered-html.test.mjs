@@ -18,10 +18,10 @@ test("the exported page contains the new dates, venue, deadlines, and fees", () 
   assert.match(html, /2027年5月25日至29日/);
 });
 
-test("registration explains the email route and preserves the auxiliary form", () => {
+test("registration uses the current online form and keeps the contact email", () => {
   assert.match(html, /href="mailto:sdufroum@163\.com\?subject=/);
-  assert.match(html, /href="https:\/\/forms\.cloud\.microsoft\/pages\/responsepage\.aspx/);
-  assert.match(text, /Please email the information above to complete registration/);
+  assert.match(html, /href="https:\/\/forms\.cloud\.microsoft\/r\/7c8DrdS0dw"/);
+  assert.match(text, /Please complete the online form to register for the conference/);
   assert.match(text, /ID or passport number/);
   assert.match(text, /roommate/);
   assert.match(text, /160/);
