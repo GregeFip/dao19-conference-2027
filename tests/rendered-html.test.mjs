@@ -19,9 +19,9 @@ test("the exported page contains the new dates, venue, deadlines, and fees", () 
 });
 
 test("registration uses the current online form and keeps the contact email", () => {
-  assert.match(html, /href="mailto:sdufroum@163\.com\?subject=/);
+  assert.match(html, /href="mailto:sduforum@163\.com\?subject=/);
   assert.match(html, /href="https:\/\/forms\.cloud\.microsoft\/r\/7c8DrdS0dw"/);
-  assert.match(text, /Please complete the online form to register for the conference/);
+  assert.match(text, /Register online, or email the completed registration form/);
   assert.match(text, /ID or passport number/);
   assert.match(text, /roommate/);
   assert.match(text, /160/);
