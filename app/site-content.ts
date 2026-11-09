@@ -5,7 +5,7 @@ export type ImportantDate = { date: string; title: string; note: string; state: 
 export type FaqItem = { question: string; answer: string };
 export type Organizer = { name: string; country: string };
 export type Remark = { title: string; body: string };
-export type Fee = { amount: string; title: string; detail: string; payment: string };
+export type Fee = { amount: string; rmbAmount: string; title: string; detail: string; payment: string };
 
 export type SiteContent = {
   version: 2027;
@@ -34,7 +34,8 @@ export type SiteContent = {
   media: { heroImageUrl: string; canonImageUrl: string; campusMapUrl: string; routeMapUrl: string; excursionImageUrl: string };
 };
 
-// Conference facts transcribed from DaoConf 2027-R.docx; registration URL follows the user's explicit exception.
+// Conference facts follow the November 2026 English and Chinese announcements.
+// The website's registration buttons keep the existing direct form link.
 export const DEFAULT_SITE_CONTENT: SiteContent = {
   version: 2027,
   basics: {
@@ -43,7 +44,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     chineseName: "第十九屆國際道學研討會",
     eyebrow: "MAY 25—29, 2027 · 中國濟南五峰山",
     introduction: "May 25–29, 2027 · Mount Wufeng, Jinan, Shandong, China.",
-    chineseIntroduction: "5月25日報到 · 26—27日學術會議 · 28—29日自選泰山、崂山考察。",
+    chineseIntroduction: "5月25日報到 · 26—27日學術會議 · 28—29日自選泰山、嶗山考察。",
     dateRange: "25—29",
     monthYear: "MAY · 2027",
     city: "JINAN · CHINA",
@@ -70,7 +71,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   },
   theme: {
     english: "Daoism Overseas: Ideas, Practices, and Scriptures",
-    chinese: "道教在海外：觀念、實踐與典籍",
+    chinese: "道教在海外：思想、實踐與經籍",
   },
   topics: [
     { number: "01", title: "Communities, Temples & Lineages", description: "世界各地的道教信仰群體、宮觀廟宇、傳承法脈與傳播方式" },
@@ -88,7 +89,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
   ],
   organizers: [
     { name: "Research Center for Overseas Communication of Traditional Chinese Culture, Shandong University", country: "SPONSOR · China" },
-    { name: "Journal of Daoist Studies / Three Pines Press", country: "SPONSOR · USA" },
+    { name: "Journal of Daoist Studies / Three Pines Press\n《道教研究學報》／三松出版社", country: "SPONSOR · USA" },
     { name: "The Chinese Research Association of Laozi Daoist Culture", country: "CO-ORGANIZER · China" },
     { name: "Daoist Association of Shandong Province", country: "CO-ORGANIZER · China" },
     { name: "Chinese Society for the Study of Religious Philosophy", country: "CO-ORGANIZER · Taiwan, China" },
@@ -100,7 +101,7 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     { name: "Georges Favraud", country: "France · 法國" },
     { name: "Friederike Assandri · Johan Hausen", country: "Germany · 德國" },
     { name: "Serban Toader", country: "Romania · 羅馬尼亞" },
-    { name: "Robin R. Wang · Liu Xun", country: "USA · 美國" },
+    { name: "Livia Kohn · Robin R. Wang · Liu Xun", country: "USA · 美國" },
   ],
   formats: [
     { title: "Panels · 專題研討", body: "Three 25-minute or four 20-minute papers on a panel theme, followed by open discussion. Each panel lasts 1.5–2 hours. 每組安排3場25分鐘或4場20分鐘論文報告，隨後開放討論；每組總時長為1.5—2小時。" },
@@ -117,20 +118,20 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     ] },
     { date: "MAY 27", weekday: "THU · 會議", items: [
       { time: "DAYTIME", title: "Continuing sessions · 學術交流", place: "Mount Wufeng · 五峰山", host: "Keynotes, panels, and workshops continue. 主題演講、專題研討與工作坊繼續進行。" },
-      { time: "AFTERNOON", title: "Closing plenary · 閉幕大會", place: "Conference venue · 會場", host: "Nearby Daoist temples may be visited after the closing plenary. 閉幕大會後可參訪附近道觀。" },
+      { time: "AFTERNOON", title: "Closing plenary · 閉幕大會", place: "Conference venue · 會場", host: "Nearby Daoist temples may be visited after the closing plenary. 閉幕大會後可參訪附近的洞真觀。" },
     ] },
     { date: "MAY 28", weekday: "FRI · 泰山", items: [
       { time: "08:00", title: "Optional excursion · 自選考察", place: "Mount Wufeng → Mount Tai · 五峰山→泰山", host: "Check out before departing by bus for Mount Tai. 退房後乘巴士出發考察泰山。" },
       { time: "AFTER VISIT", title: "Continue to Qingdao · 赴青島", place: "Qingdao · 青島", host: "Travel to Qingdao after the Mount Tai visit and stay overnight. 泰山考察後赴青島住宿。" },
     ] },
-    { date: "MAY 29", weekday: "SAT · 崂山", items: [
-      { time: "DAYTIME", title: "Mount Lao excursion · 崂山考察", place: "Mount Lao · 崂山", host: "The optional excursion continues with a visit to Mount Lao. 繼續自選行程，考察崂山。" },
+    { date: "MAY 29", weekday: "SAT · 嶗山", items: [
+      { time: "DAYTIME", title: "Mount Lao excursion · 嶗山考察", place: "Mount Lao · 嶗山", host: "The optional excursion continues with a visit to Mount Lao. 繼續自選行程，考察嶗山。" },
       { time: "LATE PM", title: "Return to Qingdao · 返回青島", place: "Qingdao · 青島", host: "Onward travel is self-arranged; airport transfers and hotel reservations can be assisted. 傍晚前返回青島，此後自行安排行程；會務組可協助機場接送及訂房。" },
     ] },
   ],
   importantDates: [
     { date: "2027.03.01", title: "Registration & abstracts due", note: "報名截止、摘要提交", state: "current" },
-    { date: "2027.04.01", title: "Program on website", note: "網站公布會議議程", state: "future" },
+    { date: "2027.05.01", title: "Program published online", note: "網站公布發言日程", state: "future" },
     { date: "2027.05.25", title: "Arrival & check-in", note: "抵達五峰山報到", state: "future" },
     { date: "2027.05.26—27", title: "Conference sessions", note: "學術會議", state: "future" },
   ],
@@ -142,35 +143,35 @@ export const DEFAULT_SITE_CONTENT: SiteContent = {
     tags: ["Wufengge Hotel · 五峰閣賓館", "Dongzhen Temple · 洞真觀", "English & Chinese · 中英雙語"],
   },
   fees: [
-    { amount: "80", title: "Conference · 會議費", detail: "Includes all meals on Mount Wufeng. 包含五峰山會議期間全部餐食。", payment: "Cash upon arrival · 抵達時現金支付" },
-    { amount: "150", title: "Wufengge Hotel · 五峰閣", detail: "Three nights, double occupancy. 三晚，雙人入住。", payment: "Payable at the hotel · 直接向酒店支付" },
-    { amount: "100", title: "Excursion · 自選考察", detail: "Two days: bus, cable cars, admission, meals, and local guides. 兩日巴士、纜車、門票、餐食及當地導遊。", payment: "Cash upon arrival · 抵達時現金支付" },
-    { amount: "80", title: "Qingdao Hotel · 青島住宿", detail: "One night, double occupancy. 一晚，雙人入住。", payment: "Payable at the hotel · 直接向酒店支付" },
+    { amount: "80", rmbAmount: "500", title: "Conference · 會議費", detail: "Includes all meals on Mount Wufeng and use of the venue. 包含五峰山會議期間全部餐食及會場租用。", payment: "Cash upon arrival · 抵達時現金支付" },
+    { amount: "150", rmbAmount: "1,000", title: "Wufengge Hotel · 五峰閣", detail: "Three nights (May 25–27), double occupancy. 5月25—27日三晚，雙人入住。", payment: "Payable at the hotel · 直接向酒店支付" },
+    { amount: "100", rmbAmount: "600", title: "Excursion · 自選考察", detail: "Two days: bus, cable cars, admission, meals, and local guides. 兩日巴士、纜車、門票、餐食及當地導遊。", payment: "Cash upon arrival · 抵達時現金支付" },
+    { amount: "80", rmbAmount: "500", title: "Qingdao Hotel · 青島住宿", detail: "One night (May 28), double occupancy. 5月28日一晚，雙人入住。", payment: "Payable at the hotel · 直接向酒店支付" },
   ],
   feeNotes: [
-    "If staying at the same hotel near Qingdao airport on May 29 as well, the two-night hotel charge is US $160. 5月29日晚如續住青島機場附近同一酒店，兩晚住宿費為160美元。",
+    "If staying at the same hotel near Qingdao airport on May 29 as well, the two-night charge is US $160 / RMB 1,000. 5月29日晚如續住青島機場附近同一酒店，兩晚住宿費為160美元／1,000元人民幣。",
     "Alternative accommodation: Fengshan kuaijie or Xingdong Hotel; book independently. 其他住宿可自行預訂峰山快捷賓館或星東旅館。",
   ],
   remarks: [
     { title: "Arriving in Jinan · 抵達濟南", body: "Arrive at Yaoqiang Airport, then travel to Jinan West Railway Station. Trains from other cities are another option. 建議從濟南遙牆機場轉往濟南西站；亦可由其他城市乘火車抵達。" },
-    { title: "Metro & taxi · 地鐵與出租車", body: "From Jinan West take Metro Line 1 to Gongyanyuan Station, then a taxi to Wufengge Hotel (about US $4). 濟南西站乘地鐵1號線至工研院站，再乘出租車前往五峰閣賓館，車費約4美元。" },
+    { title: "Metro & taxi · 地鐵與出租車", body: "From Jinan West take Metro Line 1 to Gongyanyuan Station, then a taxi or ride-hailing car to Wufengge Hotel (about US $4). 濟南西站乘地鐵1號線至工研院站，再乘出租車或網約車前往五峰閣賓館，車費約4美元。" },
     { title: "Arrival shuttle · 報到接駁", body: "On May 25 at 18:00, a shuttle bus will wait at Exit B of Gongyanyuan Station and travel to the hotel. 5月25日18:00，會務接駁巴士將在工研院站B出口等候，接送參會者前往酒店。" },
-    { title: "Travel payments · 交通支付", body: "Install the international TRIP, DIDI, and Nihao China apps; register and link a bank or credit card for metro, bus, and taxi rides. Exchange some RMB on arrival. 建議下載TRIP、DIDI及Nihao China國際版，註冊並綁定銀行卡或信用卡，以乘搭地鐵、巴士及出租車；入境時兌換部分人民幣。" },
+    { title: "Travel payments · 交通支付", body: "Install the international version of TRIP, DIDI, or NIHAO CHINA; register and link a bank or credit card for metro, bus, and taxi rides. Exchange some RMB on arrival. 建議安裝國際版「攜程」（TRIP）、「滴滴」（DIDI）或「你好中國」（NIHAO CHINA），註冊並綁定銀行卡或信用卡；入境時可兌換部分人民幣。" },
   ],
   faqs: [
     { question: "Where and when? / 何時、何地舉行？", answer: "Mount Wufeng, Jinan, Shandong, China. Check-in is May 25; conference sessions are May 26–27, 2027. Optional excursions follow on May 28–29. 中國山東濟南五峰山；2027年5月25日報到，26—27日學術會議，28—29日自選考察。" },
     { question: "How do I register? / 如何報名？", answer: "Register online or email the completed registration form to sduforum@163.com by March 1, 2027. Abstracts are due the same day. 請於2027年3月1日前線上報名，或將填妥的報名回執寄至 sduforum@163.com；摘要亦於同日截止。" },
-    { question: "What are the hotel arrangements? / 如何安排住宿？", answer: "Wufengge Hotel: US $150 for three nights, double occupancy; pay at the hotel. Name your roommate or request roommate matching when registering. Self-arranged accommodation is also possible. 五峰閣賓館三晚雙人入住費用為150美元，直接向酒店付款；報名時請註明室友或是否需要協助配對，亦可自行安排住宿。" },
-    { question: "Is the excursion optional? / 考察是否自願參加？", answer: "Yes. The May 28–29 excursion visits Mount Tai and Mount Lao via Qingdao. The US $100 fee includes transport, cable cars, tickets, meals, and guides; Qingdao hotel charges are separate. 是，自選考察經青島參訪泰山及崂山。100美元考察費包含交通、纜車、門票、餐食及導遊；青島酒店另付。" },
+    { question: "What are the hotel arrangements? / 如何安排住宿？", answer: "Wufengge Hotel: US $150 / RMB 1,000 for three nights, double occupancy; pay at the hotel. Name your roommate or request roommate matching when registering. Self-arranged accommodation is also possible. 五峰閣賓館三晚雙人入住費用為150美元／1,000元人民幣，直接向酒店付款；報名時請註明室友或是否需要協助配對，亦可自行安排住宿。" },
+    { question: "Is the excursion optional? / 考察是否自願參加？", answer: "Yes. The May 28–29 excursion visits Mount Tai and Mount Lao via Qingdao. The fee of US $100 / RMB 600 includes transport, cable cars, tickets, meals, and guides; Qingdao hotel charges are separate. 是，自選考察經青島參訪泰山及嶗山。考察費為100美元／600元人民幣，包含交通、纜車、門票、餐食及導遊；青島酒店另付。" },
     { question: "Can I display books or materials? / 可否展示圖書及資料？", answer: "A limited number of tables will be available free of charge for fliers, pamphlets, books, CDs, and other materials. 提供有限數量的免費展桌，可分發宣傳單、冊子，以及銷售圖書、CD等資料。" },
   ],
   registration: {
     subject: "DAO 19 2027 Conference Registration",
     materials: [
       { title: "Personal details · 個人資料", body: "Name, institution, nationality, ID or passport number, email address, and phone number. For Hong Kong, Macao and Taiwan: mainland travel-permit number. 姓名、單位、國籍、身份證或護照號碼、郵箱及電話。港澳臺居民請填寫往來大陸（內地）通行證號碼。" },
-      { title: "Paper & arrangements · 論文與安排", body: "Paper title if presenting; main-hotel room request, roommate name or matching request, or self-arranged lodging; whether you will join the excursion. 發表者請附論文題目；說明住宿、室友或配對需求，以及是否參加考察。" },
+      { title: "Paper & arrangements · 論文與安排", body: "Paper title and abstract if presenting; lodging and roommate preferences; excursion participation and any request for a hotel near Qingdao airport on May 29. 發表者請附論文題目及摘要；說明住宿及合住需求、是否參加考察，以及是否需代訂5月29日青島機場附近酒店。" },
     ],
-    note: "Registration closes and abstracts are due March 1, 2027. The program will be published on the website April 1, 2027. 報名與摘要提交截止：2027年3月1日；會議議程將於4月1日在網站公布。",
+    note: "Registration closes and abstracts are due March 1, 2027. The program will be published on the website May 1, 2027. 報名與摘要提交截止：2027年3月1日；發言日程將於5月1日在網站公布。",
   },
   media: {
     heroImageUrl: "/dao/mount-wufeng.webp",

@@ -333,7 +333,7 @@ export default function Home() {
         <div className="dao-section-index light"><span>伍</span><small>05 · SCHEDULE</small></div>
         <div className="dao-section-heading light-heading">
           <div><p className="dao-kicker">MAY 25—29, 2027</p><h2>Five days,<br />from mountain <bdi className="dao-nowrap">to sea</bdi></h2><p className="dao-section-title-zh" lang="zh-Hant">五日行程，從山岳到海濱</p></div>
-          <div className="dao-schedule-intro"><p><BilingualText text={"May 26–27: conference on Mount Wufeng.\n5月26—27日：五峰山學術會議。"} /></p><p><BilingualText text={"May 28–29: optional excursion to Mount Tai and Mount Lao via Qingdao.\n5月28—29日：自選泰山與崂山考察，途經青島。"} /></p></div>
+          <div className="dao-schedule-intro"><p><BilingualText text={"May 26–27: conference on Mount Wufeng.\n5月26—27日：五峰山學術會議。"} /></p><p><BilingualText text={"May 28–29: optional excursion to Mount Tai and Mount Lao via Qingdao.\n5月28—29日：自選泰山與嶗山考察，途經青島。"} /></p></div>
         </div>
         <div className="dao-day-tabs" role="tablist" aria-label="选择会议日期" onKeyDown={(event) => {
           if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
@@ -348,10 +348,10 @@ export default function Home() {
         <div className="dao-schedule" id="day-panel" role="tabpanel" aria-labelledby={`day-tab-${activeDay}`} tabIndex={0}>
           {selectedDay?.items.map((item, index) => <article key={`${item.time}-${item.title}-${index}`}><time>{item.time}</time><h3><BilingualText text={item.title} /></h3><span><BilingualText text={item.place} /></span><p><BilingualText text={item.host} /></p></article>)}
         </div>
-        <div className="dao-journey-route" aria-label="五峰山、泰山、青岛、崂山行程">
+        <div className="dao-journey-route" aria-label="五峰山、泰山、青島、嶗山行程">
           <div><small><BilingualText text="CONFERENCE · 學術會議" /></small><strong>WUFENG</strong><span><BilingualText text="JINAN · 濟南五峰山" /></span></div>
           <p><i /><em>MOUNT TAI → QINGDAO → MOUNT LAO</em><i /></p>
-          <div><small><BilingualText text="OPTIONAL · 自選考察" /></small><strong>28—29 MAY</strong><span>泰山 · 青島 · 崂山</span></div>
+          <div><small><BilingualText text="OPTIONAL · 自選考察" /></small><strong>28—29 MAY</strong><span>泰山 · 青島 · 嶗山</span></div>
         </div>
       </section>
 
@@ -366,13 +366,13 @@ export default function Home() {
             setOrganizerTab(index);
             event.currentTarget.querySelectorAll<HTMLButtonElement>("[role=tab]")[index]?.focus();
           }}>{organizerGroups.map((group, index) => <button role="tab" id={`directory-tab-${index}`} aria-controls={`directory-panel-${index}`} aria-selected={organizerTab === index} tabIndex={organizerTab === index ? 0 : -1} onClick={() => setOrganizerTab(index)} key={group.label}><BilingualText text={group.label} /></button>)}</div>
-          {organizerGroups.map((group, index) => <div className="dao-organizer-list" role="tabpanel" id={`directory-panel-${index}`} aria-labelledby={`directory-tab-${index}`} hidden={organizerTab !== index} key={group.label}>{group.items.map((item, itemIndex) => <article key={item.name}><span>0{itemIndex + 1}</span><h3>{item.name}</h3>{item.country && <p><BilingualText text={item.country} /></p>}</article>)}</div>)}
+          {organizerGroups.map((group, index) => <div className="dao-organizer-list" role="tabpanel" id={`directory-panel-${index}`} aria-labelledby={`directory-tab-${index}`} hidden={organizerTab !== index} key={group.label}>{group.items.map((item, itemIndex) => <article key={item.name}><span>0{itemIndex + 1}</span><h3><BilingualText text={item.name} /></h3>{item.country && <p><BilingualText text={item.country} /></p>}</article>)}</div>)}
         </div>
       </section>
 
-      <section className="dao-field-study" id="field-study" aria-label="泰山与崂山自选考察">
-        <div className="dao-canon-image dao-excursion-images"><figure><Image src={publicAsset(media.routeMapUrl)} alt="Ladder to Heaven on Mount Tai / 泰山天梯" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>28 MAY · Mount Tai<span>泰山天梯</span></figcaption></figure><figure><Image src={publicAsset(media.excursionImageUrl)} alt="Taiqing Temple on Mount Lao / 崂山太清宮" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>29 MAY · Mount Lao<span>崂山太清宮</span></figcaption></figure></div>
-        <div className="dao-field-copy"><div className="dao-section-index light"><span>柒</span><small>07 · FIELD STUDY</small></div><p className="dao-kicker"><BilingualText text="MAY 28—29 · OPTIONAL · 自選" /></p><h2>Mountains,<br />then the sea</h2><p className="dao-section-title-zh" lang="zh-Hant">從山岳走向大海</p><p>Leave Mount Wufeng at 08:00 on May 28, visit Mount Tai, and continue to Qingdao for the night. On May 29, visit Mount Lao and return to Qingdao by late afternoon.</p><p className="zh">5月28日退房後08:00出發，考察泰山，再赴青島住宿；29日考察崂山，傍晚前返回青島。此後行程自行安排，會務組可協助機場接送及酒店預訂。</p><div className="dao-distance"><strong>02</strong><span><BilingualText text="DAYS · 兩日" /><br />MOUNT TAI → MOUNT LAO</span></div></div>
+      <section className="dao-field-study" id="field-study" aria-label="泰山與嶗山自選考察">
+        <div className="dao-canon-image dao-excursion-images"><figure><Image src={publicAsset(media.routeMapUrl)} alt="Ladder to Heaven on Mount Tai / 泰山天梯" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>28 MAY · Mount Tai<span>泰山天梯</span></figcaption></figure><figure><Image src={publicAsset(media.excursionImageUrl)} alt="Taiqing Temple on Mount Lao / 嶗山太清宮" fill sizes="(max-width: 760px) 100vw, 38vw" unoptimized /><figcaption>29 MAY · Mount Lao<span>嶗山太清宮</span></figcaption></figure></div>
+        <div className="dao-field-copy"><div className="dao-section-index light"><span>柒</span><small>07 · FIELD STUDY</small></div><p className="dao-kicker"><BilingualText text="MAY 28—29 · OPTIONAL · 自選" /></p><h2>Mountains,<br />then the sea</h2><p className="dao-section-title-zh" lang="zh-Hant">從山岳走向大海</p><p>Leave Mount Wufeng at 08:00 on May 28, visit Mount Tai, and continue to Qingdao for the night. On May 29, visit Mount Lao and return to Qingdao by late afternoon.</p><p className="zh">5月28日退房後08:00出發，考察泰山，再赴青島住宿；29日考察嶗山，傍晚前返回青島。此後行程自行安排，會務組可協助機場接送及酒店預訂。</p><div className="dao-distance"><strong>02</strong><span><BilingualText text="DAYS · 兩日" /><br />MOUNT TAI → MOUNT LAO</span></div></div>
       </section>
 
       <section className="dao-venue dao-section" id="venue">
@@ -385,8 +385,8 @@ export default function Home() {
 
       <section className="dao-fees dao-section" id="fees">
         <div className="dao-section-index"><span>玖</span><small>09 · FEES</small></div>
-        <div className="dao-section-heading"><div><p className="dao-kicker"><BilingualText text="CONFERENCE & EXCURSION · 會議與考察" /></p><h2>Plan your stay</h2><p className="dao-section-title-zh" lang="zh-Hant">規劃參會行程</p></div><p>All prices in US dollars. Hotel charges are separate from the conference and excursion fees.<br />以下均為美元報價；住宿費與會議、考察費分別支付。</p></div>
-        <div className="dao-fee-grid">{fees.map((fee) => <article key={fee.title}><h3><BilingualText text={fee.title} /></h3><p className="dao-fee-amount"><small>US $</small>{fee.amount}</p><p><BilingualText text={fee.detail} /></p><span><BilingualText text={fee.payment} /></span></article>)}</div>
+        <div className="dao-section-heading"><div><p className="dao-kicker"><BilingualText text="CONFERENCE & EXCURSION · 會議與考察" /></p><h2>Plan your stay</h2><p className="dao-section-title-zh" lang="zh-Hant">規劃參會行程</p></div><p>Prices are listed in US dollars and RMB. Hotel charges are separate from the conference and excursion fees.<br />費用以美元及人民幣列示；住宿費與會議、考察費分別支付。</p></div>
+        <div className="dao-fee-grid">{fees.map((fee) => <article key={fee.title}><h3><BilingualText text={fee.title} /></h3><p className="dao-fee-amount"><small>US $</small>{fee.amount}<small className="dao-fee-rmb">RMB {fee.rmbAmount}</small></p><p><BilingualText text={fee.detail} /></p><span><BilingualText text={fee.payment} /></span></article>)}</div>
         <div className="dao-fee-notes">{feeNotes.map((note) => <p key={note}><BilingualText text={note} /></p>)}</div>
       </section>
 
@@ -418,8 +418,10 @@ export default function Home() {
         </div>
         <div className="dao-registration-submit">
         <a className="dao-primary inverse" href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer">Conference registration <span>参会注册</span></a>
-        <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer"><BilingualText text="Online registration · 線上報名 ↗" /></a><div className="dao-registration-download"><a href={publicAsset("/dao/dao19-announcement.docx")} download><BilingualText text="Download announcement · 下載會議資料 ↓" /></a>
-        <small className="dao-form-context">The download includes the registration form.<br />下載文件附有報名回執。</small>
+        <div className="dao-registration-links"><a href={MICROSOFT_FORM_URL} target="_blank" rel="noopener noreferrer"><BilingualText text="Online registration · 線上報名 ↗" /></a><div className="dao-registration-download" aria-label="Conference materials / 會議資料">
+        <div className="dao-registration-download-row" lang="en"><span>English:</span><a href={publicAsset("/dao/dao19-announcement-en.pdf")} download aria-label="Download English announcement (PDF)">PDF</a><a href={publicAsset("/dao/dao19-announcement.docx")} download aria-label="Download English announcement (Word)">Word</a></div>
+        <div className="dao-registration-download-row" lang="zh-Hant"><span>中文：</span><a href={publicAsset("/dao/dao19-announcement-cn.pdf")} download aria-label="下載中文會議資料（PDF）">PDF</a><a href={publicAsset("/dao/dao19-announcement-cn.docx")} download aria-label="下載中文會議資料（Word）">Word</a></div>
+        <small className="dao-form-context">Announcements include the registration form.<br />中英文公告均附報名表。</small>
         </div></div>
         </div>
         </div>
