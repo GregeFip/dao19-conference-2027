@@ -1929,12 +1929,12 @@ a:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 5px; }
   .dao-fees .dao-section-heading { margin-bottom: 18px; }
   .dao-fees .dao-section-heading .dao-kicker { margin-bottom: 8px; }
   .dao-fees .dao-section-title-zh { margin-top: 8px; font-size: 18px; }
-  .dao-fee-grid article { padding-top: 14px; padding-bottom: 14px; }
+  .dao-fee-grid article { padding-top: 10px; padding-bottom: 10px; }
   .dao-fee-grid h3 { min-height: 3.2em; }
-  .dao-fee-grid .dao-fee-amount { margin-top: 10px; margin-bottom: 12px; font-size: 52px; }
+  .dao-fee-grid .dao-fee-amount { margin-top: 8px; margin-bottom: 10px; font-size: 52px; }
   .dao-fee-grid article > p:not(.dao-fee-amount) { line-height: 1.6; }
-  .dao-fee-grid article > span { padding-top: 12px; }
-  .dao-fee-notes { margin-top: 16px; gap: 24px; }
+  .dao-fee-grid article > span { padding-top: 8px; }
+  .dao-fee-notes { margin-top: 12px; gap: 24px; }
   .dao-practical { display: flex; flex-direction: column; }
   .dao-practical .dao-section-heading h2 { font-size: clamp(42px, 3.5vw, 52px); }
   .dao-practical .dao-title-break { display: none; }
@@ -2074,6 +2074,15 @@ a:focus-visible { outline: 2px solid var(--cinnabar); outline-offset: 5px; }
 .dao-registration-submit, .dao-registration-download { min-width: 0; }
 .dao-registration-submit .dao-primary { width: 100%; min-width: 0; }
 .dao-registration-download .dao-form-context { margin: 8px 0 0; }
+.dao-registration-download-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px;
+  color: #fff8e8; font-size: 14px; line-height: 1.55;
+}
+.dao-registration-download-row + .dao-registration-download-row { margin-top: 4px; }
+.dao-fee-amount .dao-fee-rmb { display: block; margin: 7px 0 0; }
+.dao-organizer-list h3 .dao-language-line[lang="zh-Hant"] {
+  margin-top: .25em; font-family: var(--font-reading); font-size: .85em;
+}
 
 @media (min-width: 1101px) {
   .dao-registration {
