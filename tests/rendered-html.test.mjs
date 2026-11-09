@@ -11,10 +11,11 @@ const text = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<[
 
 test("the exported page contains the new dates, venue, deadlines, and fees", () => {
   assert.match(text, /Daoism Overseas: Ideas, Practices, and Scriptures/);
-  for (const value of ["MAY 25", "MAY 26", "MAY 27", "MAY 28", "MAY 29", "Mount Wufeng", "2027.03.01", "2027.04.01", "US \$ 80", "US \$ 150", "US \$ 100"]) {
+  for (const value of ["MAY 25", "MAY 26", "MAY 27", "MAY 28", "MAY 29", "Mount Wufeng", "2027.03.01", "2027.05.01", "網站公布發言日程", "US \$ 80", "US \$ 150", "US \$ 100", "RMB 500", "RMB 1,000", "RMB 600"]) {
     assert.ok(text.includes(value), `Missing conference fact: ${value}`);
   }
-  assert.doesNotMatch(text, /JULY|JUL 1[4-8]|Central Campus|校內學人大廈|Campus dining|75 KM|Register interest|PROTOTYPE|測試版/);
+  assert.match(html, /道教在海外：<\/span><span class="dao-theme-chinese-part">思想、實踐與經籍/);
+  assert.doesNotMatch(text, /2027\.04\.01|April 1, 2027|4月1日|JULY|JUL 1[4-8]|Central Campus|校內學人大廈|Campus dining|75 KM|Register interest|PROTOTYPE|測試版/);
   assert.match(html, /2027年5月25日至29日/);
 });
 
@@ -25,6 +26,9 @@ test("registration uses the current online form and keeps the contact email", ()
   assert.match(text, /ID or passport number/);
   assert.match(text, /roommate/);
   assert.match(text, /160/);
+  for (const file of ["dao19-announcement.docx", "dao19-announcement-en.pdf", "dao19-announcement-cn.docx", "dao19-announcement-cn.pdf"]) {
+    assert.ok(html.includes(`/dao/${file}"`), `Missing current announcement: ${file}`);
+  }
   assert.doesNotMatch(html, /fetch\("\/api\/registrations"/);
 });
 
@@ -53,6 +57,8 @@ test("the existing static Pages deployment configuration is retained", async () 
 test("review revisions retain the agreed content and bilingual presentation", () => {
   for (const value of ["Subjects", "Schedule", "03 · SUBJECTS", "05 · SCHEDULE", "08 · VENUE", "The indigenous higher religion of China", "Six connected subjects examine how Daoism disseminates", "Communities, Temples", "Society, Culture", "Ethnic group", "Religion", "Folk Belief", "Chair · Boston University", "Keynote Speech", "Journal of Daoist Studies / Three Pines Press"]) assert.ok(text.includes(value), `Missing requested revision: ${value}`);
   assert.doesNotMatch(text, /CO-CHAIR|Check-in: Wufengge Hotel 五峰閣賓館|Six connected questions/);
+  assert.match(html, /lang="zh-Hant">《道教研究學報》／三松出版社<\/bdi>/);
+  assert.match(text, /Livia Kohn · Robin R\. Wang · Liu Xun/);
   assert.match(html, /class="dao-theme-line">Daoism Overseas:<\/span><span class="dao-theme-line">Ideas, Practices, and Scriptures/);
   assert.match(html, /class="dao-language-line" lang="en">Arrival &amp; check-in<\/bdi><bdi class="dao-language-line" lang="zh-Hant">報到/);
   assert.equal((html.match(/href="https:\/\/forms\.cloud\.microsoft\/r\/7c8DrdS0dw"/g) || []).length, 4);
